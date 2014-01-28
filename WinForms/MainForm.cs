@@ -21,5 +21,10 @@ namespace WinForms
 		{
 
 		}
+
+		private void button1_Click(object sender, EventArgs e)
+		{
+			Notifications.Notify(new ImagedMessageControl("https://yt3.ggpht.com/-7dHUz8U42ho/AAAAAAAAAAI/AAAAAAAAAAA/b49kPOMZUYM/s48-c-k-no/photo.jpg", "Test", "This is a example"));
+		}
 	}
 }

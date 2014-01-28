@@ -12,15 +12,27 @@ namespace WinForms
 {
 	public partial class ImagedMessageControl : UserControl
 	{
-		public ImagedMessageControl(string image, string text)
+		public ImagedMessageControl(string image, string title, string text)
 		{
-			bitImage.LoadAsync(image);
-			rtfText.Text = text;
 			InitializeComponent();
+			bitImage.LoadAsync(image);
+			rtfTitle.Text = title;
+			rtfDesc.Text = text;
 		}
 
 		private void pictureBox1_Paint(object sender, PaintEventArgs e)
 		{
+			RefreshSize();
+		}
+
+		private void bitImage_LoadCompleted(object sender, AsyncCompletedEventArgs e)
+		{
+			RefreshSize();
+		}
+
+		public void RefreshSize()
+		{
+			bitImage.Width = splitter.Panel1.Width;
 			bitImage.Height = bitImage.Width;
 		}
 	}

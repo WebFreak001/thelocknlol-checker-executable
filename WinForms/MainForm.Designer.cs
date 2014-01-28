@@ -30,10 +30,12 @@
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
 			this.layout = new System.Windows.Forms.FlowLayoutPanel();
-			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
+			this.button1 = new System.Windows.Forms.Button();
 			this.toolStrip1.SuspendLayout();
+			this.layout.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip1
@@ -47,6 +49,16 @@
 			this.toolStrip1.TabIndex = 0;
 			this.toolStrip1.Text = "toolStrip1";
 			// 
+			// btnRefresh
+			// 
+			this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
+			this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.btnRefresh.Name = "btnRefresh";
+			this.btnRefresh.Size = new System.Drawing.Size(50, 22);
+			this.btnRefresh.Text = "Refersh";
+			this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+			// 
 			// btnOptions
 			// 
 			this.btnOptions.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -58,34 +70,36 @@
 			// 
 			// layout
 			// 
+			this.layout.Controls.Add(this.button1);
 			this.layout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.layout.Location = new System.Drawing.Point(0, 25);
 			this.layout.Name = "layout";
 			this.layout.Size = new System.Drawing.Size(654, 422);
 			this.layout.TabIndex = 1;
 			// 
-			// btnRefresh
+			// button1
 			// 
-			this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-			this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.btnRefresh.Name = "btnRefresh";
-			this.btnRefresh.Size = new System.Drawing.Size(50, 22);
-			this.btnRefresh.Text = "Refersh";
-			this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
+			this.button1.Location = new System.Drawing.Point(3, 3);
+			this.button1.Name = "button1";
+			this.button1.Size = new System.Drawing.Size(75, 23);
+			this.button1.TabIndex = 0;
+			this.button1.Text = "button1";
+			this.button1.UseVisualStyleBackColor = true;
+			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
-			// Form1
+			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(654, 447);
 			this.Controls.Add(this.layout);
 			this.Controls.Add(this.toolStrip1);
-			this.Name = "Form1";
+			this.Name = "MainForm";
 			this.Text = "TheLockNLol Checker";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
+			this.layout.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -97,6 +111,7 @@
 		private System.Windows.Forms.ToolStripButton btnOptions;
 		private System.Windows.Forms.FlowLayoutPanel layout;
 		private System.Windows.Forms.ToolStripButton btnRefresh;
+		private System.Windows.Forms.Button button1;
 	}
 }
 

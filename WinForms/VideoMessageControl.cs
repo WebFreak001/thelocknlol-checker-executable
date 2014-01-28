@@ -15,11 +15,11 @@ namespace WinForms
 	{
 		public VideoMessageControl(string image, string text, string link)
 		{
+			InitializeComponent();
 			string v = HttpUtility.ParseQueryString(new Uri(link).Query).Get("v");
 			flaVideo.Movie = v;
 			bitImage.LoadAsync(image);
 			rtfText.Text = text;
-			InitializeComponent();
 		}
 
 		private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)

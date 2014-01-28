@@ -15,5 +15,21 @@ namespace WinForms
 		{
 			
 		}
+
+		public void Notify(string icon, string title, string data, bool video = false)
+		{
+			if(video)
+			{
+				VideoMessageControl c = new VideoMessageControl(icon, title, data);
+				OnMessage(null, c);
+				Notifications.Notify(new ImagedMessageControl(icon, "Neues Video", title));
+			}
+			else
+			{
+				ImagedMessageControl c = new ImagedMessageControl(icon, title, data);
+				OnMessage(null, c);
+				Notifications.Notify(c);
+			}
+		}
 	}
 }
