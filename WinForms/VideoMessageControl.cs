@@ -13,18 +13,16 @@ namespace WinForms
 {
 	public partial class VideoMessageControl : UserControl
 	{
-		public VideoMessageControl(string image, string text, string link)
+		public VideoMessageControl(string image, string text, string desc, string link)
 		{
 			InitializeComponent();
 			string v = HttpUtility.ParseQueryString(new Uri(link).Query).Get("v");
 			flaVideo.Movie = v;
-			bitImage.LoadAsync(image);
-			rtfText.Text = text;
-		}
-
-		private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
-		{
-			splitContainer2.Panel1.Width = splitContainer2.Panel1.Height;
+			descControl.Image = image;
+			descControl.Title = text;
+			descControl.Desc = desc;
+			descControl.RefreshSize();
+			descControl.Refresh();
 		}
 	}
 }

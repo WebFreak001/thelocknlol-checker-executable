@@ -20,9 +20,10 @@ namespace WinForms
 
 		public static void Notify(ImagedMessageControl c)
 		{
-			Notification notification = new Notification("", "", "");
+			Notification notification = new Notification(c.Image, c.Title, c.Desc);
+			notification.ShowInTaskbar = false;
 			notification.Show();
-			notification.Left = Screen.PrimaryScreen.Bounds.Width - 275;
+			notification.Left = Screen.PrimaryScreen.Bounds.Width - 375;
 			if (SystemInformation.WorkingArea.Top > 0) notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105;
 			else notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105 - GetTaskbarHeight();
 			notification.Opacity = 1;

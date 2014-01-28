@@ -9,25 +9,20 @@ namespace WinForms
 {
 	public class MessageManager
 	{
-		public event EventHandler<Control> OnMessage;
+		public static event EventHandler<Control> OnMessage;
 
-		public MessageManager()
+		public static void Notify(string icon, string title, string desc, string data = "")
 		{
-			
-		}
-
-		public void Notify(string icon, string title, string data, bool video = false)
-		{
-			if(video)
+			if(data != "")
 			{
-				VideoMessageControl c = new VideoMessageControl(icon, title, data);
-				OnMessage(null, c);
-				Notifications.Notify(new ImagedMessageControl(icon, "Neues Video", title));
+				VideoMessageControl c = new VideoMessageControl(icon, title, desc, data);
+				if (OnMessage != null) OnMessage(null, c);
+				Notifications.Notify(new ImagedMessageControl(icon, title, desc));
 			}
 			else
 			{
-				ImagedMessageControl c = new ImagedMessageControl(icon, title, data);
-				OnMessage(null, c);
+				ImagedMessageControl c = new ImagedMessageControl(icon, title, desc);
+				if (OnMessage != null) OnMessage(null, c);
 				Notifications.Notify(c);
 			}
 		}

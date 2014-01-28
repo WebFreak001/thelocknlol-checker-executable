@@ -33,9 +33,7 @@
 			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
 			this.layout = new System.Windows.Forms.FlowLayoutPanel();
-			this.button1 = new System.Windows.Forms.Button();
 			this.toolStrip1.SuspendLayout();
-			this.layout.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// toolStrip1
@@ -70,22 +68,11 @@
 			// 
 			// layout
 			// 
-			this.layout.Controls.Add(this.button1);
 			this.layout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.layout.Location = new System.Drawing.Point(0, 25);
 			this.layout.Name = "layout";
 			this.layout.Size = new System.Drawing.Size(654, 422);
 			this.layout.TabIndex = 1;
-			// 
-			// button1
-			// 
-			this.button1.Location = new System.Drawing.Point(3, 3);
-			this.button1.Name = "button1";
-			this.button1.Size = new System.Drawing.Size(75, 23);
-			this.button1.TabIndex = 0;
-			this.button1.Text = "button1";
-			this.button1.UseVisualStyleBackColor = true;
-			this.button1.Click += new System.EventHandler(this.button1_Click);
 			// 
 			// MainForm
 			// 
@@ -99,7 +86,6 @@
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
-			this.layout.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -111,7 +97,6 @@
 		private System.Windows.Forms.ToolStripButton btnOptions;
 		private System.Windows.Forms.FlowLayoutPanel layout;
 		private System.Windows.Forms.ToolStripButton btnRefresh;
-		private System.Windows.Forms.Button button1;
 	}
 }
 

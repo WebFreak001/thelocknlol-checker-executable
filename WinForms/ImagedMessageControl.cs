@@ -12,9 +12,21 @@ namespace WinForms
 {
 	public partial class ImagedMessageControl : UserControl
 	{
+		public string Image, Title, Desc;
+
+		public ImagedMessageControl()
+		{
+			InitializeComponent();
+			Image = "";
+			Title = "";
+			Desc = "";
+		}
 		public ImagedMessageControl(string image, string title, string text)
 		{
 			InitializeComponent();
+			Image = image;
+			Title = title;
+			Desc = text;
 			bitImage.LoadAsync(image);
 			rtfTitle.Text = title;
 			rtfDesc.Text = text;
