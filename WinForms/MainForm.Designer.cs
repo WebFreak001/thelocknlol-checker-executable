@@ -28,11 +28,13 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
 			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
 			this.layout = new System.Windows.Forms.FlowLayoutPanel();
+			this.refreshTimer = new System.Windows.Forms.Timer(this.components);
 			this.toolStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -65,6 +67,7 @@
 			this.btnOptions.Name = "btnOptions";
 			this.btnOptions.Size = new System.Drawing.Size(61, 22);
 			this.btnOptions.Text = "Optionen";
+			this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
 			// 
 			// layout
 			// 
@@ -73,6 +76,11 @@
 			this.layout.Name = "layout";
 			this.layout.Size = new System.Drawing.Size(654, 422);
 			this.layout.TabIndex = 1;
+			// 
+			// refreshTimer
+			// 
+			this.refreshTimer.Interval = 10000;
+			this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
 			// 
 			// MainForm
 			// 
@@ -97,6 +105,7 @@
 		private System.Windows.Forms.ToolStripButton btnOptions;
 		private System.Windows.Forms.FlowLayoutPanel layout;
 		private System.Windows.Forms.ToolStripButton btnRefresh;
+		private System.Windows.Forms.Timer refreshTimer;
 	}
 }
 

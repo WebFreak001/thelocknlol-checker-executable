@@ -16,7 +16,7 @@ namespace WinForms
 		public VideoMessageControl(string image, string text, string desc, string link)
 		{
 			InitializeComponent();
-			string v = HttpUtility.ParseQueryString(new Uri(link).Query).Get("v");
+			string v = HttpUtility.ParseQueryString(new Uri(link).Query).Get(0);
 			flaVideo.Movie = v;
 			descControl.Image = image;
 			descControl.Title = text;

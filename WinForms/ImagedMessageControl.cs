@@ -30,6 +30,7 @@ namespace WinForms
 			bitImage.LoadAsync(image);
 			rtfTitle.Text = title;
 			rtfDesc.Text = text;
+			RefreshSize();
 		}
 
 		private void pictureBox1_Paint(object sender, PaintEventArgs e)
