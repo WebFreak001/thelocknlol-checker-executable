@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -15,10 +16,10 @@ namespace WinForms
 {
 	public partial class Notification : Form
 	{
-		string title, desc;
+		string title, desc, link;
 		Image image;
 
-		public Notification(string image, string title, string desc)
+		public Notification(string image, string title, string desc, string link)
 		{
 			InitializeComponent();
 			WebClient wc = new WebClient();
@@ -27,6 +28,7 @@ namespace WinForms
 			this.image = Image.FromStream(ms);
 			this.title = title;
 			this.desc = desc;
+			this.link = link;
 		}
 
 		private void Notification_Load(object sender, EventArgs e)
@@ -53,6 +55,11 @@ namespace WinForms
 			g.DrawImage(image, 20, 20, 61, 61);
 			g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 20));
 			g.DrawString(desc, new Font("Arial", 10.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(96, 36, 256, 50));
+		}
+
+		private void Notification_Click(object sender, EventArgs e)
+		{
+			Process.Start(link);
 		}
 	}
 }

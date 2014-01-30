@@ -26,19 +26,26 @@ namespace WinForms
 			{
 				using (WebClient c = new WebClient())
 				{
-					string api = c.DownloadString("http://api.justin.tv/api/stream/list.json?channel=" + twitch);
-					if (api.Trim().Replace(" ", "") == "[]")
+					c.DownloadStringAsync(new Uri("http://api.justin.tv/api/stream/list.json?channel=" + twitch));
+					c.DownloadStringCompleted += (a, b) =>
 					{
-						Config.LastTwitchOnline = false;
-					}
-					else
-					{
-						if (!Config.LastTwitchOnline)
+						if (!b.Cancelled)
 						{
-							Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol streamt nun!", "Klicke mich und gelange direkt zum stream!"));
+							string api = b.Result;
+							if (api.Trim().Replace(" ", "") == "[]")
+							{
+								Config.LastTwitchOnline = false;
+							}
+							else
+							{
+								if (!Config.LastTwitchOnline)
+								{
+									Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/TheLockNLol");
+								}
+								Config.LastTwitchOnline = true;
+							}
 						}
-						Config.LastTwitchOnline = true;
-					}
+					};
 				}
 			}
 		}
@@ -49,35 +56,42 @@ namespace WinForms
 			{
 				using (WebClient c = new WebClient())
 				{
-					string xmlString = c.DownloadString("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5");
-					string lastID = "";
-					XmlReader reader = XmlReader.Create(new StringReader(xmlString));
-					while (reader.Read())
+					c.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5"));
+					c.DownloadStringCompleted += (a, b) =>
 					{
-						switch (reader.Name)
+						if (!b.Cancelled)
 						{
-							case "feed":
-								break;
-							case "entry":
-								try
+							string xmlString = b.Result;
+							string lastID = "";
+							XmlReader reader = XmlReader.Create(new StringReader(xmlString));
+							while (reader.Read())
+							{
+								switch (reader.Name)
 								{
-									reader.ReadToFollowing("id");
-									string id = reader.ReadElementContentAsString();
-									reader.ReadToFollowing("title");
-									string title = reader.ReadElementContentAsString();
-									reader.ReadToFollowing("media:thumbnail");
-									string thumbnail = reader["url"];
-									if (SavingConfig.LastVideo == id) goto ReadDone;
-									MessageManager.Notify(thumbnail, "TheLockNLol hat ein neues Video hochgeladen!", title, "http://www.youtube.com/watch?v=" + id.Substring(42));
+									case "feed":
+										break;
+									case "entry":
+										try
+										{
+											reader.ReadToFollowing("id");
+											string id = reader.ReadElementContentAsString();
+											reader.ReadToFollowing("title");
+											string title = reader.ReadElementContentAsString();
+											reader.ReadToFollowing("media:thumbnail");
+											string thumbnail = reader["url"];
+											if (SavingConfig.LastVideo == id) goto ReadDone;
+											MessageManager.Notify(thumbnail, "TheLockNLol hat ein neues Video hochgeladen!", title, "http://www.youtube.com/watch?v=" + id.Substring(42));
+										}
+										catch { }
+										break;
 								}
-								catch { }
-								break;
+							}
+							reader.Close();
+							reader.Dispose();
+						ReadDone:
+							if (lastID != "") SavingConfig.LastVideo = lastID;
 						}
-					}
-					reader.Close();
-					reader.Dispose();
-				ReadDone:
-					if (lastID != "") SavingConfig.LastVideo = lastID;
+					};
 				}
 			}
 		}

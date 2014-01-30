@@ -39,6 +39,7 @@
 			this.Name = "Notification";
 			this.Text = "Notification";
 			this.TopMost = true;
+			this.Click += new System.EventHandler(this.Notification_Click);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.Notification_Paint);
 			this.ResumeLayout(false);
 

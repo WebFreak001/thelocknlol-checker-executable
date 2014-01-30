@@ -18,9 +18,9 @@ namespace WinForms
 			return Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
 		}
 
-		public static void Notify(ImagedMessageControl c)
+		public static void Notify(ImagedMessageControl c, string link)
 		{
-			Notification notification = new Notification(c.Image, c.Title, c.Desc);
+			Notification notification = new Notification(c.Image, c.Title, c.Desc, link);
 			notification.ShowInTaskbar = false;
 			notification.Show();
 			notification.Left = Screen.PrimaryScreen.Bounds.Width - 375;
