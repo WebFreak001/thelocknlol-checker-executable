@@ -49,5 +49,20 @@ namespace WinForms
 		{
 			new Forms.OptionsForm().ShowDialog();
 		}
+
+		private void MainForm_Resize(object sender, EventArgs e)
+		{
+			if (layout.Controls.Count != 0)
+			{
+				List<Control> c = new List<Control>();
+				foreach (Control co in layout.Controls) c.Add(co);
+				c.ForEach(i =>
+				{
+					i.Width = Math.Max(1, Width - 100) / 2;
+					i.Height = (int)((i.Width) / 16.0f * 9.0f + i.Height * 0.3f);
+
+				});
+			}
+		}
 	}
 }

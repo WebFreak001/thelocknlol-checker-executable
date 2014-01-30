@@ -71,6 +71,7 @@
 			// 
 			// layout
 			// 
+			this.layout.AutoScroll = true;
 			this.layout.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.layout.Location = new System.Drawing.Point(0, 25);
 			this.layout.Name = "layout";
@@ -92,6 +93,7 @@
 			this.Name = "MainForm";
 			this.Text = "TheLockNLol Checker";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.Resize += new System.EventHandler(this.MainForm_Resize);
 			this.toolStrip1.ResumeLayout(false);
 			this.toolStrip1.PerformLayout();
 			this.ResumeLayout(false);
