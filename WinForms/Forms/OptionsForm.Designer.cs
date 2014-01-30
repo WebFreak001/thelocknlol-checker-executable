@@ -28,12 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem(new string[] {
+			System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol"}, -1);
-			System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
+			System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tpGeneral = new System.Windows.Forms.TabPage();
 			this.lvCheckers = new System.Windows.Forms.ListView();
@@ -49,19 +49,20 @@
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.cbSound = new System.Windows.Forms.ComboBox();
+			this.tbSoundFile = new System.Windows.Forms.TextBox();
+			this.btnAddSound = new System.Windows.Forms.Button();
+			this.lvSounds = new System.Windows.Forms.ListView();
 			this.cbSoundFBook = new System.Windows.Forms.CheckBox();
 			this.cbSoundLivestream = new System.Windows.Forms.CheckBox();
 			this.cbSoundVidup = new System.Windows.Forms.CheckBox();
 			this.groupBox2 = new System.Windows.Forms.GroupBox();
+			this.cbCombineVidFacebook = new System.Windows.Forms.CheckBox();
+			this.label1 = new System.Windows.Forms.Label();
 			this.cbNotifyFb = new System.Windows.Forms.CheckBox();
 			this.cbNotifyLivestream = new System.Windows.Forms.CheckBox();
 			this.cbNotifyVideo = new System.Windows.Forms.CheckBox();
-			this.lvSounds = new System.Windows.Forms.ListView();
-			this.btnAddSound = new System.Windows.Forms.Button();
-			this.tbSoundFile = new System.Windows.Forms.TextBox();
-			this.cbSound = new System.Windows.Forms.ComboBox();
-			this.cbCombineVidFacebook = new System.Windows.Forms.CheckBox();
-			this.label1 = new System.Windows.Forms.Label();
+			this.btnPreviewSound = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tpGeneral.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -82,7 +83,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(460, 280);
+			this.tabControl1.Size = new System.Drawing.Size(450, 283);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tpGeneral
@@ -106,10 +107,10 @@
             this.twitchName,
             this.fbName});
 			this.lvCheckers.Dock = System.Windows.Forms.DockStyle.Fill;
-			listViewItem3.Checked = true;
-			listViewItem3.StateImageIndex = 1;
+			listViewItem4.Checked = true;
+			listViewItem4.StateImageIndex = 1;
 			this.lvCheckers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
+            listViewItem4});
 			this.lvCheckers.Location = new System.Drawing.Point(3, 3);
 			this.lvCheckers.Name = "lvCheckers";
 			this.lvCheckers.Size = new System.Drawing.Size(446, 213);
@@ -192,7 +193,7 @@
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(452, 254);
+			this.tabPage2.Size = new System.Drawing.Size(442, 257);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Benachrichtigungen";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -210,12 +211,13 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-			this.splitContainer1.Size = new System.Drawing.Size(446, 248);
-			this.splitContainer1.SplitterDistance = 223;
+			this.splitContainer1.Size = new System.Drawing.Size(436, 251);
+			this.splitContainer1.SplitterDistance = 218;
 			this.splitContainer1.TabIndex = 0;
 			// 
 			// groupBox1
 			// 
+			this.groupBox1.Controls.Add(this.btnPreviewSound);
 			this.groupBox1.Controls.Add(this.cbSound);
 			this.groupBox1.Controls.Add(this.tbSoundFile);
 			this.groupBox1.Controls.Add(this.btnAddSound);
@@ -226,10 +228,59 @@
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(223, 248);
+			this.groupBox1.Size = new System.Drawing.Size(218, 251);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Sounds";
+			// 
+			// cbSound
+			// 
+			this.cbSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.cbSound.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+			this.cbSound.FormattingEnabled = true;
+			this.cbSound.Location = new System.Drawing.Point(6, 88);
+			this.cbSound.Name = "cbSound";
+			this.cbSound.Size = new System.Drawing.Size(181, 21);
+			this.cbSound.TabIndex = 7;
+			// 
+			// tbSoundFile
+			// 
+			this.tbSoundFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbSoundFile.Location = new System.Drawing.Point(5, 224);
+			this.tbSoundFile.Name = "tbSoundFile";
+			this.tbSoundFile.Size = new System.Drawing.Size(130, 20);
+			this.tbSoundFile.TabIndex = 6;
+			this.tbSoundFile.TextChanged += new System.EventHandler(this.tbSoundFile_TextChanged);
+			// 
+			// btnAddSound
+			// 
+			this.btnAddSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnAddSound.Location = new System.Drawing.Point(137, 222);
+			this.btnAddSound.Name = "btnAddSound";
+			this.btnAddSound.Size = new System.Drawing.Size(75, 23);
+			this.btnAddSound.TabIndex = 5;
+			this.btnAddSound.Text = "Öffnen";
+			this.btnAddSound.UseVisualStyleBackColor = true;
+			this.btnAddSound.Click += new System.EventHandler(this.btnAddSound_Click);
+			// 
+			// lvSounds
+			// 
+			this.lvSounds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.lvSounds.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
+			listViewItem3.Checked = true;
+			listViewItem3.StateImageIndex = 1;
+			this.lvSounds.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem3});
+			this.lvSounds.Location = new System.Drawing.Point(6, 115);
+			this.lvSounds.Name = "lvSounds";
+			this.lvSounds.Size = new System.Drawing.Size(206, 101);
+			this.lvSounds.TabIndex = 4;
+			this.lvSounds.UseCompatibleStateImageBehavior = false;
+			this.lvSounds.View = System.Windows.Forms.View.List;
 			// 
 			// cbSoundFBook
 			// 
@@ -273,10 +324,33 @@
 			this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox2.Location = new System.Drawing.Point(0, 0);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(219, 248);
+			this.groupBox2.Size = new System.Drawing.Size(214, 251);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Benachrichtigungen";
+			// 
+			// cbCombineVidFacebook
+			// 
+			this.cbCombineVidFacebook.AutoSize = true;
+			this.cbCombineVidFacebook.Checked = true;
+			this.cbCombineVidFacebook.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbCombineVidFacebook.Location = new System.Drawing.Point(26, 42);
+			this.cbCombineVidFacebook.Name = "cbCombineVidFacebook";
+			this.cbCombineVidFacebook.Size = new System.Drawing.Size(105, 17);
+			this.cbCombineVidFacebook.TabIndex = 6;
+			this.cbCombineVidFacebook.Text = "Zusammenfügen";
+			this.cbCombineVidFacebook.UseVisualStyleBackColor = true;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+			this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
+			this.label1.Location = new System.Drawing.Point(6, 41);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(23, 15);
+			this.label1.TabIndex = 7;
+			this.label1.Text = "├─";
 			// 
 			// cbNotifyFb
 			// 
@@ -314,81 +388,24 @@
 			this.cbNotifyVideo.Text = "Video-Upload";
 			this.cbNotifyVideo.UseVisualStyleBackColor = true;
 			// 
-			// lvSounds
+			// btnPreviewSound
 			// 
-			this.lvSounds.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.lvSounds.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			listViewItem4.Checked = true;
-			listViewItem4.StateImageIndex = 1;
-			this.lvSounds.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4});
-			this.lvSounds.Location = new System.Drawing.Point(6, 115);
-			this.lvSounds.Name = "lvSounds";
-			this.lvSounds.Size = new System.Drawing.Size(211, 98);
-			this.lvSounds.TabIndex = 4;
-			this.lvSounds.UseCompatibleStateImageBehavior = false;
-			this.lvSounds.View = System.Windows.Forms.View.List;
-			// 
-			// btnAddSound
-			// 
-			this.btnAddSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddSound.Location = new System.Drawing.Point(142, 219);
-			this.btnAddSound.Name = "btnAddSound";
-			this.btnAddSound.Size = new System.Drawing.Size(75, 23);
-			this.btnAddSound.TabIndex = 5;
-			this.btnAddSound.Text = "Add";
-			this.btnAddSound.UseVisualStyleBackColor = true;
-			this.btnAddSound.Click += new System.EventHandler(this.btnAddSound_Click);
-			// 
-			// tbSoundFile
-			// 
-			this.tbSoundFile.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-			this.tbSoundFile.Location = new System.Drawing.Point(5, 221);
-			this.tbSoundFile.Name = "tbSoundFile";
-			this.tbSoundFile.Size = new System.Drawing.Size(130, 20);
-			this.tbSoundFile.TabIndex = 6;
-			// 
-			// cbSound
-			// 
-			this.cbSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.cbSound.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-			this.cbSound.FormattingEnabled = true;
-			this.cbSound.Location = new System.Drawing.Point(6, 88);
-			this.cbSound.Name = "cbSound";
-			this.cbSound.Size = new System.Drawing.Size(211, 21);
-			this.cbSound.TabIndex = 7;
-			// 
-			// cbCombineVidFacebook
-			// 
-			this.cbCombineVidFacebook.AutoSize = true;
-			this.cbCombineVidFacebook.Checked = true;
-			this.cbCombineVidFacebook.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbCombineVidFacebook.Location = new System.Drawing.Point(26, 42);
-			this.cbCombineVidFacebook.Name = "cbCombineVidFacebook";
-			this.cbCombineVidFacebook.Size = new System.Drawing.Size(105, 17);
-			this.cbCombineVidFacebook.TabIndex = 6;
-			this.cbCombineVidFacebook.Text = "Zusammenfügen";
-			this.cbCombineVidFacebook.UseVisualStyleBackColor = true;
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Font = new System.Drawing.Font("Arial Narrow", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-			this.label1.ForeColor = System.Drawing.SystemColors.ControlDark;
-			this.label1.Location = new System.Drawing.Point(6, 41);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(23, 15);
-			this.label1.TabIndex = 7;
-			this.label1.Text = "├─";
+			this.btnPreviewSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnPreviewSound.Font = new System.Drawing.Font("Arial", 8.25F);
+			this.btnPreviewSound.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+			this.btnPreviewSound.Location = new System.Drawing.Point(189, 87);
+			this.btnPreviewSound.Name = "btnPreviewSound";
+			this.btnPreviewSound.Size = new System.Drawing.Size(23, 23);
+			this.btnPreviewSound.TabIndex = 8;
+			this.btnPreviewSound.Text = "►";
+			this.btnPreviewSound.UseVisualStyleBackColor = true;
+			this.btnPreviewSound.Click += new System.EventHandler(this.btnPreviewSound_Click);
 			// 
 			// OptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(460, 280);
+			this.ClientSize = new System.Drawing.Size(450, 283);
 			this.Controls.Add(this.tabControl1);
 			this.MinimumSize = new System.Drawing.Size(402, 240);
 			this.Name = "OptionsForm";
@@ -441,5 +458,6 @@
 		private System.Windows.Forms.ComboBox cbSound;
 		private System.Windows.Forms.CheckBox cbCombineVidFacebook;
 		private System.Windows.Forms.Label label1;
+		private System.Windows.Forms.Button btnPreviewSound;
 	}
 }
