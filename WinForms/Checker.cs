@@ -80,7 +80,7 @@ namespace WinForms
 											reader.ReadToFollowing("media:thumbnail");
 											string thumbnail = reader["url"];
 											if (SavingConfig.LastVideo == id) goto ReadDone;
-											MessageManager.Notify(thumbnail, "TheLockNLol hat ein neues Video hochgeladen!", title, "http://www.youtube.com/watch?v=" + id.Substring(42));
+											MessageManager.Notify("http://www.youtube.com/watch?v=" + id.Substring(42), thumbnail, "TheLockNLol hat ein neues Video hochgeladen!", title, "http://www.youtube.com/watch?v=" + id.Substring(42));
 										}
 										catch { }
 										break;
