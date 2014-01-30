@@ -28,15 +28,11 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(VideoMessageControl));
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-			this.flaVideo = new AxShockwaveFlashObjects.AxShockwaveFlash();
-			this.descControl = new WinForms.ImagedMessageControl();
+			this.webBrowser = new System.Windows.Forms.WebBrowser();
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
 			this.splitContainer1.Panel1.SuspendLayout();
-			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.flaVideo)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// splitContainer1
@@ -49,32 +45,23 @@
 			// 
 			// splitContainer1.Panel1
 			// 
-			this.splitContainer1.Panel1.Controls.Add(this.flaVideo);
-			// 
-			// splitContainer1.Panel2
-			// 
-			this.splitContainer1.Panel2.Controls.Add(this.descControl);
+			this.splitContainer1.Panel1.Controls.Add(this.webBrowser);
 			this.splitContainer1.Size = new System.Drawing.Size(441, 399);
 			this.splitContainer1.SplitterDistance = 302;
 			this.splitContainer1.TabIndex = 0;
 			// 
-			// flaVideo
+			// webBrowser
 			// 
-			this.flaVideo.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.flaVideo.Enabled = true;
-			this.flaVideo.Location = new System.Drawing.Point(0, 0);
-			this.flaVideo.Name = "flaVideo";
-			this.flaVideo.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("flaVideo.OcxState")));
-			this.flaVideo.Size = new System.Drawing.Size(441, 302);
-			this.flaVideo.TabIndex = 0;
-			// 
-			// descControl
-			// 
-			this.descControl.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.descControl.Location = new System.Drawing.Point(0, 0);
-			this.descControl.Name = "descControl";
-			this.descControl.Size = new System.Drawing.Size(441, 93);
-			this.descControl.TabIndex = 0;
+			this.webBrowser.AllowNavigation = false;
+			this.webBrowser.AllowWebBrowserDrop = false;
+			this.webBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.webBrowser.IsWebBrowserContextMenuEnabled = false;
+			this.webBrowser.Location = new System.Drawing.Point(0, 0);
+			this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+			this.webBrowser.Name = "webBrowser";
+			this.webBrowser.ScrollBarsEnabled = false;
+			this.webBrowser.Size = new System.Drawing.Size(441, 302);
+			this.webBrowser.TabIndex = 0;
 			// 
 			// VideoMessageControl
 			// 
@@ -84,10 +71,8 @@
 			this.Name = "VideoMessageControl";
 			this.Size = new System.Drawing.Size(441, 399);
 			this.splitContainer1.Panel1.ResumeLayout(false);
-			this.splitContainer1.Panel2.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
 			this.splitContainer1.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.flaVideo)).EndInit();
 			this.ResumeLayout(false);
 
 		}
@@ -95,8 +80,7 @@
 		#endregion
 
 		private System.Windows.Forms.SplitContainer splitContainer1;
-		private AxShockwaveFlashObjects.AxShockwaveFlash flaVideo;
-		private ImagedMessageControl descControl;
+		private System.Windows.Forms.WebBrowser webBrowser;
 
 	}
 }
