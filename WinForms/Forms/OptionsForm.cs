@@ -123,12 +123,14 @@ namespace WinForms.Forms
 
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
-
+			//TODO
 		}
 
-		private void btnRem_Click(object sender, EventArgs e)
+		private void btnRem_Click(object sender, EventArgs ev)
 		{
-
+			List<ListViewItem> items = new List<ListViewItem>();
+			foreach (ListViewItem i in lvCheckers.SelectedItems) items.Add(i);
+			items.Where(e => e.Text.ToLower().Trim() != "thelocknlol").ToList().ForEach(e => lvCheckers.Items.Remove(e));
 		}
 	}
 }
