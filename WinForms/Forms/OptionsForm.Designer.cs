@@ -28,12 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem(new string[] {
+			System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol"}, -1);
-			System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
+			System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tpGeneral = new System.Windows.Forms.TabPage();
 			this.lvCheckers = new System.Windows.Forms.ListView();
@@ -107,10 +107,10 @@
             this.twitchName,
             this.fbName});
 			this.lvCheckers.Dock = System.Windows.Forms.DockStyle.Fill;
-			listViewItem4.Checked = true;
-			listViewItem4.StateImageIndex = 1;
+			listViewItem6.Checked = true;
+			listViewItem6.StateImageIndex = 1;
 			this.lvCheckers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem4});
+            listViewItem6});
 			this.lvCheckers.Location = new System.Drawing.Point(3, 3);
 			this.lvCheckers.Name = "lvCheckers";
 			this.lvCheckers.Size = new System.Drawing.Size(446, 213);
@@ -261,7 +261,7 @@
 			this.btnAddSound.Name = "btnAddSound";
 			this.btnAddSound.Size = new System.Drawing.Size(75, 23);
 			this.btnAddSound.TabIndex = 5;
-			this.btnAddSound.Text = "Öffnen";
+			this.btnAddSound.Text = "Durchsuchen";
 			this.btnAddSound.UseVisualStyleBackColor = true;
 			this.btnAddSound.Click += new System.EventHandler(this.btnAddSound_Click);
 			// 
@@ -271,10 +271,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.lvSounds.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			listViewItem3.Checked = true;
-			listViewItem3.StateImageIndex = 1;
+			listViewItem5.Checked = true;
+			listViewItem5.StateImageIndex = 1;
 			this.lvSounds.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem3});
+            listViewItem5});
 			this.lvSounds.Location = new System.Drawing.Point(6, 115);
 			this.lvSounds.Name = "lvSounds";
 			this.lvSounds.Size = new System.Drawing.Size(206, 101);

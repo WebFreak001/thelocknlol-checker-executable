@@ -82,10 +82,10 @@ namespace WinForms.Forms
 			foreach(ListViewItem i in lvSounds.Items) items.Add(i);
 			if(items.Count(l => l.Text.ToLower().Trim() == tbSoundFile.Text.ToLower().Trim()) > 0) btnAddSound.Enabled = false;
 			else btnAddSound.Enabled = true;
-			if(tbSoundFile.Text.Trim() == "") btnAddSound.Text = "Öffnen";
+			if (tbSoundFile.Text.Trim() == "") btnAddSound.Text = "Durchsuchen";
 			else
 			{
-				if (!File.Exists(tbSoundFile.Text.Trim()) || !tbSoundFile.Text.Trim().ToLower().EndsWith(".wav")) btnAddSound.Text = "Öffnen";
+				if (!File.Exists(tbSoundFile.Text.Trim()) || !tbSoundFile.Text.Trim().ToLower().EndsWith(".wav")) btnAddSound.Text = "Durchsuchen";
 				else btnAddSound.Text = "Hinzufügen";
 			}
 		}
