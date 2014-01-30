@@ -120,5 +120,15 @@ namespace WinForms.Forms
 				}
 			}
 		}
+
+		private void btnAdd_Click(object sender, EventArgs e)
+		{
+
+		}
+
+		private void btnRem_Click(object sender, EventArgs e)
+		{
+
+		}
 	}
 }

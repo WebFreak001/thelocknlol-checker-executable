@@ -28,12 +28,12 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem(new string[] {
+			System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol"}, -1);
-			System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
+			System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tpGeneral = new System.Windows.Forms.TabPage();
 			this.lvCheckers = new System.Windows.Forms.ListView();
@@ -42,13 +42,12 @@
 			this.twitchName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.fbName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.btnImport = new System.Windows.Forms.Button();
-			this.btnExport = new System.Windows.Forms.Button();
 			this.btnRem = new System.Windows.Forms.Button();
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.tabPage2 = new System.Windows.Forms.TabPage();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.btnPreviewSound = new System.Windows.Forms.Button();
 			this.cbSound = new System.Windows.Forms.ComboBox();
 			this.tbSoundFile = new System.Windows.Forms.TextBox();
 			this.btnAddSound = new System.Windows.Forms.Button();
@@ -62,7 +61,6 @@
 			this.cbNotifyFb = new System.Windows.Forms.CheckBox();
 			this.cbNotifyLivestream = new System.Windows.Forms.CheckBox();
 			this.cbNotifyVideo = new System.Windows.Forms.CheckBox();
-			this.btnPreviewSound = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tpGeneral.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -93,7 +91,7 @@
 			this.tpGeneral.Location = new System.Drawing.Point(4, 22);
 			this.tpGeneral.Name = "tpGeneral";
 			this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
-			this.tpGeneral.Size = new System.Drawing.Size(452, 254);
+			this.tpGeneral.Size = new System.Drawing.Size(442, 257);
 			this.tpGeneral.TabIndex = 0;
 			this.tpGeneral.Text = "Generell";
 			this.tpGeneral.UseVisualStyleBackColor = true;
@@ -107,13 +105,13 @@
             this.twitchName,
             this.fbName});
 			this.lvCheckers.Dock = System.Windows.Forms.DockStyle.Fill;
-			listViewItem6.Checked = true;
-			listViewItem6.StateImageIndex = 1;
+			listViewItem5.Checked = true;
+			listViewItem5.StateImageIndex = 1;
 			this.lvCheckers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem6});
+            listViewItem5});
 			this.lvCheckers.Location = new System.Drawing.Point(3, 3);
 			this.lvCheckers.Name = "lvCheckers";
-			this.lvCheckers.Size = new System.Drawing.Size(446, 213);
+			this.lvCheckers.Size = new System.Drawing.Size(436, 216);
 			this.lvCheckers.TabIndex = 0;
 			this.lvCheckers.UseCompatibleStateImageBehavior = false;
 			this.lvCheckers.View = System.Windows.Forms.View.Details;
@@ -141,33 +139,13 @@
 			// panel1
 			// 
 			this.panel1.BackColor = System.Drawing.Color.Gainsboro;
-			this.panel1.Controls.Add(this.btnImport);
-			this.panel1.Controls.Add(this.btnExport);
 			this.panel1.Controls.Add(this.btnRem);
 			this.panel1.Controls.Add(this.btnAdd);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(3, 216);
+			this.panel1.Location = new System.Drawing.Point(3, 219);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(446, 35);
+			this.panel1.Size = new System.Drawing.Size(436, 35);
 			this.panel1.TabIndex = 1;
-			// 
-			// btnImport
-			// 
-			this.btnImport.Location = new System.Drawing.Point(248, 6);
-			this.btnImport.Name = "btnImport";
-			this.btnImport.Size = new System.Drawing.Size(75, 24);
-			this.btnImport.TabIndex = 3;
-			this.btnImport.Text = "Import";
-			this.btnImport.UseVisualStyleBackColor = true;
-			// 
-			// btnExport
-			// 
-			this.btnExport.Location = new System.Drawing.Point(167, 6);
-			this.btnExport.Name = "btnExport";
-			this.btnExport.Size = new System.Drawing.Size(75, 24);
-			this.btnExport.TabIndex = 2;
-			this.btnExport.Text = "Export";
-			this.btnExport.UseVisualStyleBackColor = true;
 			// 
 			// btnRem
 			// 
@@ -177,6 +155,7 @@
 			this.btnRem.TabIndex = 1;
 			this.btnRem.Text = "Entfernen";
 			this.btnRem.UseVisualStyleBackColor = true;
+			this.btnRem.Click += new System.EventHandler(this.btnRem_Click);
 			// 
 			// btnAdd
 			// 
@@ -186,6 +165,7 @@
 			this.btnAdd.TabIndex = 0;
 			this.btnAdd.Text = "Hinzufügen";
 			this.btnAdd.UseVisualStyleBackColor = true;
+			this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
 			// 
 			// tabPage2
 			// 
@@ -233,6 +213,19 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Sounds";
 			// 
+			// btnPreviewSound
+			// 
+			this.btnPreviewSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnPreviewSound.Font = new System.Drawing.Font("Arial", 8.25F);
+			this.btnPreviewSound.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+			this.btnPreviewSound.Location = new System.Drawing.Point(189, 87);
+			this.btnPreviewSound.Name = "btnPreviewSound";
+			this.btnPreviewSound.Size = new System.Drawing.Size(23, 23);
+			this.btnPreviewSound.TabIndex = 8;
+			this.btnPreviewSound.Text = "►";
+			this.btnPreviewSound.UseVisualStyleBackColor = true;
+			this.btnPreviewSound.Click += new System.EventHandler(this.btnPreviewSound_Click);
+			// 
 			// cbSound
 			// 
 			this.cbSound.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -271,10 +264,10 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.lvSounds.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			listViewItem5.Checked = true;
-			listViewItem5.StateImageIndex = 1;
+			listViewItem6.Checked = true;
+			listViewItem6.StateImageIndex = 1;
 			this.lvSounds.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5});
+            listViewItem6});
 			this.lvSounds.Location = new System.Drawing.Point(6, 115);
 			this.lvSounds.Name = "lvSounds";
 			this.lvSounds.Size = new System.Drawing.Size(206, 101);
@@ -388,19 +381,6 @@
 			this.cbNotifyVideo.Text = "Video-Upload";
 			this.cbNotifyVideo.UseVisualStyleBackColor = true;
 			// 
-			// btnPreviewSound
-			// 
-			this.btnPreviewSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnPreviewSound.Font = new System.Drawing.Font("Arial", 8.25F);
-			this.btnPreviewSound.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-			this.btnPreviewSound.Location = new System.Drawing.Point(189, 87);
-			this.btnPreviewSound.Name = "btnPreviewSound";
-			this.btnPreviewSound.Size = new System.Drawing.Size(23, 23);
-			this.btnPreviewSound.TabIndex = 8;
-			this.btnPreviewSound.Text = "►";
-			this.btnPreviewSound.UseVisualStyleBackColor = true;
-			this.btnPreviewSound.Click += new System.EventHandler(this.btnPreviewSound_Click);
-			// 
 			// OptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -441,8 +421,6 @@
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Button btnRem;
 		private System.Windows.Forms.Button btnAdd;
-		private System.Windows.Forms.Button btnImport;
-		private System.Windows.Forms.Button btnExport;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.GroupBox groupBox1;
 		private System.Windows.Forms.CheckBox cbSoundFBook;
