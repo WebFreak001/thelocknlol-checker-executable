@@ -28,7 +28,20 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
+			this.components = new System.ComponentModel.Container();
+			this.timer1 = new System.Windows.Forms.Timer(this.components);
+			this.timer2 = new System.Windows.Forms.Timer(this.components);
 			this.SuspendLayout();
+			// 
+			// timer1
+			// 
+			this.timer1.Interval = 8000;
+			this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+			// 
+			// timer2
+			// 
+			this.timer2.Interval = 3;
+			this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
 			// 
 			// Notification
 			// 
@@ -46,5 +59,8 @@
 		}
 
 		#endregion
+
+		private System.Windows.Forms.Timer timer1;
+		private System.Windows.Forms.Timer timer2;
 	}
 }

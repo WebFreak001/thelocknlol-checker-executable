@@ -18,6 +18,7 @@ namespace WinForms
 	{
 		string title, desc, link;
 		Image image;
+		int step = 0;
 
 		public Notification(string image, string title, string desc, string link)
 		{
@@ -29,6 +30,7 @@ namespace WinForms
 			this.title = title;
 			this.desc = desc;
 			this.link = link;
+			timer1.Enabled = true;
 		}
 
 		private void Notification_Load(object sender, EventArgs e)
@@ -60,6 +62,31 @@ namespace WinForms
 		private void Notification_Click(object sender, EventArgs e)
 		{
 			Process.Start(link);
+			Dismiss();
+		}
+
+		public void Dismiss()
+		{
+			timer2.Enabled = true;
+		}
+
+		private void timer1_Tick(object sender, EventArgs e)
+		{
+			Dismiss();
+			timer1.Enabled = false;
+		}
+
+		private void timer2_Tick(object sender, EventArgs e)
+		{
+			if(step > 100)
+			{
+				Close();
+			}
+			else
+			{
+				Opacity = (100 - step) * 0.01;
+			}
+			step++;
 		}
 	}
 }
