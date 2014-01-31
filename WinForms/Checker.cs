@@ -88,7 +88,7 @@ namespace WinForms
 												MessageManager.Clear();
 												first = false;
 											}
-											MessageManager.Notify("http://www.youtube.com/watch?v=" + id.Substring(42), thumbnail, "TheLockNLol hat ein neues Video hochgeladen!", title, "http://www.youtube.com/watch?v=" + id.Substring(42));
+											MessageManager.Notify("http://www.youtube.com/watch?v=" + id.Substring(42), thumbnail, name + " hat ein neues Video hochgeladen!", title, "http://www.youtube.com/watch?v=" + id.Substring(42));
 										}
 										catch { }
 										break;

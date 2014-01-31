@@ -32,11 +32,11 @@ namespace WinForms
 			CheckForUpdate();
 			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
-				checkers.Add(new Checker("TheLockNLol", "TheLockNLol", "TheLockNLol", "TheLockNLol"));
+				checkers.Add(new Checker("TheLockNLol", "TheLockNLol", "TheLockNLol", "TheLockNLol", "TheLockNLol"));
 			}
 			foreach(CheckerFormat f in Config.Settings.Checkers)
 			{
-				checkers.Add(new Checker(f.Twitch, f.YouTube, f.Facebook, f.Twitter));
+				if(f.Enabled) checkers.Add(new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook, f.Twitter));
 			}
 		}
 
