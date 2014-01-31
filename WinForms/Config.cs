@@ -37,6 +37,7 @@ namespace WinForms
 		public SoundFormat Sounds { get; set; }
 		public string LastVideo { get; set; }
 		public string CurrentSound { get; set; }
+		public int NotifyDelay { get; set; }
 		public Color NotifyColor { get; set; }
 		public CheckerFormat[] Checkers { get; set; }
 	}
