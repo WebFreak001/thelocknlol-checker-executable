@@ -20,6 +20,7 @@ namespace WinForms
 
 		public static void Notify(ImagedMessageControl c, string link)
 		{
+			if(Count < 0) Count = 0;
 			Notification notification = new Notification(c.Image, c.Title, c.Desc, link);
 			notification.ShowInTaskbar = false;
 			notification.Show();
