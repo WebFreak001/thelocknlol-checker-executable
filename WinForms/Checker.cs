@@ -22,7 +22,7 @@ namespace WinForms
 
 		public void checkTwitch()
 		{
-			if (Config.Settings.Livestream)
+			if (Config.Settings.CheckLivestream)
 			{
 				using (WebClient c = new WebClient())
 				{
@@ -52,7 +52,7 @@ namespace WinForms
 
 		public void checkYoutube()
 		{
-			if (Config.Settings.Video)
+			if (Config.Settings.CheckVideo)
 			{
 				using (WebClient c = new WebClient())
 				{
@@ -108,12 +108,20 @@ namespace WinForms
 
 		public void checkFacebook()
 		{
-			if (Config.Settings.Facebook)
+			if (Config.Settings.CheckSocial)
 			{
 				//https://graph.facebook.com/TheLockNLol/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y
 
 			}
 		}
 
+		public void checkTwitter()
+		{
+			if (Config.Settings.CheckSocial)
+			{
+				//https://graph.facebook.com/TheLockNLol/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y
+
+			}
+		}
 	}
 }

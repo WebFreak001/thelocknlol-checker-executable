@@ -16,9 +16,12 @@ namespace WinForms.Forms
 {
 	public partial class OptionsForm : Form
 	{
+		ConfigFormat tempConfig;
+
 		public OptionsForm()
 		{
 			InitializeComponent();
+			ResetChanges();
 		}
 
 		private void btnAddSound_Click(object sender, EventArgs e)
@@ -65,7 +68,7 @@ namespace WinForms.Forms
 				if (f.Trim().ToLower().EndsWith(".wav"))
 				{
 					tbSoundFile.Text = "";
-					lvSounds.Items.Add(new ListViewItem(f));
+					lvSounds.Items.Add(new ListViewItem(f) { Group = lvSounds.Groups[2] });
 				}
 			}
 			tbSoundFile_TextChanged(null, null);
@@ -119,6 +122,7 @@ namespace WinForms.Forms
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
 			//TODO
+			UpdateCheckers();
 		}
 
 		private void btnRem_Click(object sender, EventArgs ev)
@@ -126,17 +130,66 @@ namespace WinForms.Forms
 			List<ListViewItem> items = new List<ListViewItem>();
 			foreach (ListViewItem i in lvCheckers.SelectedItems) items.Add(i);
 			items.Where(e => e.Text.ToLower().Trim() != "thelocknlol").ToList().ForEach(e => lvCheckers.Items.Remove(e));
+			UpdateCheckers();
+		}
+
+		public void UpdateCheckers()
+		{
+			List<CheckerFormat> checks = new List<CheckerFormat>();
+			foreach (ListViewItem i in lvCheckers.SelectedItems)
+			{
+				checks.Add(new CheckerFormat() { Name = i.Text, YouTube = i.SubItems[0].Text, Twitch = i.SubItems[1].Text, Facebook = i.SubItems[2].Text, Twitter = i.SubItems[3].Text, Enabled = i.Checked });
+			}
+			tempConfig.Checkers = checks.ToArray();
 		}
 
 		private void btnResetChanges_Click(object sender, EventArgs e)
 		{
 			DialogResult r = MessageBox.Show("Wollen Sie ihre Änderungen wirklich verwerfen?", "Warnung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-			if(r == DialogResult.Yes) ResetChanges();
+			if (r == DialogResult.Yes) ResetChanges();
 		}
 
 		public void ResetChanges()
 		{
-			
+			tempConfig = Config.Settings;
+			lvCheckers.Items.Clear();
+			if(tempConfig.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
+			{
+				ListViewItem i = new ListViewItem("TheLockNLol");
+				i.SubItems.Add("TheLockNLol");
+				i.SubItems.Add("TheLockNLol");
+				i.SubItems.Add("TheLockNLol");
+				i.SubItems.Add("TheLockNLol");
+				i.Checked = true;
+				lvCheckers.Items.Add(i);
+			}
+			foreach(CheckerFormat c in tempConfig.Checkers)
+			{
+				ListViewItem i = new ListViewItem(c.Name);
+				i.SubItems.Add(c.YouTube);
+				i.SubItems.Add(c.Twitch);
+				i.SubItems.Add(c.Facebook);
+				i.SubItems.Add(c.Twitter);
+				i.Checked = c.Enabled;
+				lvCheckers.Items.Add(i);
+			}
+			cbSoundVidup.Checked = tempConfig.Sounds.OnVideo;
+			cbSoundLivestream.Checked = tempConfig.Sounds.OnLivestream;
+			cbSoundFBook.Checked = tempConfig.Sounds.OnFacebook;
+			cbSoundTwitter.Checked = tempConfig.Sounds.OnTwitter;
+			cbSound.SelectedItem = tempConfig.CurrentSound;
+
+			cbNotifyVideo.Checked = tempConfig.CheckVideo;
+			cbNotifySocial.Checked = tempConfig.CheckSocial;
+			cbNotifyLivestream.Checked = tempConfig.CheckLivestream;
+
+			tbDuration.Value = Math.Max(tbDuration.Minimum, Math.Min(tbDuration.Maximum, tempConfig.NotifyDelay));
+			tbDuration_Scroll(null, EventArgs.Empty);
+			string[] splits = tempConfig.NotifyColor.Split(',');
+			int r = int.Parse(splits[0].Trim());
+			int g = int.Parse(splits[1].Trim());
+			int b = int.Parse(splits[2].Trim());
+			pbColor.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(r, g, b)), 0, 0, pbColor.Width, pbColor.Height);
 		}
 
 		private void btnSaveAndClose_Click(object sender, EventArgs e)
@@ -147,7 +200,8 @@ namespace WinForms.Forms
 
 		public void SaveChanges()
 		{
-			
+			Config.Settings = tempConfig;
+			Config.Save();
 		}
 
 		private void btnSave_Click(object sender, EventArgs e)
@@ -157,14 +211,14 @@ namespace WinForms.Forms
 
 		public void PlaySound(string s, Action done)
 		{
-			if(s.ToLower().StartsWith("system:"))
+			if (s.ToLower().StartsWith("system:"))
 			{
 				string sound = s.Split(':')[1].ToLower().Trim();
-				if(sound == "asterisk") SystemSounds.Asterisk.Play();
-				if(sound == "beep") SystemSounds.Beep.Play();
-				if(sound == "exclamation") SystemSounds.Exclamation.Play();
-				if(sound == "hand") SystemSounds.Hand.Play();
-				if(sound == "question") SystemSounds.Question.Play();
+				if (sound == "asterisk") SystemSounds.Asterisk.Play();
+				if (sound == "beep") SystemSounds.Beep.Play();
+				if (sound == "exclamation") SystemSounds.Exclamation.Play();
+				if (sound == "hand") SystemSounds.Hand.Play();
+				if (sound == "question") SystemSounds.Question.Play();
 				done();
 			}
 			else
@@ -177,6 +231,71 @@ namespace WinForms.Forms
 				};
 				p.LoadAsync();
 			}
+		}
+
+		private void cbSoundVidup_CheckedChanged(object sender, EventArgs e)
+		{
+			tempConfig.Sounds.OnVideo = cbSoundVidup.Checked;
+		}
+
+		private void cbSoundLivestream_CheckedChanged(object sender, EventArgs e)
+		{
+			tempConfig.Sounds.OnLivestream = cbSoundLivestream.Checked;
+		}
+
+		private void cbSoundFBook_CheckedChanged(object sender, EventArgs e)
+		{
+			tempConfig.Sounds.OnFacebook = cbSoundFBook.Checked;
+		}
+
+		private void cbNotifyVideo_CheckedChanged(object sender, EventArgs e)
+		{
+			tempConfig.CheckVideo = cbNotifyVideo.Checked;
+		}
+
+		private void cbNotifySocial_CheckedChanged(object sender, EventArgs e)
+		{
+			tempConfig.CheckSocial = cbNotifySocial.Checked;
+		}
+
+		private void cbNotifyLivestream_CheckedChanged(object sender, EventArgs e)
+		{
+			tempConfig.CheckLivestream = cbNotifyLivestream.Checked;
+		}
+
+		private void cbCombineVidSocial_CheckedChanged(object sender, EventArgs e)
+		{
+			tempConfig.MergeSocialVideo = cbCombineVidSocial.Checked;
+		}
+
+		private void cbSound_SelectedIndexChanged(object sender, EventArgs e)
+		{
+			tempConfig.CurrentSound = cbSound.SelectedItem.ToString();
+		}
+
+		private void pbColor_Click(object sender, EventArgs e)
+		{
+			ColorDialog d = new ColorDialog();
+			DialogResult r = d.ShowDialog();
+			if(r == DialogResult.OK)
+			{
+				Color c = d.Color;
+				pbColor.CreateGraphics().FillRectangle(new SolidBrush(c), 0, 0, pbColor.Width, pbColor.Height);
+				tempConfig.NotifyColor = c.R + "," + c.G + "," + c.B;
+			}
+		}
+
+		private void tbDuration_Scroll(object sender, EventArgs e)
+		{
+			if (tbDuration.Value == tbDuration.Maximum)
+			{
+				lbNotifyDura.Text = "Unendlich";
+			}
+			else
+			{
+				lbNotifyDura.Text = Math.Round(tbDuration.Value * 0.1f, 1) + " Sek.";
+			}
+			tempConfig.NotifyDelay = tbDuration.Value;
 		}
 	}
 }
