@@ -40,6 +40,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Messaging" />
     <Reference Include="System.Web" />
     <Reference Include="System.Windows" />
@@ -83,6 +84,7 @@
     <Compile Include="Notifications.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Version.cs" />
     <Compile Include="VideoMessageControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
