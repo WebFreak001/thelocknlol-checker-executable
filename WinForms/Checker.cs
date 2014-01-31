@@ -22,7 +22,7 @@ namespace WinForms
 
 		public void checkTwitch()
 		{
-			if (SavingConfig.Livestream)
+			if (Config.Settings.Livestream)
 			{
 				using (WebClient c = new WebClient())
 				{
@@ -52,11 +52,12 @@ namespace WinForms
 
 		public void checkYoutube()
 		{
-			if (SavingConfig.Video)
+			if (Config.Settings.Video)
 			{
 				using (WebClient c = new WebClient())
 				{
 					c.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5"));
+					bool first = true;
 					c.DownloadStringCompleted += (a, b) =>
 					{
 						if (!b.Cancelled)
@@ -79,7 +80,12 @@ namespace WinForms
 											string title = reader.ReadElementContentAsString();
 											reader.ReadToFollowing("media:thumbnail");
 											string thumbnail = reader["url"];
-											if (SavingConfig.LastVideo == id) goto ReadDone;
+											if (Config.Settings.LastVideo == id) goto ReadDone;
+											if (first)
+											{
+												MessageManager.Clear();
+												first = false;
+											}
 											MessageManager.Notify("http://www.youtube.com/watch?v=" + id.Substring(42), thumbnail, "TheLockNLol hat ein neues Video hochgeladen!", title, "http://www.youtube.com/watch?v=" + id.Substring(42));
 										}
 										catch { }
@@ -89,7 +95,11 @@ namespace WinForms
 							reader.Close();
 							reader.Dispose();
 						ReadDone:
-							if (lastID != "") SavingConfig.LastVideo = lastID;
+							if (lastID != "")
+							{
+								Config.Settings.LastVideo = lastID;
+								Config.Save();
+							}
 						}
 					};
 				}
@@ -98,7 +108,7 @@ namespace WinForms
 
 		public void checkFacebook()
 		{
-			if (SavingConfig.Facebook)
+			if (Config.Settings.Facebook)
 			{
 				//https://graph.facebook.com/TheLockNLol/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y
 
