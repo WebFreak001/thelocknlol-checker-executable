@@ -28,12 +28,17 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem(new string[] {
+			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol"}, -1);
-			System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
+			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
+			System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("System:Asterisk");
+			System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("System:Beep");
+			System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("System:Exclamation");
+			System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("System:Hand");
+			System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("System:Question");
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tpGeneral = new System.Windows.Forms.TabPage();
 			this.lvCheckers = new System.Windows.Forms.ListView();
@@ -61,6 +66,10 @@
 			this.cbNotifyFb = new System.Windows.Forms.CheckBox();
 			this.cbNotifyLivestream = new System.Windows.Forms.CheckBox();
 			this.cbNotifyVideo = new System.Windows.Forms.CheckBox();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.btnResetChanges = new System.Windows.Forms.Button();
+			this.btnSaveAndClose = new System.Windows.Forms.Button();
+			this.btnSave = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tpGeneral.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -71,6 +80,7 @@
 			this.splitContainer1.SuspendLayout();
 			this.groupBox1.SuspendLayout();
 			this.groupBox2.SuspendLayout();
+			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -81,7 +91,7 @@
 			this.tabControl1.Location = new System.Drawing.Point(0, 0);
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size(450, 283);
+			this.tabControl1.Size = new System.Drawing.Size(450, 289);
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tpGeneral
@@ -91,7 +101,7 @@
 			this.tpGeneral.Location = new System.Drawing.Point(4, 22);
 			this.tpGeneral.Name = "tpGeneral";
 			this.tpGeneral.Padding = new System.Windows.Forms.Padding(3);
-			this.tpGeneral.Size = new System.Drawing.Size(442, 257);
+			this.tpGeneral.Size = new System.Drawing.Size(442, 263);
 			this.tpGeneral.TabIndex = 0;
 			this.tpGeneral.Text = "Generell";
 			this.tpGeneral.UseVisualStyleBackColor = true;
@@ -105,13 +115,13 @@
             this.twitchName,
             this.fbName});
 			this.lvCheckers.Dock = System.Windows.Forms.DockStyle.Fill;
-			listViewItem5.Checked = true;
-			listViewItem5.StateImageIndex = 1;
+			listViewItem1.Checked = true;
+			listViewItem1.StateImageIndex = 1;
 			this.lvCheckers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem5});
+            listViewItem1});
 			this.lvCheckers.Location = new System.Drawing.Point(3, 3);
 			this.lvCheckers.Name = "lvCheckers";
-			this.lvCheckers.Size = new System.Drawing.Size(436, 216);
+			this.lvCheckers.Size = new System.Drawing.Size(436, 222);
 			this.lvCheckers.TabIndex = 0;
 			this.lvCheckers.UseCompatibleStateImageBehavior = false;
 			this.lvCheckers.View = System.Windows.Forms.View.Details;
@@ -138,11 +148,11 @@
 			// 
 			// panel1
 			// 
-			this.panel1.BackColor = System.Drawing.Color.Gainsboro;
+			this.panel1.BackColor = System.Drawing.SystemColors.Control;
 			this.panel1.Controls.Add(this.btnRem);
 			this.panel1.Controls.Add(this.btnAdd);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(3, 219);
+			this.panel1.Location = new System.Drawing.Point(3, 225);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(436, 35);
 			this.panel1.TabIndex = 1;
@@ -173,7 +183,7 @@
 			this.tabPage2.Location = new System.Drawing.Point(4, 22);
 			this.tabPage2.Name = "tabPage2";
 			this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-			this.tabPage2.Size = new System.Drawing.Size(442, 257);
+			this.tabPage2.Size = new System.Drawing.Size(442, 263);
 			this.tabPage2.TabIndex = 1;
 			this.tabPage2.Text = "Benachrichtigungen";
 			this.tabPage2.UseVisualStyleBackColor = true;
@@ -191,7 +201,7 @@
 			// splitContainer1.Panel2
 			// 
 			this.splitContainer1.Panel2.Controls.Add(this.groupBox2);
-			this.splitContainer1.Size = new System.Drawing.Size(436, 251);
+			this.splitContainer1.Size = new System.Drawing.Size(436, 257);
 			this.splitContainer1.SplitterDistance = 218;
 			this.splitContainer1.TabIndex = 0;
 			// 
@@ -208,7 +218,7 @@
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(218, 251);
+			this.groupBox1.Size = new System.Drawing.Size(218, 257);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Sounds";
@@ -241,7 +251,7 @@
 			// 
 			this.tbSoundFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbSoundFile.Location = new System.Drawing.Point(5, 224);
+			this.tbSoundFile.Location = new System.Drawing.Point(5, 230);
 			this.tbSoundFile.Name = "tbSoundFile";
 			this.tbSoundFile.Size = new System.Drawing.Size(130, 20);
 			this.tbSoundFile.TabIndex = 6;
@@ -250,7 +260,7 @@
 			// btnAddSound
 			// 
 			this.btnAddSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnAddSound.Location = new System.Drawing.Point(137, 222);
+			this.btnAddSound.Location = new System.Drawing.Point(137, 228);
 			this.btnAddSound.Name = "btnAddSound";
 			this.btnAddSound.Size = new System.Drawing.Size(75, 23);
 			this.btnAddSound.TabIndex = 5;
@@ -264,13 +274,18 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.lvSounds.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			listViewItem6.Checked = true;
-			listViewItem6.StateImageIndex = 1;
+			listViewItem2.Checked = true;
+			listViewItem2.StateImageIndex = 1;
 			this.lvSounds.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem6});
+            listViewItem2,
+            listViewItem3,
+            listViewItem4,
+            listViewItem5,
+            listViewItem6,
+            listViewItem7});
 			this.lvSounds.Location = new System.Drawing.Point(6, 115);
 			this.lvSounds.Name = "lvSounds";
-			this.lvSounds.Size = new System.Drawing.Size(206, 101);
+			this.lvSounds.Size = new System.Drawing.Size(206, 107);
 			this.lvSounds.TabIndex = 4;
 			this.lvSounds.UseCompatibleStateImageBehavior = false;
 			this.lvSounds.View = System.Windows.Forms.View.List;
@@ -317,7 +332,7 @@
 			this.groupBox2.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox2.Location = new System.Drawing.Point(0, 0);
 			this.groupBox2.Name = "groupBox2";
-			this.groupBox2.Size = new System.Drawing.Size(214, 251);
+			this.groupBox2.Size = new System.Drawing.Size(214, 257);
 			this.groupBox2.TabIndex = 1;
 			this.groupBox2.TabStop = false;
 			this.groupBox2.Text = "Benachrichtigungen";
@@ -381,12 +396,62 @@
 			this.cbNotifyVideo.Text = "Video-Upload";
 			this.cbNotifyVideo.UseVisualStyleBackColor = true;
 			// 
+			// panel2
+			// 
+			this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
+			this.panel2.Controls.Add(this.btnResetChanges);
+			this.panel2.Controls.Add(this.btnSaveAndClose);
+			this.panel2.Controls.Add(this.btnSave);
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Bottom;
+			this.panel2.Location = new System.Drawing.Point(0, 289);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(450, 39);
+			this.panel2.TabIndex = 1;
+			// 
+			// btnResetChanges
+			// 
+			this.btnResetChanges.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+			this.btnResetChanges.Location = new System.Drawing.Point(4, 3);
+			this.btnResetChanges.Name = "btnResetChanges";
+			this.btnResetChanges.Size = new System.Drawing.Size(97, 33);
+			this.btnResetChanges.TabIndex = 2;
+			this.btnResetChanges.Text = "Wiederherstellen";
+			this.btnResetChanges.UseVisualStyleBackColor = true;
+			this.btnResetChanges.Click += new System.EventHandler(this.btnResetChanges_Click);
+			// 
+			// btnSaveAndClose
+			// 
+			this.btnSaveAndClose.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSaveAndClose.Location = new System.Drawing.Point(107, 3);
+			this.btnSaveAndClose.Name = "btnSaveAndClose";
+			this.btnSaveAndClose.Size = new System.Drawing.Size(256, 33);
+			this.btnSaveAndClose.TabIndex = 1;
+			this.btnSaveAndClose.Text = "OK";
+			this.btnSaveAndClose.UseVisualStyleBackColor = true;
+			this.btnSaveAndClose.Click += new System.EventHandler(this.btnSaveAndClose_Click);
+			// 
+			// btnSave
+			// 
+			this.btnSave.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSave.Location = new System.Drawing.Point(369, 3);
+			this.btnSave.Name = "btnSave";
+			this.btnSave.Size = new System.Drawing.Size(77, 33);
+			this.btnSave.TabIndex = 0;
+			this.btnSave.Text = "Übernehmen";
+			this.btnSave.UseVisualStyleBackColor = true;
+			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
+			// 
 			// OptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(450, 283);
+			this.ClientSize = new System.Drawing.Size(450, 328);
 			this.Controls.Add(this.tabControl1);
+			this.Controls.Add(this.panel2);
 			this.MinimumSize = new System.Drawing.Size(402, 240);
 			this.Name = "OptionsForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -404,6 +469,7 @@
 			this.groupBox1.PerformLayout();
 			this.groupBox2.ResumeLayout(false);
 			this.groupBox2.PerformLayout();
+			this.panel2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -437,5 +503,9 @@
 		private System.Windows.Forms.CheckBox cbCombineVidFacebook;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnPreviewSound;
+		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.Button btnSave;
+		private System.Windows.Forms.Button btnSaveAndClose;
+		private System.Windows.Forms.Button btnResetChanges;
 	}
 }

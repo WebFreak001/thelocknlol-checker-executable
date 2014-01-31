@@ -8,6 +8,7 @@ using System.Linq;
 using System.Media;
 using System.Text;
 using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -92,16 +93,10 @@ namespace WinForms.Forms
 
 		private void btnPreviewSound_Click(object sender, EventArgs e)
 		{
-			if (File.Exists(cbSound.Items[cbSound.SelectedIndex].ToString()))
+			if (File.Exists(cbSound.Items[cbSound.SelectedIndex].ToString()) || cbSound.Items[cbSound.SelectedIndex].ToString().Trim().ToLower().StartsWith("system:"))
 			{
 				btnPreviewSound.Enabled = false;
-				SoundPlayer p = new SoundPlayer(cbSound.Items[cbSound.SelectedIndex].ToString());
-				p.LoadCompleted += (a, b) =>
-				{
-					p.Play();
-					btnPreviewSound.Enabled = true;
-				};
-				p.LoadAsync();
+				PlaySound(cbSound.Items[cbSound.SelectedIndex].ToString(), () => { btnPreviewSound.Enabled = true; });
 			}
 			else
 			{
@@ -131,6 +126,57 @@ namespace WinForms.Forms
 			List<ListViewItem> items = new List<ListViewItem>();
 			foreach (ListViewItem i in lvCheckers.SelectedItems) items.Add(i);
 			items.Where(e => e.Text.ToLower().Trim() != "thelocknlol").ToList().ForEach(e => lvCheckers.Items.Remove(e));
+		}
+
+		private void btnResetChanges_Click(object sender, EventArgs e)
+		{
+			DialogResult r = MessageBox.Show("Wollen Sie ihre Änderungen wirklich verwerfen?", "Warnung!", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+			if(r == DialogResult.Yes) ResetChanges();
+		}
+
+		public void ResetChanges()
+		{
+			
+		}
+
+		private void btnSaveAndClose_Click(object sender, EventArgs e)
+		{
+			SaveChanges();
+			Close();
+		}
+
+		public void SaveChanges()
+		{
+			
+		}
+
+		private void btnSave_Click(object sender, EventArgs e)
+		{
+			SaveChanges();
+		}
+
+		public void PlaySound(string s, Action done)
+		{
+			if(s.ToLower().StartsWith("system:"))
+			{
+				string sound = s.Split(':')[1].ToLower().Trim();
+				if(sound == "asterisk") SystemSounds.Asterisk.Play();
+				if(sound == "beep") SystemSounds.Beep.Play();
+				if(sound == "exclamation") SystemSounds.Exclamation.Play();
+				if(sound == "hand") SystemSounds.Hand.Play();
+				if(sound == "question") SystemSounds.Question.Play();
+				done();
+			}
+			else
+			{
+				SoundPlayer p = new SoundPlayer(s);
+				p.LoadCompleted += (a, b) =>
+				{
+					p.Play();
+					done();
+				};
+				p.LoadAsync();
+			}
 		}
 	}
 }
