@@ -11,7 +11,7 @@ namespace WinForms
 {
 	public class Notifications
 	{
-		static int Count = 0;
+		public static int Count = 0;
 
 		public static int GetTaskbarHeight()
 		{

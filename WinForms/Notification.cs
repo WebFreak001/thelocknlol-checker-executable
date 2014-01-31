@@ -27,6 +27,7 @@ namespace WinForms
 			byte[] bytes = wc.DownloadData(image);
 			MemoryStream ms = new MemoryStream(bytes);
 			this.image = Image.FromStream(ms);
+			Bitmap t = new Bitmap(this.image);
 			this.title = title;
 			this.desc = desc;
 			this.link = link;
@@ -52,7 +53,6 @@ namespace WinForms
 		private void Notification_Paint(object sender, PaintEventArgs e)
 		{
 			Graphics g = e.Graphics;
-			g.Clear(Color.Magenta);
 			g.DrawImage(Image.FromFile("Image/Notification.png"), 0, 0, Width, Height);
 			g.DrawImage(image, 20, 20, 61, 61);
 			g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 20));

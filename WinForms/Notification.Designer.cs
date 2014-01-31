@@ -47,11 +47,13 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.BackColor = System.Drawing.Color.Fuchsia;
 			this.ClientSize = new System.Drawing.Size(370, 100);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
 			this.Name = "Notification";
 			this.Text = "Notification";
 			this.TopMost = true;
+			this.TransparencyKey = System.Drawing.Color.Fuchsia;
 			this.Click += new System.EventHandler(this.Notification_Click);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.Notification_Paint);
 			this.ResumeLayout(false);
