@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,12 +23,60 @@ namespace WinForms
 			InitializeComponent();
 			tllChecker = new Checker("TheLockNLol", "TheLockNLol", "TheLockNLol");
 			MessageManager.OnMessage += OnMessage;
+			MessageManager.OnClear += OnClear;
+			Config.Load();
+			if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
+			{
+				MessageManager.Notify("http://www.facebook.de/TheLockNLol", "Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)");
+			}
+			CheckForUpdate();
+		}
+
+		void OnClear(object sender, EventArgs e)
+		{
+			layout.Controls.Clear();
+		}
+
+		public void CheckForUpdate()
+		{
+			try
+			{
+				using (WebClient c = new WebClient())
+				{
+					string s = c.DownloadString("https://raw.github.com/WebFreak001/thelocknlol-checker-executable/master/WinForms/Version.cs");
+					string[] lines = s.Split('\n');
+					string vRaw = lines[2].Trim().Substring("public static int VersionNumber = ".Length).Replace(";", "");
+					string link = lines[3].Trim().Substring("public static string Download = ".Length).Replace("\"", "").Replace(";", "");
+					int version = int.Parse(vRaw);
+					if (Version.VersionNumber < version)
+					{
+						if (Config.Settings.AutoUpdate)
+						{
+							c.DownloadFileAsync(new Uri(link), Path.Combine(Directory.GetCurrentDirectory(), "update.zip"));
+							c.DownloadFileCompleted += (a, b) =>
+							{
+								ProcessStartInfo pfi = new ProcessStartInfo("Explorer.exe", string.Format("/Select, \"{0}\"", Path.Combine(Directory.GetCurrentDirectory(), "update.zip")));
+								Process.Start(pfi);
+							};
+						}
+						else
+						{
+							Notifications.Notify(new ImagedMessageControl("", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link);
+						}
+					}
+				}
+			}
+			catch
+			{
+				Console.WriteLine("Couldnt Check for updates!");
+			}
 		}
 
 		void OnMessage(object sender, Control e)
 		{
 			layout.SuspendLayout();
 			layout.Controls.Add(e);
+			ResizeThings();
 			layout.ResumeLayout();
 		}
 
@@ -52,6 +103,11 @@ namespace WinForms
 
 		private void MainForm_Resize(object sender, EventArgs e)
 		{
+			ResizeThings();
+		}
+
+		public void ResizeThings()
+		{
 			if (layout.Controls.Count != 0)
 			{
 				List<Control> c = new List<Control>();
@@ -60,7 +116,7 @@ namespace WinForms
 				{
 					i.Width = Math.Max(1, Width - 100) / 2;
 					i.Height = (int)((i.Width) / 16.0f * 9.0f + i.Height * 0.3f);
-
+					i.Refresh();
 				});
 			}
 		}

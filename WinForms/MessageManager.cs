@@ -10,10 +10,11 @@ namespace WinForms
 	public class MessageManager
 	{
 		public static event EventHandler<Control> OnMessage;
+		public static event EventHandler OnClear;
 
 		public static void Notify(string link, string icon, string title, string desc, string data = "")
 		{
-			if(data != "")
+			if (data != "")
 			{
 				VideoMessageControl c = new VideoMessageControl(icon, title, desc, data);
 				if (OnMessage != null) OnMessage(null, c);
@@ -25,6 +26,11 @@ namespace WinForms
 				if (OnMessage != null) OnMessage(null, c);
 				Notifications.Notify(c, link);
 			}
+		}
+
+		public static void Clear()
+		{
+			if (OnClear != null) OnClear(null, EventArgs.Empty);
 		}
 	}
 }
