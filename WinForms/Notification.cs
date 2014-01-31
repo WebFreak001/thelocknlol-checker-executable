@@ -57,16 +57,27 @@ namespace WinForms
 			g.DrawImage(image, 20, 20, 61, 61);
 			g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 20));
 			g.DrawString(desc, new Font("Arial", 10.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(96, 36, 256, 50));
+			g.DrawString("X", new Font("Arial", 9.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(346, 12, 12, 12));
 		}
 
 		private void Notification_Click(object sender, EventArgs e)
 		{
-			Process.Start(link);
-			Dismiss();
+			Point p = PointToClient(Cursor.Position);
+			if(p.X >= 343 && p.X <= 361 && p.Y >= 10 && p.Y <= 28)
+			{
+				//TODO: Remove from history
+			}
+			else
+			{
+				Process.Start(link);
+			}
+			Close();
+			Notifications.Count--;
 		}
 
 		public void Dismiss()
 		{
+			Notifications.Count--;
 			timer2.Enabled = true;
 		}
 
