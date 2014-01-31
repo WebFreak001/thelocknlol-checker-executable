@@ -16,12 +16,12 @@ namespace WinForms
 {
 	public partial class MainForm : Form
 	{
-		Checker tllChecker;
+		List<Checker> checkers;
 
 		public MainForm()
 		{
 			InitializeComponent();
-			tllChecker = new Checker("TheLockNLol", "TheLockNLol", "TheLockNLol");
+			checkers = new List<Checker>();
 			MessageManager.OnMessage += OnMessage;
 			MessageManager.OnClear += OnClear;
 			Config.Load();
@@ -30,6 +30,14 @@ namespace WinForms
 				MessageManager.Notify("http://www.facebook.de/TheLockNLol", "Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)");
 			}
 			CheckForUpdate();
+			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
+			{
+				checkers.Add(new Checker("TheLockNLol", "TheLockNLol", "TheLockNLol", "TheLockNLol"));
+			}
+			foreach(CheckerFormat f in Config.Settings.Checkers)
+			{
+				checkers.Add(new Checker(f.Twitch, f.YouTube, f.Facebook, f.Twitter));
+			}
 		}
 
 		void OnClear(object sender, EventArgs e)
@@ -92,8 +100,7 @@ namespace WinForms
 
 		public void RefreshThings()
 		{
-			tllChecker.checkTwitch();
-			tllChecker.checkYoutube();
+			checkers.ForEach(e => { e.checkYoutube(); e.checkTwitch(); e.checkFacebook(); e.checkTwitter(); });
 		}
 
 		private void btnOptions_Click(object sender, EventArgs e)

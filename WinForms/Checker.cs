@@ -11,18 +11,20 @@ namespace WinForms
 {
 	public class Checker
 	{
-		string twitch, youtube, facebook;
+		string name, twitch, youtube, facebook, twitter;
 
-		public Checker(string twitch, string youtube, string facebook)
+		public Checker(string name, string twitch, string youtube, string facebook, string twitter)
 		{
+			this.name = name;
 			this.twitch = twitch;
 			this.youtube = youtube;
 			this.facebook = facebook;
+			this.twitter = twitter;
 		}
 
 		public void checkTwitch()
 		{
-			if (Config.Settings.CheckLivestream)
+			if (Config.Settings.CheckLivestream && twitch.Trim() != "")
 			{
 				using (WebClient c = new WebClient())
 				{
@@ -40,7 +42,7 @@ namespace WinForms
 							{
 								if (!Config.LastTwitchOnline)
 								{
-									Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/TheLockNLol");
+									Notifications.Notify(new ImagedMessageControl("Image/koala256.png", name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch);
 								}
 								Config.LastTwitchOnline = true;
 							}
@@ -52,7 +54,7 @@ namespace WinForms
 
 		public void checkYoutube()
 		{
-			if (Config.Settings.CheckVideo)
+			if (Config.Settings.CheckVideo && youtube.Trim() != "")
 			{
 				using (WebClient c = new WebClient())
 				{
@@ -108,7 +110,7 @@ namespace WinForms
 
 		public void checkFacebook()
 		{
-			if (Config.Settings.CheckSocial)
+			if (Config.Settings.CheckSocial && facebook.Trim() != "")
 			{
 				//https://graph.facebook.com/TheLockNLol/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y
 
@@ -117,10 +119,9 @@ namespace WinForms
 
 		public void checkTwitter()
 		{
-			if (Config.Settings.CheckSocial)
+			if (Config.Settings.CheckSocial && twitter.Trim() != "")
 			{
-				//https://graph.facebook.com/TheLockNLol/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y
-
+				
 			}
 		}
 	}
