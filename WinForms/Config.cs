@@ -50,7 +50,7 @@ namespace WinForms
 
 		public static void Load()
 		{
-			if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = "255, 225, 255", CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, LastVideo = "", CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Filter = new [] { "TheLockNLol" }, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnTwitter = false, OnVideo = false }, Checkers = new[] { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol", Twitter = "TheLockNLol" } } }, Formatting.Indented));
+			if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = "255, 255, 255", CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, LastVideo = "", CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Filter = new [] { "TheLockNLol" }, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnTwitter = false, OnVideo = false }, Checkers = new[] { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol", Twitter = "TheLockNLol" } } }, Formatting.Indented));
 			Settings = JsonConvert.DeserializeObject<ConfigFormat>(File.ReadAllText("config.json"));
 		}
 
