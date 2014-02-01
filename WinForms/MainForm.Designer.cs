@@ -30,7 +30,6 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("TheLockNLol");
 			this.tsOptions = new System.Windows.Forms.ToolStrip();
 			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
@@ -40,9 +39,9 @@
 			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.panel2 = new System.Windows.Forms.Panel();
-			this.btnUnread = new System.Windows.Forms.Button();
-			this.btnHistory = new System.Windows.Forms.Button();
 			this.tsbAbout = new System.Windows.Forms.ToolStripButton();
+			this.btnUnread = new System.Windows.Forms.CheckBox();
+			this.btnHistory = new System.Windows.Forms.CheckBox();
 			this.tsOptions.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -106,9 +105,6 @@
             this.columnHeader1});
 			this.lvFilter.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvFilter.GridLines = true;
-			listViewItem2.StateImageIndex = 0;
-			this.lvFilter.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2});
 			this.lvFilter.Location = new System.Drawing.Point(0, 33);
 			this.lvFilter.Name = "lvFilter";
 			this.lvFilter.Size = new System.Drawing.Size(200, 389);
@@ -142,24 +138,6 @@
 			this.panel2.Size = new System.Drawing.Size(200, 33);
 			this.panel2.TabIndex = 3;
 			// 
-			// btnUnread
-			// 
-			this.btnUnread.Location = new System.Drawing.Point(3, 4);
-			this.btnUnread.Name = "btnUnread";
-			this.btnUnread.Size = new System.Drawing.Size(96, 26);
-			this.btnUnread.TabIndex = 0;
-			this.btnUnread.Text = "Ungelesen";
-			this.btnUnread.UseVisualStyleBackColor = true;
-			// 
-			// btnHistory
-			// 
-			this.btnHistory.Location = new System.Drawing.Point(101, 4);
-			this.btnHistory.Name = "btnHistory";
-			this.btnHistory.Size = new System.Drawing.Size(96, 26);
-			this.btnHistory.TabIndex = 1;
-			this.btnHistory.Text = "Verlauf";
-			this.btnHistory.UseVisualStyleBackColor = true;
-			// 
 			// tsbAbout
 			// 
 			this.tsbAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
@@ -169,6 +147,32 @@
 			this.tsbAbout.Size = new System.Drawing.Size(36, 22);
 			this.tsbAbout.Text = "Über";
 			this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
+			// 
+			// btnUnread
+			// 
+			this.btnUnread.Appearance = System.Windows.Forms.Appearance.Button;
+			this.btnUnread.Location = new System.Drawing.Point(3, 3);
+			this.btnUnread.Name = "btnUnread";
+			this.btnUnread.Size = new System.Drawing.Size(96, 27);
+			this.btnUnread.TabIndex = 0;
+			this.btnUnread.Text = "Ungelesen";
+			this.btnUnread.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.btnUnread.UseVisualStyleBackColor = true;
+			this.btnUnread.Click += new System.EventHandler(this.btnUnread_Click);
+			// 
+			// btnHistory
+			// 
+			this.btnHistory.Appearance = System.Windows.Forms.Appearance.Button;
+			this.btnHistory.Checked = true;
+			this.btnHistory.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.btnHistory.Location = new System.Drawing.Point(101, 3);
+			this.btnHistory.Name = "btnHistory";
+			this.btnHistory.Size = new System.Drawing.Size(96, 27);
+			this.btnHistory.TabIndex = 1;
+			this.btnHistory.Text = "Verlauf";
+			this.btnHistory.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+			this.btnHistory.UseVisualStyleBackColor = true;
+			this.btnHistory.Click += new System.EventHandler(this.btnHistory_Click);
 			// 
 			// MainForm
 			// 
@@ -202,9 +206,9 @@
 		private System.Windows.Forms.ColumnHeader columnHeader1;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.Panel panel2;
-		private System.Windows.Forms.Button btnHistory;
-		private System.Windows.Forms.Button btnUnread;
 		private System.Windows.Forms.ToolStripButton tsbAbout;
+		private System.Windows.Forms.CheckBox btnHistory;
+		private System.Windows.Forms.CheckBox btnUnread;
 	}
 }
 
