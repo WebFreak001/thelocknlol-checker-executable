@@ -12,18 +12,18 @@ namespace WinForms
 		public static event EventHandler<Control> OnMessage;
 		public static event EventHandler OnClear;
 
-		public static void Notify(string link, string icon, string title, string desc, string data = "")
+		public static void Notify(string id, string link, string icon, string title, string desc, string data = "")
 		{
 			if (data != "")
 			{
 				VideoMessageControl c = new VideoMessageControl(icon, title, desc, data);
-				if (OnMessage != null) OnMessage(null, c);
+				if (OnMessage != null) OnMessage(id, c);
 				Notifications.Notify(new ImagedMessageControl(icon, title, desc), link);
 			}
 			else
 			{
 				ImagedMessageControl c = new ImagedMessageControl(icon, title, desc);
-				if (OnMessage != null) OnMessage(null, c);
+				if (OnMessage != null) OnMessage(id, c);
 				Notifications.Notify(c, link);
 			}
 		}

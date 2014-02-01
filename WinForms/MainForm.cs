@@ -27,7 +27,7 @@ namespace WinForms
 			Config.Load();
 			if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
 			{
-				MessageManager.Notify("http://www.facebook.de/TheLockNLol", "Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)");
+				MessageManager.Notify("TheLockNLol", "http://www.facebook.de/TheLockNLol", "Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)");
 			}
 			CheckForUpdate();
 			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
@@ -82,6 +82,7 @@ namespace WinForms
 
 		void OnMessage(object sender, Control e)
 		{
+			string s = sender.ToString();
 			layout.SuspendLayout();
 			layout.Controls.Add(e);
 			ResizeThings();
@@ -126,6 +127,11 @@ namespace WinForms
 					i.Refresh();
 				});
 			}
+		}
+
+		private void lvFilter_ItemChecked(object sender, ItemCheckedEventArgs e)
+		{
+
 		}
 	}
 }

@@ -31,26 +31,33 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("TheLockNLol");
-			this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+			this.tsOptions = new System.Windows.Forms.ToolStrip();
 			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
 			this.layout = new System.Windows.Forms.FlowLayoutPanel();
 			this.refreshTimer = new System.Windows.Forms.Timer(this.components);
-			this.listView1 = new System.Windows.Forms.ListView();
+			this.lvFilter = new System.Windows.Forms.ListView();
 			this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.toolStrip1.SuspendLayout();
+			this.panel1 = new System.Windows.Forms.Panel();
+			this.panel2 = new System.Windows.Forms.Panel();
+			this.btnUnread = new System.Windows.Forms.Button();
+			this.btnHistory = new System.Windows.Forms.Button();
+			this.tsOptions.SuspendLayout();
+			this.panel1.SuspendLayout();
+			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
-			// toolStrip1
+			// tsOptions
 			// 
-			this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+			this.tsOptions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
+			this.tsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnRefresh,
             this.btnOptions});
-			this.toolStrip1.Location = new System.Drawing.Point(0, 0);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(654, 25);
-			this.toolStrip1.TabIndex = 0;
-			this.toolStrip1.Text = "toolStrip1";
+			this.tsOptions.Location = new System.Drawing.Point(0, 0);
+			this.tsOptions.Name = "tsOptions";
+			this.tsOptions.Size = new System.Drawing.Size(654, 25);
+			this.tsOptions.TabIndex = 0;
+			this.tsOptions.Text = "Optionen";
 			// 
 			// btnRefresh
 			// 
@@ -58,8 +65,9 @@
 			this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
 			this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
 			this.btnRefresh.Name = "btnRefresh";
-			this.btnRefresh.Size = new System.Drawing.Size(50, 22);
-			this.btnRefresh.Text = "Refersh";
+			this.btnRefresh.Size = new System.Drawing.Size(79, 22);
+			this.btnRefresh.Text = "Aktualisieren";
+			this.btnRefresh.ToolTipText = "Prüft nach den neusten Informationen aller Kanäle";
 			this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
 			// 
 			// btnOptions
@@ -70,15 +78,18 @@
 			this.btnOptions.Name = "btnOptions";
 			this.btnOptions.Size = new System.Drawing.Size(61, 22);
 			this.btnOptions.Text = "Optionen";
+			this.btnOptions.ToolTipText = "Hier kannst du einstellen, wer angezeigt werden soll und welche Sachen angezeigt " +
+    "werden sollen";
 			this.btnOptions.Click += new System.EventHandler(this.btnOptions_Click);
 			// 
 			// layout
 			// 
 			this.layout.AutoScroll = true;
+			this.layout.BackColor = System.Drawing.SystemColors.ControlLight;
 			this.layout.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.layout.Location = new System.Drawing.Point(166, 25);
+			this.layout.Location = new System.Drawing.Point(200, 25);
 			this.layout.Name = "layout";
-			this.layout.Size = new System.Drawing.Size(488, 422);
+			this.layout.Size = new System.Drawing.Size(454, 422);
 			this.layout.TabIndex = 1;
 			// 
 			// refreshTimer
@@ -86,27 +97,66 @@
 			this.refreshTimer.Interval = 10000;
 			this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
 			// 
-			// listView1
+			// lvFilter
 			// 
-			this.listView1.CheckBoxes = true;
-			this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+			this.lvFilter.CheckBoxes = true;
+			this.lvFilter.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-			this.listView1.Dock = System.Windows.Forms.DockStyle.Left;
-			this.listView1.GridLines = true;
+			this.lvFilter.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lvFilter.GridLines = true;
 			listViewItem1.StateImageIndex = 0;
-			this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+			this.lvFilter.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
             listViewItem1});
-			this.listView1.Location = new System.Drawing.Point(0, 25);
-			this.listView1.Name = "listView1";
-			this.listView1.Size = new System.Drawing.Size(166, 422);
-			this.listView1.TabIndex = 2;
-			this.listView1.UseCompatibleStateImageBehavior = false;
-			this.listView1.View = System.Windows.Forms.View.Details;
+			this.lvFilter.Location = new System.Drawing.Point(0, 33);
+			this.lvFilter.Name = "lvFilter";
+			this.lvFilter.Size = new System.Drawing.Size(200, 389);
+			this.lvFilter.TabIndex = 2;
+			this.lvFilter.UseCompatibleStateImageBehavior = false;
+			this.lvFilter.View = System.Windows.Forms.View.Details;
+			this.lvFilter.ItemChecked += new System.Windows.Forms.ItemCheckedEventHandler(this.lvFilter_ItemChecked);
 			// 
 			// columnHeader1
 			// 
 			this.columnHeader1.Text = "Prüfe";
 			this.columnHeader1.Width = 160;
+			// 
+			// panel1
+			// 
+			this.panel1.Controls.Add(this.lvFilter);
+			this.panel1.Controls.Add(this.panel2);
+			this.panel1.Dock = System.Windows.Forms.DockStyle.Left;
+			this.panel1.Location = new System.Drawing.Point(0, 25);
+			this.panel1.Name = "panel1";
+			this.panel1.Size = new System.Drawing.Size(200, 422);
+			this.panel1.TabIndex = 3;
+			// 
+			// panel2
+			// 
+			this.panel2.Controls.Add(this.btnHistory);
+			this.panel2.Controls.Add(this.btnUnread);
+			this.panel2.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel2.Location = new System.Drawing.Point(0, 0);
+			this.panel2.Name = "panel2";
+			this.panel2.Size = new System.Drawing.Size(200, 33);
+			this.panel2.TabIndex = 3;
+			// 
+			// btnUnread
+			// 
+			this.btnUnread.Location = new System.Drawing.Point(3, 4);
+			this.btnUnread.Name = "btnUnread";
+			this.btnUnread.Size = new System.Drawing.Size(96, 26);
+			this.btnUnread.TabIndex = 0;
+			this.btnUnread.Text = "Ungelesen";
+			this.btnUnread.UseVisualStyleBackColor = true;
+			// 
+			// btnHistory
+			// 
+			this.btnHistory.Location = new System.Drawing.Point(101, 4);
+			this.btnHistory.Name = "btnHistory";
+			this.btnHistory.Size = new System.Drawing.Size(96, 26);
+			this.btnHistory.TabIndex = 1;
+			this.btnHistory.Text = "Verlauf";
+			this.btnHistory.UseVisualStyleBackColor = true;
 			// 
 			// MainForm
 			// 
@@ -114,14 +164,16 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(654, 447);
 			this.Controls.Add(this.layout);
-			this.Controls.Add(this.listView1);
-			this.Controls.Add(this.toolStrip1);
+			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.tsOptions);
 			this.Name = "MainForm";
 			this.Text = "TheLockNLol Checker";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.Resize += new System.EventHandler(this.MainForm_Resize);
-			this.toolStrip1.ResumeLayout(false);
-			this.toolStrip1.PerformLayout();
+			this.tsOptions.ResumeLayout(false);
+			this.tsOptions.PerformLayout();
+			this.panel1.ResumeLayout(false);
+			this.panel2.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -129,13 +181,17 @@
 
 		#endregion
 
-		private System.Windows.Forms.ToolStrip toolStrip1;
+		private System.Windows.Forms.ToolStrip tsOptions;
 		private System.Windows.Forms.ToolStripButton btnOptions;
 		private System.Windows.Forms.FlowLayoutPanel layout;
 		private System.Windows.Forms.ToolStripButton btnRefresh;
 		private System.Windows.Forms.Timer refreshTimer;
-		private System.Windows.Forms.ListView listView1;
+		private System.Windows.Forms.ListView lvFilter;
 		private System.Windows.Forms.ColumnHeader columnHeader1;
+		private System.Windows.Forms.Panel panel1;
+		private System.Windows.Forms.Panel panel2;
+		private System.Windows.Forms.Button btnHistory;
+		private System.Windows.Forms.Button btnUnread;
 	}
 }
 
