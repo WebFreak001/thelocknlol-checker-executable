@@ -30,7 +30,7 @@
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
-			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("TheLockNLol");
+			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("TheLockNLol");
 			this.tsOptions = new System.Windows.Forms.ToolStrip();
 			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
@@ -42,6 +42,7 @@
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnUnread = new System.Windows.Forms.Button();
 			this.btnHistory = new System.Windows.Forms.Button();
+			this.tsbAbout = new System.Windows.Forms.ToolStripButton();
 			this.tsOptions.SuspendLayout();
 			this.panel1.SuspendLayout();
 			this.panel2.SuspendLayout();
@@ -52,7 +53,8 @@
 			this.tsOptions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.tsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnRefresh,
-            this.btnOptions});
+            this.btnOptions,
+            this.tsbAbout});
 			this.tsOptions.Location = new System.Drawing.Point(0, 0);
 			this.tsOptions.Name = "tsOptions";
 			this.tsOptions.Size = new System.Drawing.Size(654, 25);
@@ -104,9 +106,9 @@
             this.columnHeader1});
 			this.lvFilter.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvFilter.GridLines = true;
-			listViewItem1.StateImageIndex = 0;
+			listViewItem2.StateImageIndex = 0;
 			this.lvFilter.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem2});
 			this.lvFilter.Location = new System.Drawing.Point(0, 33);
 			this.lvFilter.Name = "lvFilter";
 			this.lvFilter.Size = new System.Drawing.Size(200, 389);
@@ -118,7 +120,7 @@
 			// columnHeader1
 			// 
 			this.columnHeader1.Text = "Prüfe";
-			this.columnHeader1.Width = 160;
+			this.columnHeader1.Width = 195;
 			// 
 			// panel1
 			// 
@@ -158,6 +160,16 @@
 			this.btnHistory.Text = "Verlauf";
 			this.btnHistory.UseVisualStyleBackColor = true;
 			// 
+			// tsbAbout
+			// 
+			this.tsbAbout.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.tsbAbout.Image = ((System.Drawing.Image)(resources.GetObject("tsbAbout.Image")));
+			this.tsbAbout.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.tsbAbout.Name = "tsbAbout";
+			this.tsbAbout.Size = new System.Drawing.Size(36, 22);
+			this.tsbAbout.Text = "Über";
+			this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -192,6 +204,7 @@
 		private System.Windows.Forms.Panel panel2;
 		private System.Windows.Forms.Button btnHistory;
 		private System.Windows.Forms.Button btnUnread;
+		private System.Windows.Forms.ToolStripButton tsbAbout;
 	}
 }
 

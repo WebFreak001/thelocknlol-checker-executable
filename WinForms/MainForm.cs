@@ -131,6 +131,13 @@ namespace WinForms
 
 		private void lvFilter_ItemChecked(object sender, ItemCheckedEventArgs e)
 		{
+			if(Config.Settings.Filter.Contains(e.Item.Text) && !e.Item.Checked) Config.Settings.Filter.Remove(e.Item.Text);
+			if(e.Item.Checked) Config.Settings.Filter.Add(e.Item.Text);
+			Config.Save();
+		}
+
+		private void tsbAbout_Click(object sender, EventArgs e)
+		{
 
 		}
 	}
