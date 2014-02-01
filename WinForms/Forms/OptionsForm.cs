@@ -140,7 +140,7 @@ namespace WinForms.Forms
 			{
 				checks.Add(new CheckerFormat() { Name = i.Text, YouTube = i.SubItems[0].Text, Twitch = i.SubItems[1].Text, Facebook = i.SubItems[2].Text, Twitter = i.SubItems[3].Text, Enabled = i.Checked });
 			}
-			tempConfig.Checkers = checks.ToArray();
+			tempConfig.Checkers = checks;
 		}
 
 		private void btnResetChanges_Click(object sender, EventArgs e)
