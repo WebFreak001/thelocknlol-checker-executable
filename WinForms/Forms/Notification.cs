@@ -49,7 +49,8 @@ namespace WinForms
 			this.title = title;
 			this.desc = desc;
 			this.link = link;
-			timer1.Enabled = true;
+			timer1.Interval = Config.Settings.NotifyDelay * 10;
+			if(Config.Settings.NotifyDelay != 300) timer1.Enabled = true;
 		}
 
 		private void Notification_Load(object sender, EventArgs e)
