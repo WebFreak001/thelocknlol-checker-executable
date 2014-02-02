@@ -17,6 +17,9 @@ namespace WinForms
 		public string YouTube { get; set; }
 		public string Twitch { get; set; }
 		public string Twitter { get; set; }
+		public string LastVideo { get; set; }
+		public string LastFacebook { get; set; }
+		public string LastTwitter { get; set; }
 	}
 
 	public class SoundFormat
@@ -35,7 +38,6 @@ namespace WinForms
 		public bool MergeSocialVideo { get; set; }
 		public bool AutoUpdate { get; set; }
 		public SoundFormat Sounds { get; set; }
-		public string LastVideo { get; set; }
 		public string CurrentSound { get; set; }
 		public int NotifyDelay { get; set; }
 		public string NotifyColor { get; set; }
@@ -50,7 +52,7 @@ namespace WinForms
 
 		public static void Load()
 		{
-			if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = "255, 255, 255", CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, LastVideo = "", CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Filter = new List<string>() { "TheLockNLol" }, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnTwitter = false, OnVideo = false }, Checkers = new List<CheckerFormat>() { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol", Twitter = "TheLockNLol" } } }, Formatting.Indented));
+			if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = "255, 255, 255", CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, NotifyDelay = 100, CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Filter = new List<string>() { "TheLockNLol" }, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnTwitter = false, OnVideo = false }, Checkers = new List<CheckerFormat>() { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol", Twitter = "TheLockNLol", LastFacebook = "", LastTwitter = "", LastVideo = "" } } }, Formatting.Indented));
 			Settings = JsonConvert.DeserializeObject<ConfigFormat>(File.ReadAllText("config.json"));
 		}
 

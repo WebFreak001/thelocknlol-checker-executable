@@ -41,26 +41,18 @@ namespace WinForms
 			CheckForUpdate();
 			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
-				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", Twitter = "TheLockNLol", YouTube = "TheLockNLol"});
+				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", Twitter = "TheLockNLol", YouTube = "TheLockNLol" });
 			}
-			int row = 0;
 			foreach (CheckerFormat f in Config.Settings.Checkers)
 			{
-				if (f.Enabled) checkers.Add(new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook, f.Twitter));
-				if (row == 0)
+				if (f.Enabled)
 				{
-					notificationPanel1.Controls.Add(new Controls.NotifyList(f.Name));
+					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook, f.Twitter);
+					checkers.Add(c);
+					Controls.NotifyList l = new Controls.NotifyList(f.Name);
+					l.RequestMore += (s, e) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); c.checkTwitter(); };
+					notifications.Controls.Add(l);
 				}
-				if (row == 1)
-				{
-					notificationPanel2.Controls.Add(new Controls.NotifyList(f.Name));
-				}
-				if (row == 2)
-				{
-					notificationPanel3.Controls.Add(new Controls.NotifyList(f.Name));
-				}
-				row++;
-				row %= 3;
 			}
 			UpdateLayout();
 		}
@@ -72,23 +64,7 @@ namespace WinForms
 
 		public Controls.NotifyList GetList(string tag)
 		{
-			foreach (Control c in notificationPanel1.Controls)
-			{
-				if (c is Controls.NotifyList)
-				{
-					Controls.NotifyList l = (Controls.NotifyList)c;
-					if (l.NameTag == tag) return l;
-				}
-			}
-			foreach (Control c in notificationPanel2.Controls)
-			{
-				if (c is Controls.NotifyList)
-				{
-					Controls.NotifyList l = (Controls.NotifyList)c;
-					if (l.NameTag == tag) return l;
-				}
-			}
-			foreach (Control c in notificationPanel3.Controls)
+			foreach (Control c in notifications.Controls)
 			{
 				if (c is Controls.NotifyList)
 				{
@@ -168,21 +144,7 @@ namespace WinForms
 
 		public void ResizeThings()
 		{
-			notificationPanel1.Width = Width / 3;
-			notificationPanel2.Width = Width / 3;
-			notificationPanel3.Width = Width / 3;
-			List<Control> controls1 = new List<Control>();
-			foreach (Control c in notificationPanel1.Controls) controls1.Add(c);
-			List<Control> controls2 = new List<Control>();
-			foreach (Control c in notificationPanel2.Controls) controls2.Add(c);
-			List<Control> controls3 = new List<Control>();
-			foreach (Control c in notificationPanel3.Controls) controls3.Add(c);
-			notificationPanel1.Height = controls1.Sum(f => f.Height + 20);
-			notificationPanel2.Height = controls2.Sum(f => f.Height + 20);
-			notificationPanel3.Height = controls3.Sum(f => f.Height + 20);
-			controls1.ForEach(f => f.Width = notificationPanel1.Width);
-			controls2.ForEach(f => f.Width = notificationPanel2.Width);
-			controls3.ForEach(f => f.Width = notificationPanel3.Width);
+
 		}
 
 		private void lvFilter_ItemChecked(object sender, ItemCheckedEventArgs e)

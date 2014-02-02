@@ -36,11 +36,7 @@
 			this.tsbAbout = new System.Windows.Forms.ToolStripButton();
 			this.refreshTimer = new System.Windows.Forms.Timer(this.components);
 			this.notifications = new System.Windows.Forms.FlowLayoutPanel();
-			this.notificationPanel3 = new System.Windows.Forms.Panel();
-			this.notificationPanel2 = new System.Windows.Forms.Panel();
-			this.notificationPanel1 = new System.Windows.Forms.Panel();
 			this.tsOptions.SuspendLayout();
-			this.notifications.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tsOptions
@@ -97,35 +93,11 @@
 			// notifications
 			// 
 			this.notifications.AutoScroll = true;
-			this.notifications.Controls.Add(this.notificationPanel1);
-			this.notifications.Controls.Add(this.notificationPanel2);
-			this.notifications.Controls.Add(this.notificationPanel3);
 			this.notifications.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.notifications.Location = new System.Drawing.Point(0, 25);
 			this.notifications.Name = "notifications";
 			this.notifications.Size = new System.Drawing.Size(654, 422);
 			this.notifications.TabIndex = 1;
-			// 
-			// notificationPanel3
-			// 
-			this.notificationPanel3.Location = new System.Drawing.Point(415, 3);
-			this.notificationPanel3.Name = "notificationPanel3";
-			this.notificationPanel3.Size = new System.Drawing.Size(200, 364);
-			this.notificationPanel3.TabIndex = 2;
-			// 
-			// notificationPanel2
-			// 
-			this.notificationPanel2.Location = new System.Drawing.Point(209, 3);
-			this.notificationPanel2.Name = "notificationPanel2";
-			this.notificationPanel2.Size = new System.Drawing.Size(200, 364);
-			this.notificationPanel2.TabIndex = 1;
-			// 
-			// notificationPanel1
-			// 
-			this.notificationPanel1.Location = new System.Drawing.Point(3, 3);
-			this.notificationPanel1.Name = "notificationPanel1";
-			this.notificationPanel1.Size = new System.Drawing.Size(200, 364);
-			this.notificationPanel1.TabIndex = 0;
 			// 
 			// MainForm
 			// 
@@ -141,7 +113,6 @@
 			this.Resize += new System.EventHandler(this.MainForm_Resize);
 			this.tsOptions.ResumeLayout(false);
 			this.tsOptions.PerformLayout();
-			this.notifications.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -155,9 +126,6 @@
 		private System.Windows.Forms.Timer refreshTimer;
 		private System.Windows.Forms.ToolStripButton tsbAbout;
 		private System.Windows.Forms.FlowLayoutPanel notifications;
-		private System.Windows.Forms.Panel notificationPanel1;
-		private System.Windows.Forms.Panel notificationPanel2;
-		private System.Windows.Forms.Panel notificationPanel3;
 	}
 }
 

@@ -82,7 +82,7 @@ namespace WinForms
 											string title = reader.ReadElementContentAsString();
 											reader.ReadToFollowing("media:thumbnail");
 											string thumbnail = reader["url"];
-											if (Config.Settings.LastVideo == id) goto ReadDone;
+											if (Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo == id) goto ReadDone;
 											Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
 										}
 										catch { }
@@ -94,7 +94,7 @@ namespace WinForms
 						ReadDone:
 							if (lastID != "")
 							{
-								Config.Settings.LastVideo = lastID;
+								Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo = lastID;
 								Config.Save();
 							}
 						}
