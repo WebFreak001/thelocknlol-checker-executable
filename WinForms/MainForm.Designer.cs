@@ -36,7 +36,13 @@
 			this.tsbAbout = new System.Windows.Forms.ToolStripButton();
 			this.refreshTimer = new System.Windows.Forms.Timer(this.components);
 			this.notifications = new System.Windows.Forms.FlowLayoutPanel();
+			this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
+			this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.trayClose = new System.Windows.Forms.ToolStripMenuItem();
+			this.trayOptions = new System.Windows.Forms.ToolStripMenuItem();
+			this.trayAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsOptions.SuspendLayout();
+			this.trayMenu.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tsOptions
@@ -99,6 +105,44 @@
 			this.notifications.Size = new System.Drawing.Size(654, 422);
 			this.notifications.TabIndex = 1;
 			// 
+			// trayIcon
+			// 
+			this.trayIcon.ContextMenuStrip = this.trayMenu;
+			this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
+			this.trayIcon.Text = "notifyIcon1";
+			this.trayIcon.Visible = true;
+			// 
+			// trayMenu
+			// 
+			this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayClose,
+            this.trayOptions,
+            this.trayAbout});
+			this.trayMenu.Name = "trayMenu";
+			this.trayMenu.ShowItemToolTips = false;
+			this.trayMenu.Size = new System.Drawing.Size(125, 70);
+			// 
+			// trayClose
+			// 
+			this.trayClose.Name = "trayClose";
+			this.trayClose.Size = new System.Drawing.Size(152, 22);
+			this.trayClose.Text = "Beenden";
+			this.trayClose.Click += new System.EventHandler(this.trayClose_Click);
+			// 
+			// trayOptions
+			// 
+			this.trayOptions.Name = "trayOptions";
+			this.trayOptions.Size = new System.Drawing.Size(152, 22);
+			this.trayOptions.Text = "Optionen";
+			this.trayOptions.Click += new System.EventHandler(this.trayOptions_Click);
+			// 
+			// trayAbout
+			// 
+			this.trayAbout.Name = "trayAbout";
+			this.trayAbout.Size = new System.Drawing.Size(152, 22);
+			this.trayAbout.Text = "Über";
+			this.trayAbout.Click += new System.EventHandler(this.trayAbout_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -113,6 +157,7 @@
 			this.Resize += new System.EventHandler(this.MainForm_Resize);
 			this.tsOptions.ResumeLayout(false);
 			this.tsOptions.PerformLayout();
+			this.trayMenu.ResumeLayout(false);
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -126,6 +171,11 @@
 		private System.Windows.Forms.Timer refreshTimer;
 		private System.Windows.Forms.ToolStripButton tsbAbout;
 		private System.Windows.Forms.FlowLayoutPanel notifications;
+		private System.Windows.Forms.NotifyIcon trayIcon;
+		private System.Windows.Forms.ContextMenuStrip trayMenu;
+		private System.Windows.Forms.ToolStripMenuItem trayClose;
+		private System.Windows.Forms.ToolStripMenuItem trayOptions;
+		private System.Windows.Forms.ToolStripMenuItem trayAbout;
 	}
 }
 

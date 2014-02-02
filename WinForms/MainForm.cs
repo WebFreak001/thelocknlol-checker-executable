@@ -159,16 +159,6 @@ namespace WinForms
 			new Forms.About().ShowDialog();
 		}
 
-		private void btnUnread_Click(object sender, EventArgs e)
-		{
-			UpdateLayout();
-		}
-
-		private void btnHistory_Click(object sender, EventArgs e)
-		{
-			UpdateLayout();
-		}
-
 		public void UpdateLayout()
 		{
 			ResizeThings();
@@ -178,6 +168,41 @@ namespace WinForms
 		{
 			ResizeThings();
 			if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
+		}
+
+		protected override void WndProc(ref Message m)
+		{
+			if (m.Msg == NativeMethods.WM_SHOWME)
+			{
+				ShowMe();
+			}
+			base.WndProc(ref m);
+		}
+
+		private void ShowMe()
+		{
+			if (WindowState == FormWindowState.Minimized)
+			{
+				WindowState = FormWindowState.Normal;
+			}
+			bool top = TopMost;
+			TopMost = true;
+			TopMost = top;
+		}
+
+		private void trayClose_Click(object sender, EventArgs e)
+		{
+			Close();
+		}
+
+		private void trayOptions_Click(object sender, EventArgs e)
+		{
+			new Forms.OptionsForm().ShowDialog();
+		}
+
+		private void trayAbout_Click(object sender, EventArgs e)
+		{
+			new Forms.About().ShowDialog();
 		}
 	}
 }

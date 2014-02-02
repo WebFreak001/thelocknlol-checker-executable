@@ -98,6 +98,7 @@
     <Compile Include="Forms\Notification.Designer.cs">
       <DependentUpon>Notification.cs</DependentUpon>
     </Compile>
+    <Compile Include="NativeMethods.cs" />
     <Compile Include="Notifications.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
