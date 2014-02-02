@@ -42,7 +42,7 @@ namespace WinForms
 							{
 								if (!Config.LastTwitchOnline)
 								{
-									Notifications.Notify(new ImagedMessageControl("Image/koala256.png", name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch);
+									Notifications.Notify(new ImagedMessageControl("Image/koala256.png", name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, "TheLockNLol");
 								}
 								Config.LastTwitchOnline = true;
 							}
@@ -83,12 +83,7 @@ namespace WinForms
 											reader.ReadToFollowing("media:thumbnail");
 											string thumbnail = reader["url"];
 											if (Config.Settings.LastVideo == id) goto ReadDone;
-											if (first)
-											{
-												MessageManager.Clear();
-												first = false;
-											}
-											MessageManager.Notify(name, "http://www.youtube.com/watch?v=" + id.Substring(42), thumbnail, name + " hat ein neues Video hochgeladen!", title, "http://www.youtube.com/watch?v=" + id.Substring(42));
+											Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
 										}
 										catch { }
 										break;

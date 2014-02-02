@@ -56,6 +56,18 @@
   <ItemGroup>
     <Compile Include="Checker.cs" />
     <Compile Include="Config.cs" />
+    <Compile Include="Controls\NotificationControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NotificationControl.Designer.cs">
+      <DependentUpon>NotificationControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\NotifyList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\NotifyList.Designer.cs">
+      <DependentUpon>NotifyList.cs</DependentUpon>
+    </Compile>
     <Compile Include="Forms\OptionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,11 +86,10 @@
     <Compile Include="ImagedMessageControl.Designer.cs">
       <DependentUpon>ImagedMessageControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="MessageManager.cs" />
-    <Compile Include="Notification.cs">
+    <Compile Include="Forms\Notification.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Notification.Designer.cs">
+    <Compile Include="Forms\Notification.Designer.cs">
       <DependentUpon>Notification.cs</DependentUpon>
     </Compile>
     <Compile Include="Notifications.cs" />
@@ -91,6 +102,12 @@
     <Compile Include="VideoMessageControl.Designer.cs">
       <DependentUpon>VideoMessageControl.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controls\NotificationControl.resx">
+      <DependentUpon>NotificationControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\NotifyList.resx">
+      <DependentUpon>NotifyList.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Forms\OptionsForm.resx">
       <DependentUpon>OptionsForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -100,7 +117,7 @@
     <EmbeddedResource Include="ImagedMessageControl.resx">
       <DependentUpon>ImagedMessageControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Notification.resx">
+    <EmbeddedResource Include="Forms\Notification.resx">
       <DependentUpon>Notification.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">

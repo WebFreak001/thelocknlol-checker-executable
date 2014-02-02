@@ -17,51 +17,86 @@ namespace WinForms
 	public partial class MainForm : Form
 	{
 		List<Checker> checkers;
-		List<string> notifysTags;
-		List<Control> notifys;
-		public List<Control> unread;
 
 		public MainForm()
 		{
 			InitializeComponent();
 			checkers = new List<Checker>();
-			notifys = new List<Control>();
-			notifysTags = new List<string>();
-			unread = new List<Control>();
-			MessageManager.OnMessage += OnMessage;
-			MessageManager.OnClear += OnClear;
+			Notifications.OnMessage += OnMessage;
 			Config.Load();
 			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
 				ListViewItem i = new ListViewItem("TheLockNLol");
 				i.Checked = Config.Settings.Filter.Contains("TheLockNLol");
-				lvFilter.Items.Add(i);
 			}
 			Config.Settings.Checkers.ForEach(e =>
 			{
 				ListViewItem i = new ListViewItem(e.Name);
 				i.Checked = Config.Settings.Filter.Contains(e.Name);
-				lvFilter.Items.Add(i);
 			});
 			if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
 			{
-				MessageManager.Notify("TheLockNLol", "http://www.facebook.de/TheLockNLol", "Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)");
+				Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol");
 			}
 			CheckForUpdate();
 			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
-				checkers.Add(new Checker("TheLockNLol", "TheLockNLol", "TheLockNLol", "TheLockNLol", "TheLockNLol"));
+				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", Twitter = "TheLockNLol", YouTube = "TheLockNLol"});
 			}
+			int row = 0;
 			foreach (CheckerFormat f in Config.Settings.Checkers)
 			{
 				if (f.Enabled) checkers.Add(new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook, f.Twitter));
+				if (row == 0)
+				{
+					notificationPanel1.Controls.Add(new Controls.NotifyList(f.Name));
+				}
+				if (row == 1)
+				{
+					notificationPanel2.Controls.Add(new Controls.NotifyList(f.Name));
+				}
+				if (row == 2)
+				{
+					notificationPanel3.Controls.Add(new Controls.NotifyList(f.Name));
+				}
+				row++;
+				row %= 3;
 			}
 			UpdateLayout();
 		}
 
 		void OnClear(object sender, EventArgs e)
 		{
-			layout.Controls.Clear();
+			notifications.Controls.Clear();
+		}
+
+		public Controls.NotifyList GetList(string tag)
+		{
+			foreach (Control c in notificationPanel1.Controls)
+			{
+				if (c is Controls.NotifyList)
+				{
+					Controls.NotifyList l = (Controls.NotifyList)c;
+					if (l.NameTag == tag) return l;
+				}
+			}
+			foreach (Control c in notificationPanel2.Controls)
+			{
+				if (c is Controls.NotifyList)
+				{
+					Controls.NotifyList l = (Controls.NotifyList)c;
+					if (l.NameTag == tag) return l;
+				}
+			}
+			foreach (Control c in notificationPanel3.Controls)
+			{
+				if (c is Controls.NotifyList)
+				{
+					Controls.NotifyList l = (Controls.NotifyList)c;
+					if (l.NameTag == tag) return l;
+				}
+			}
+			return null;
 		}
 
 		public void CheckForUpdate()
@@ -88,7 +123,7 @@ namespace WinForms
 						}
 						else
 						{
-							Notifications.Notify(new ImagedMessageControl("", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link);
+							Notifications.Notify(new ImagedMessageControl("", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update");
 						}
 					}
 				}
@@ -99,11 +134,10 @@ namespace WinForms
 			}
 		}
 
-		void OnMessage(object sender, Control e)
+		void OnMessage(object sender, Notification e)
 		{
 			string s = sender.ToString();
-			notifys.Add(e);
-			notifysTags.Add(s);
+			GetList(s).AddNotification(e);
 			UpdateLayout();
 		}
 
@@ -134,17 +168,21 @@ namespace WinForms
 
 		public void ResizeThings()
 		{
-			if (layout.Controls.Count != 0)
-			{
-				List<Control> c = new List<Control>();
-				foreach (Control co in layout.Controls) c.Add(co);
-				c.ForEach(i =>
-				{
-					i.Width = Math.Max(1, Width - 50 - panel1.Width) / 2;
-					i.Height = (int)((i.Width) / 16.0f * 9.0f + i.Height * 0.3f);
-					i.Refresh();
-				});
-			}
+			notificationPanel1.Width = Width / 3;
+			notificationPanel2.Width = Width / 3;
+			notificationPanel3.Width = Width / 3;
+			List<Control> controls1 = new List<Control>();
+			foreach (Control c in notificationPanel1.Controls) controls1.Add(c);
+			List<Control> controls2 = new List<Control>();
+			foreach (Control c in notificationPanel2.Controls) controls2.Add(c);
+			List<Control> controls3 = new List<Control>();
+			foreach (Control c in notificationPanel3.Controls) controls3.Add(c);
+			notificationPanel1.Height = controls1.Sum(f => f.Height + 20);
+			notificationPanel2.Height = controls2.Sum(f => f.Height + 20);
+			notificationPanel3.Height = controls3.Sum(f => f.Height + 20);
+			controls1.ForEach(f => f.Width = notificationPanel1.Width);
+			controls2.ForEach(f => f.Width = notificationPanel2.Width);
+			controls3.ForEach(f => f.Width = notificationPanel3.Width);
 		}
 
 		private void lvFilter_ItemChecked(object sender, ItemCheckedEventArgs e)
@@ -161,54 +199,21 @@ namespace WinForms
 
 		private void btnUnread_Click(object sender, EventArgs e)
 		{
-			btnUnread.Checked = true;
-			btnHistory.Checked = false;
 			UpdateLayout();
 		}
 
 		private void btnHistory_Click(object sender, EventArgs e)
 		{
-			btnUnread.Checked = false;
-			btnHistory.Checked = true;
 			UpdateLayout();
 		}
 
 		public void UpdateLayout()
 		{
-			layout.Controls.Clear();
-			if (btnUnread.Checked)
-			{
-				int count = 0;
-				layout.SuspendLayout();
-				for (int i = 0; i < notifys.Count; i++)
-				{
-					if (unread.Contains(notifys[i]))
-					{
-						layout.Controls.Add(notifys[i]);
-						count++;
-					}
-				}
-				if (count == 0)
-				{
-					Label t = new Label();
-					t.AutoSize = false;
-					t.Dock = DockStyle.Fill;
-					t.TextAlign = ContentAlignment.MiddleCenter;
-					t.Location = new Point(0, 0);
-					layout.Controls.Add(t);
-				}
-				layout.ResumeLayout();
-			}
-			else
-			{
-				layout.SuspendLayout();
-				for (int i = 0; i < notifys.Count; i++)
-				{
-					layout.Controls.Add(notifys[i]);
-				}
+			ResizeThings();
+		}
 
-				layout.ResumeLayout();
-			}
+		private void MainForm_Load(object sender, EventArgs e)
+		{
 			ResizeThings();
 		}
 	}
