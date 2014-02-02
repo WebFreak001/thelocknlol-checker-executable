@@ -38,7 +38,6 @@ namespace WinForms
 			{
 				Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol");
 			}
-			CheckForUpdate();
 			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
 				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", Twitter = "TheLockNLol", YouTube = "TheLockNLol" });
@@ -75,7 +74,7 @@ namespace WinForms
 			return null;
 		}
 
-		public void CheckForUpdate()
+		public bool CheckForUpdate()
 		{
 			try
 			{
@@ -106,8 +105,9 @@ namespace WinForms
 			}
 			catch
 			{
-				Console.WriteLine("Couldnt Check for updates!");
+				return false;
 			}
+			return true;
 		}
 
 		void OnMessage(object sender, Notification e)
@@ -177,6 +177,7 @@ namespace WinForms
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			ResizeThings();
+			if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
 		}
 	}
 }

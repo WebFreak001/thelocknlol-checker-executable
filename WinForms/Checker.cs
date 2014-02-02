@@ -59,7 +59,6 @@ namespace WinForms
 				using (WebClient c = new WebClient())
 				{
 					c.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5"));
-					bool first = true;
 					c.DownloadStringCompleted += (a, b) =>
 					{
 						if (!b.Cancelled)
