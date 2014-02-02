@@ -26,16 +26,6 @@ namespace WinForms
 			checkers = new List<Checker>();
 			Notifications.OnMessage += OnMessage;
 			Config.Load();
-			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
-			{
-				ListViewItem i = new ListViewItem("TheLockNLol");
-				i.Checked = Config.Settings.Filter.Contains("TheLockNLol");
-			}
-			Config.Settings.Checkers.ForEach(e =>
-			{
-				ListViewItem i = new ListViewItem(e.Name);
-				i.Checked = Config.Settings.Filter.Contains(e.Name);
-			});
 			if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
 			{
 				Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol");
@@ -43,17 +33,6 @@ namespace WinForms
 			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
 				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", Twitter = "TheLockNLol", YouTube = "TheLockNLol" });
-			}
-			foreach (CheckerFormat f in Config.Settings.Checkers)
-			{
-				if (f.Enabled)
-				{
-					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook, f.Twitter);
-					checkers.Add(c);
-					Controls.NotifyList l = new Controls.NotifyList(f.Name);
-					l.RequestMore += (s, e) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); c.checkTwitter(); };
-					notifications.Controls.Add(l);
-				}
 			}
 			UpdateLayout();
 		}
@@ -149,13 +128,6 @@ namespace WinForms
 
 		}
 
-		private void lvFilter_ItemChecked(object sender, ItemCheckedEventArgs e)
-		{
-			if (Config.Settings.Filter.Contains(e.Item.Text) && !e.Item.Checked) Config.Settings.Filter.Remove(e.Item.Text);
-			if (e.Item.Checked && !Config.Settings.Filter.Contains(e.Item.Text)) Config.Settings.Filter.Add(e.Item.Text);
-			Config.Save();
-		}
-
 		private void tsbAbout_Click(object sender, EventArgs e)
 		{
 			new Forms.About().ShowDialog();
@@ -170,6 +142,17 @@ namespace WinForms
 		{
 			ResizeThings();
 			if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
+			foreach (CheckerFormat f in Config.Settings.Checkers)
+			{
+				if (f.Enabled)
+				{
+					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook, f.Twitter);
+					checkers.Add(c);
+					Controls.NotifyList l = new Controls.NotifyList(f.Name);
+					l.RequestMore += (s, ev) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); c.checkTwitter(); };
+					notifications.Controls.Add(l);
+				}
+			}
 		}
 
 		protected override void WndProc(ref Message m)

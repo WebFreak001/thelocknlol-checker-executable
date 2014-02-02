@@ -18,7 +18,8 @@ namespace WinForms
 	public partial class Notification : Form
 	{
 		string title, desc, link;
-		Image image;
+		Bitmap image;
+		Rectangle clipRegion;
 		int step = 0;
 
 		public Notification(string image, string title, string desc, string link)
@@ -27,7 +28,24 @@ namespace WinForms
 			WebClient wc = new WebClient();
 			byte[] bytes = wc.DownloadData(image);
 			MemoryStream ms = new MemoryStream(bytes);
-			this.image = Image.FromStream(ms);
+			this.image = new Bitmap(ms);
+			int y0 = 0, y1 = this.image.Height;
+			for (int y = 0; y < this.image.Height; y++)
+			{
+				bool isBlack = true;
+				for (int x = 0; x < this.image.Width; x++)
+				{
+					Color c = this.image.GetPixel(x, y);
+					if (c.R + c.G + c.B > 30) isBlack = false;
+				}
+				if(isBlack)
+				{
+					if (y < this.image.Height / 2) y0 = y;
+					else y1 = y;
+				}
+				isBlack = true;
+			}
+			clipRegion = new Rectangle(0, y0, this.image.Width, y1 - y0 * 2);
 			this.title = title;
 			this.desc = desc;
 			this.link = link;
@@ -53,8 +71,8 @@ namespace WinForms
 		private void Notification_Paint(object sender, PaintEventArgs e)
 		{
 			Graphics g = e.Graphics;
-			g.DrawImage(Image.FromFile("Image/Notification.png"), 0, 0, Width, Height);
-			g.DrawImage(image, 20, 20, 61, 61);
+			g.DrawImage(Image.FromFile("Image/Notification.png"), new Rectangle(0, 0, Width, Height));
+			g.DrawImage(image, new Rectangle(20, 20, 61, 61), clipRegion, GraphicsUnit.Pixel);
 			g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 20));
 			g.DrawString(desc, new Font("Arial", 10.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(96, 36, 256, 50));
 			g.DrawString("X", new Font("Arial", 9.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(346, 12, 12, 12));
@@ -63,7 +81,7 @@ namespace WinForms
 		private void Notification_Click(object sender, EventArgs e)
 		{
 			Point p = PointToClient(Cursor.Position);
-			if(p.X >= 343 && p.X <= 361 && p.Y >= 10 && p.Y <= 28)
+			if (p.X >= 343 && p.X <= 361 && p.Y >= 10 && p.Y <= 28)
 			{
 				//TODO: Remove from history
 			}
@@ -89,7 +107,7 @@ namespace WinForms
 
 		private void timer2_Tick(object sender, EventArgs e)
 		{
-			if(step > 100)
+			if (step > 100)
 			{
 				Close();
 			}
@@ -102,7 +120,7 @@ namespace WinForms
 
 		public NotificationControl ToControl()
 		{
-			return new NotificationControl(image, title, desc, link);
+			return new NotificationControl(image, title, desc, link, clipRegion);
 		}
 	}
 }

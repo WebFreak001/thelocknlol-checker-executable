@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace WinForms
@@ -36,15 +37,15 @@ namespace WinForms
 							string api = b.Result;
 							if (api.Trim().Replace(" ", "") == "[]")
 							{
-								Config.LastTwitchOnline = false;
+								Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = false;
 							}
 							else
 							{
-								if (!Config.LastTwitchOnline)
+								if (!Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming)
 								{
-									Notifications.Notify(new ImagedMessageControl("Image/koala256.png", name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, "TheLockNLol");
+									Notifications.Notify(new ImagedMessageControl("Image/koala256.png", name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
 								}
-								Config.LastTwitchOnline = true;
+								Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = true;
 							}
 						}
 					};
@@ -58,7 +59,6 @@ namespace WinForms
 			{
 				using (WebClient c = new WebClient())
 				{
-					c.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5"));
 					c.DownloadStringCompleted += (a, b) =>
 					{
 						if (!b.Cancelled)
@@ -81,16 +81,21 @@ namespace WinForms
 											string title = reader.ReadElementContentAsString();
 											reader.ReadToFollowing("media:thumbnail");
 											string thumbnail = reader["url"];
-											if (Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo == id) goto ReadDone;
+											string s = Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo;
+											if (s == id.Substring(42)) goto ReadDone;
 											Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
+											//lastID = id.Substring(42);
 										}
-										catch { }
+										catch (Exception e)
+										{
+											MessageBox.Show(e.Message + "\n" + e.StackTrace, "DU PRO HIER IST NE EXCEPTION -.-");
+										}
 										break;
 								}
 							}
+						ReadDone:
 							reader.Close();
 							reader.Dispose();
-						ReadDone:
 							if (lastID != "")
 							{
 								Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo = lastID;
@@ -98,6 +103,7 @@ namespace WinForms
 							}
 						}
 					};
+					c.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5"));
 				}
 			}
 		}
@@ -115,7 +121,7 @@ namespace WinForms
 		{
 			if (Config.Settings.CheckSocial && twitter.Trim() != "")
 			{
-				
+
 			}
 		}
 	}
