@@ -17,6 +17,8 @@ namespace WinForms
 	public partial class MainForm : Form
 	{
 		List<Checker> checkers;
+		bool mayClose;
+		FormWindowState lastState = FormWindowState.Maximized;
 
 		public MainForm()
 		{
@@ -183,7 +185,7 @@ namespace WinForms
 		{
 			if (WindowState == FormWindowState.Minimized)
 			{
-				WindowState = FormWindowState.Normal;
+				WindowState = lastState;
 			}
 			bool top = TopMost;
 			TopMost = true;
@@ -192,6 +194,7 @@ namespace WinForms
 
 		private void trayClose_Click(object sender, EventArgs e)
 		{
+			mayClose = true;
 			Close();
 		}
 
@@ -203,6 +206,23 @@ namespace WinForms
 		private void trayAbout_Click(object sender, EventArgs e)
 		{
 			new Forms.About().ShowDialog();
+		}
+
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		{
+			if (!mayClose)
+			{
+				e.Cancel = true;
+				lastState = WindowState;
+				WindowState = FormWindowState.Minimized;
+				Hide();
+			}
+		}
+
+		private void trayIcon_DoubleClick(object sender, EventArgs e)
+		{
+			Show();
+			WindowState = lastState;
 		}
 	}
 }

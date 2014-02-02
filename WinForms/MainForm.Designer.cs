@@ -111,6 +111,7 @@
 			this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
 			this.trayIcon.Text = "notifyIcon1";
 			this.trayIcon.Visible = true;
+			this.trayIcon.DoubleClick += new System.EventHandler(this.trayIcon_DoubleClick);
 			// 
 			// trayMenu
 			// 
@@ -153,6 +154,7 @@
 			this.Name = "MainForm";
 			this.Text = "TheLockNLol Checker";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.Resize += new System.EventHandler(this.MainForm_Resize);
 			this.tsOptions.ResumeLayout(false);
