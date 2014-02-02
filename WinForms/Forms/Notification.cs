@@ -11,6 +11,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using WinForms.Controls;
 
 namespace WinForms
 {
@@ -27,7 +28,6 @@ namespace WinForms
 			byte[] bytes = wc.DownloadData(image);
 			MemoryStream ms = new MemoryStream(bytes);
 			this.image = Image.FromStream(ms);
-			Bitmap t = new Bitmap(this.image);
 			this.title = title;
 			this.desc = desc;
 			this.link = link;
@@ -98,6 +98,11 @@ namespace WinForms
 				Opacity = (100 - step) * 0.01;
 			}
 			step++;
+		}
+
+		public NotificationControl ToControl()
+		{
+			return new NotificationControl(image, title, desc, link);
 		}
 	}
 }
