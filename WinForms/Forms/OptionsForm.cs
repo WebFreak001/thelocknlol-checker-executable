@@ -121,7 +121,17 @@ namespace WinForms.Forms
 
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
-			//TODO
+			Forms.AddChecker c = new Forms.AddChecker();
+			c.ShowDialog();
+			if(c.Success)
+			{
+				ListViewItem i = new ListViewItem(c.TagName);
+				i.SubItems.Add(new ListViewItem.ListViewSubItem(i, "" + c.YouTube));
+				i.SubItems.Add(new ListViewItem.ListViewSubItem(i, "" + c.Twitch));
+				i.SubItems.Add(new ListViewItem.ListViewSubItem(i, "" + c.Facebook));
+				i.SubItems.Add(new ListViewItem.ListViewSubItem(i, "" + c.Twitter));
+				lvCheckers.Items.Add(i);
+			}
 			UpdateCheckers();
 		}
 
@@ -136,9 +146,9 @@ namespace WinForms.Forms
 		public void UpdateCheckers()
 		{
 			List<CheckerFormat> checks = new List<CheckerFormat>();
-			foreach (ListViewItem i in lvCheckers.SelectedItems)
+			foreach (ListViewItem i in lvCheckers.Items)
 			{
-				checks.Add(new CheckerFormat() { Name = i.Text, YouTube = i.SubItems[0].Text, Twitch = i.SubItems[1].Text, Facebook = i.SubItems[2].Text, Twitter = i.SubItems[3].Text, Enabled = i.Checked });
+				checks.Add(new CheckerFormat() { Name = i.Text, YouTube = i.SubItems[1].Text, Twitch = i.SubItems[2].Text, Facebook = i.SubItems[3].Text, Twitter = i.SubItems[4].Text, Enabled = i.Checked });
 			}
 			tempConfig.Checkers = checks;
 		}
@@ -166,10 +176,10 @@ namespace WinForms.Forms
 			foreach(CheckerFormat c in tempConfig.Checkers)
 			{
 				ListViewItem i = new ListViewItem(c.Name);
-				i.SubItems.Add(c.YouTube);
-				i.SubItems.Add(c.Twitch);
-				i.SubItems.Add(c.Facebook);
-				i.SubItems.Add(c.Twitter);
+				i.SubItems.Add("" + c.YouTube);
+				i.SubItems.Add("" + c.Twitch);
+				i.SubItems.Add("" + c.Facebook);
+				i.SubItems.Add("" + c.Twitter);
 				i.Checked = c.Enabled;
 				lvCheckers.Items.Add(i);
 			}
@@ -296,6 +306,11 @@ namespace WinForms.Forms
 				lbNotifyDura.Text = Math.Round(tbDuration.Value * 0.1f, 1) + " Sek.";
 			}
 			tempConfig.NotifyDelay = tbDuration.Value;
+		}
+
+		private void lvCheckers_ItemChecked(object sender, ItemCheckedEventArgs e)
+		{
+			tempConfig.Checkers.Where(i => i.Name == e.Item.Text).First().Enabled = e.Item.Checked;
 		}
 	}
 }
