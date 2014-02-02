@@ -156,7 +156,7 @@ namespace WinForms
 
 		private void tsbAbout_Click(object sender, EventArgs e)
 		{
-
+			new Forms.About().ShowDialog();
 		}
 
 		private void btnUnread_Click(object sender, EventArgs e)
