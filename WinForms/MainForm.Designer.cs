@@ -41,6 +41,7 @@
 			this.trayClose = new System.Windows.Forms.ToolStripMenuItem();
 			this.trayOptions = new System.Windows.Forms.ToolStripMenuItem();
 			this.trayAbout = new System.Windows.Forms.ToolStripMenuItem();
+			this.notificationTimer = new System.Windows.Forms.Timer(this.components);
 			this.tsOptions.SuspendLayout();
 			this.trayMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -126,23 +127,29 @@
 			// trayClose
 			// 
 			this.trayClose.Name = "trayClose";
-			this.trayClose.Size = new System.Drawing.Size(152, 22);
+			this.trayClose.Size = new System.Drawing.Size(124, 22);
 			this.trayClose.Text = "Beenden";
 			this.trayClose.Click += new System.EventHandler(this.trayClose_Click);
 			// 
 			// trayOptions
 			// 
 			this.trayOptions.Name = "trayOptions";
-			this.trayOptions.Size = new System.Drawing.Size(152, 22);
+			this.trayOptions.Size = new System.Drawing.Size(124, 22);
 			this.trayOptions.Text = "Optionen";
 			this.trayOptions.Click += new System.EventHandler(this.trayOptions_Click);
 			// 
 			// trayAbout
 			// 
 			this.trayAbout.Name = "trayAbout";
-			this.trayAbout.Size = new System.Drawing.Size(152, 22);
+			this.trayAbout.Size = new System.Drawing.Size(124, 22);
 			this.trayAbout.Text = "Über";
 			this.trayAbout.Click += new System.EventHandler(this.trayAbout_Click);
+			// 
+			// notificationTimer
+			// 
+			this.notificationTimer.Enabled = true;
+			this.notificationTimer.Interval = 10;
+			this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
 			// 
 			// MainForm
 			// 
@@ -178,6 +185,7 @@
 		private System.Windows.Forms.ToolStripMenuItem trayClose;
 		private System.Windows.Forms.ToolStripMenuItem trayOptions;
 		private System.Windows.Forms.ToolStripMenuItem trayAbout;
+		private System.Windows.Forms.Timer notificationTimer;
 	}
 }
 

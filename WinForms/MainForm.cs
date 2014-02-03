@@ -207,5 +207,10 @@ namespace WinForms
 			Show();
 			WindowState = lastState;
 		}
+
+		private void notificationTimer_Tick(object sender, EventArgs e)
+		{
+			Notifications.FetchNotification();
+		}
 	}
 }
