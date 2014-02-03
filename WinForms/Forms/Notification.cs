@@ -25,6 +25,7 @@ namespace WinForms
 		public Notification(string image, string title, string desc, string link)
 		{
 			InitializeComponent();
+			if(image == null || title == null || desc == null || link == null) return;
 			WebClient wc = new WebClient();
 			byte[] bytes = wc.DownloadData(image);
 			MemoryStream ms = new MemoryStream(bytes);

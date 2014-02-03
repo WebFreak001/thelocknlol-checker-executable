@@ -22,26 +22,27 @@ namespace WinForms
 			this.twitch = twitch;
 			this.youtube = youtube;
 			this.facebook = facebook;
-			using (WebClient c = new WebClient())
+			defaultImage = "Image/koala256.png";
+			try
 			{
-				c.DownloadStringCompleted += (a, b) =>
+				using (WebClient c = new WebClient())
 				{
-					if (!b.Cancelled)
+					c.DownloadStringCompleted += (a, b) =>
 					{
-						string xmlString = b.Result;
-						XmlReader reader = XmlReader.Create(new StringReader(xmlString));
-						reader.ReadToFollowing("media:thumbnail");
-						try
+						if (!b.Cancelled)
 						{
+							string xmlString = b.Result;
+							XmlReader reader = XmlReader.Create(new StringReader(xmlString));
+							reader.ReadToFollowing("media:thumbnail");
 							defaultImage = reader["url"];
-						}
-						catch
-						{
-							defaultImage = "Image/koala256.png";
-						}
+						};
 					};
 					c.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube));
-				};
+				}
+			}
+			catch
+			{
+				defaultImage = "Image/koala256.png";
 			}
 		}
 
@@ -147,8 +148,11 @@ namespace WinForms
 								if (d.id == Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook) goto ReadDone;
 								if (d.name != null && d.message != null)
 								{
-									if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
-									else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
+									if(!d.link.Contains("youtube"))
+									{
+										if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
+										else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
+									}
 								}
 							}
 						ReadDone:
