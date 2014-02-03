@@ -30,9 +30,9 @@ namespace WinForms
 			{
 				Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol");
 			}
-			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
+			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
-				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", Twitter = "TheLockNLol", YouTube = "TheLockNLol" });
+				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol" });
 			}
 			UpdateLayout();
 		}
@@ -79,7 +79,7 @@ namespace WinForms
 						}
 						else
 						{
-							Notifications.Notify(new ImagedMessageControl("", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update");
+							Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update");
 						}
 					}
 				}
@@ -110,7 +110,7 @@ namespace WinForms
 
 		public void RefreshThings()
 		{
-			checkers.ForEach(e => { e.checkYoutube(); e.checkTwitch(); e.checkFacebook(); e.checkTwitter(); });
+			checkers.ForEach(e => { e.checkYoutube(); e.checkTwitch(); e.checkFacebook(); });
 		}
 
 		private void btnOptions_Click(object sender, EventArgs e)
@@ -146,10 +146,10 @@ namespace WinForms
 			{
 				if (f.Enabled)
 				{
-					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook, f.Twitter);
+					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
 					checkers.Add(c);
 					Controls.NotifyList l = new Controls.NotifyList(f.Name);
-					l.RequestMore += (s, ev) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); c.checkTwitter(); };
+					l.RequestMore += (s, ev) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); };
 					notifications.Controls.Add(l);
 				}
 			}

@@ -68,6 +68,7 @@
     <Compile Include="Controls\NotifyList.Designer.cs">
       <DependentUpon>NotifyList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Facebook.cs" />
     <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
     </Compile>

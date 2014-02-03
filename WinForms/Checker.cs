@@ -1,9 +1,11 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Xml;
@@ -12,15 +14,35 @@ namespace WinForms
 {
 	public class Checker
 	{
-		string name, twitch, youtube, facebook, twitter;
+		string name, twitch, youtube, facebook, defaultImage;
 
-		public Checker(string name, string twitch, string youtube, string facebook, string twitter)
+		public Checker(string name, string twitch, string youtube, string facebook)
 		{
 			this.name = name;
 			this.twitch = twitch;
 			this.youtube = youtube;
 			this.facebook = facebook;
-			this.twitter = twitter;
+			using (WebClient c = new WebClient())
+			{
+				c.DownloadStringCompleted += (a, b) =>
+				{
+					if (!b.Cancelled)
+					{
+						string xmlString = b.Result;
+						XmlReader reader = XmlReader.Create(new StringReader(xmlString));
+						reader.ReadToFollowing("media:thumbnail");
+						try
+						{
+							defaultImage = reader["url"];
+						}
+						catch
+						{
+							defaultImage = "Image/koala256.png";
+						}
+					};
+					c.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube));
+				};
+			}
 		}
 
 		public void checkTwitch()
@@ -43,7 +65,7 @@ namespace WinForms
 							{
 								if (!Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming)
 								{
-									Notifications.Notify(new ImagedMessageControl("Image/koala256.png", name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
+									Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
 								}
 								Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = true;
 							}
@@ -88,7 +110,7 @@ namespace WinForms
 										}
 										catch (Exception e)
 										{
-											MessageBox.Show(e.Message + "\n" + e.StackTrace, "DU PRO HIER IST NE EXCEPTION -.-");
+											MessageBox.Show(e.Message + "\n" + e.StackTrace, "Fehler");
 										}
 										break;
 								}
@@ -112,16 +134,33 @@ namespace WinForms
 		{
 			if (Config.Settings.CheckSocial && facebook.Trim() != "")
 			{
-				//https://graph.facebook.com/TheLockNLol/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y
-
-			}
-		}
-
-		public void checkTwitter()
-		{
-			if (Config.Settings.CheckSocial && twitter.Trim() != "")
-			{
-
+				using (WebClient c = new WebClient())
+				{
+					c.DownloadStringCompleted += (a, b) =>
+					{
+						if (!b.Cancelled)
+						{
+							Facebook fb = JsonConvert.DeserializeObject<Facebook>(b.Result);
+							string lastID = "";
+							foreach (FacebookData d in fb.data)
+							{
+								if (d.id == Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook) goto ReadDone;
+								if (d.name != null && d.message != null)
+								{
+									if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
+									else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
+								}
+							}
+						ReadDone:
+							if (lastID != "")
+							{
+								Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook = lastID;
+								Config.Save();
+							}
+						}
+					};
+					c.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y"));
+				}
 			}
 		}
 	}

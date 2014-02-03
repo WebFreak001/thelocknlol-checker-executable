@@ -148,7 +148,7 @@ namespace WinForms.Forms
 			List<CheckerFormat> checks = new List<CheckerFormat>();
 			foreach (ListViewItem i in lvCheckers.Items)
 			{
-				checks.Add(new CheckerFormat() { Name = i.Text, YouTube = i.SubItems[1].Text, Twitch = i.SubItems[2].Text, Facebook = i.SubItems[3].Text, Twitter = i.SubItems[4].Text, Enabled = i.Checked });
+				checks.Add(new CheckerFormat() { Name = i.Text, YouTube = i.SubItems[1].Text, Twitch = i.SubItems[2].Text, Facebook = i.SubItems[3].Text, Enabled = i.Checked });
 			}
 			tempConfig.Checkers = checks;
 		}
@@ -163,10 +163,9 @@ namespace WinForms.Forms
 		{
 			tempConfig = Config.Settings;
 			lvCheckers.Items.Clear();
-			if(tempConfig.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.Twitter && i.Twitter == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
+			if(tempConfig.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
 				ListViewItem i = new ListViewItem("TheLockNLol");
-				i.SubItems.Add("TheLockNLol");
 				i.SubItems.Add("TheLockNLol");
 				i.SubItems.Add("TheLockNLol");
 				i.SubItems.Add("TheLockNLol");
@@ -179,14 +178,12 @@ namespace WinForms.Forms
 				i.SubItems.Add("" + c.YouTube);
 				i.SubItems.Add("" + c.Twitch);
 				i.SubItems.Add("" + c.Facebook);
-				i.SubItems.Add("" + c.Twitter);
 				i.Checked = c.Enabled;
 				lvCheckers.Items.Add(i);
 			}
 			cbSoundVidup.Checked = tempConfig.Sounds.OnVideo;
 			cbSoundLivestream.Checked = tempConfig.Sounds.OnLivestream;
 			cbSoundFBook.Checked = tempConfig.Sounds.OnFacebook;
-			cbSoundTwitter.Checked = tempConfig.Sounds.OnTwitter;
 			cbSound.SelectedItem = tempConfig.CurrentSound;
 
 			cbNotifyVideo.Checked = tempConfig.CheckVideo;

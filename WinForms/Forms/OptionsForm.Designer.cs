@@ -32,7 +32,6 @@
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol",
-            "TheLockNLol",
             "TheLockNLol"}, -1);
 			System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Festgelegt", System.Windows.Forms.HorizontalAlignment.Left);
 			System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("System", System.Windows.Forms.HorizontalAlignment.Left);
@@ -50,14 +49,12 @@
 			this.ytName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.twitchName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.fbName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-			this.twitterName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.btnRem = new System.Windows.Forms.Button();
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.tpNotifications = new System.Windows.Forms.TabPage();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.cbSoundTwitter = new System.Windows.Forms.CheckBox();
 			this.btnPreviewSound = new System.Windows.Forms.Button();
 			this.cbSound = new System.Windows.Forms.ComboBox();
 			this.tbSoundFile = new System.Windows.Forms.TextBox();
@@ -127,8 +124,7 @@
             this.dname,
             this.ytName,
             this.twitchName,
-            this.fbName,
-            this.twitterName});
+            this.fbName});
 			this.lvCheckers.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvCheckers.FullRowSelect = true;
 			this.lvCheckers.GridLines = true;
@@ -163,11 +159,6 @@
 			// 
 			this.fbName.Text = "Facebook Name";
 			this.fbName.Width = 95;
-			// 
-			// twitterName
-			// 
-			this.twitterName.Text = "Twitter";
-			this.twitterName.Width = 70;
 			// 
 			// panel1
 			// 
@@ -230,7 +221,6 @@
 			// 
 			// groupBox1
 			// 
-			this.groupBox1.Controls.Add(this.cbSoundTwitter);
 			this.groupBox1.Controls.Add(this.btnPreviewSound);
 			this.groupBox1.Controls.Add(this.cbSound);
 			this.groupBox1.Controls.Add(this.tbSoundFile);
@@ -247,22 +237,12 @@
 			this.groupBox1.TabStop = false;
 			this.groupBox1.Text = "Sounds";
 			// 
-			// cbSoundTwitter
-			// 
-			this.cbSoundTwitter.AutoSize = true;
-			this.cbSoundTwitter.Location = new System.Drawing.Point(6, 88);
-			this.cbSoundTwitter.Name = "cbSoundTwitter";
-			this.cbSoundTwitter.Size = new System.Drawing.Size(109, 17);
-			this.cbSoundTwitter.TabIndex = 9;
-			this.cbSoundTwitter.Text = "Sound bei Twitter";
-			this.cbSoundTwitter.UseVisualStyleBackColor = true;
-			// 
 			// btnPreviewSound
 			// 
 			this.btnPreviewSound.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.btnPreviewSound.Font = new System.Drawing.Font("Arial", 8.25F);
 			this.btnPreviewSound.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-			this.btnPreviewSound.Location = new System.Drawing.Point(189, 110);
+			this.btnPreviewSound.Location = new System.Drawing.Point(189, 85);
 			this.btnPreviewSound.Name = "btnPreviewSound";
 			this.btnPreviewSound.Size = new System.Drawing.Size(23, 23);
 			this.btnPreviewSound.TabIndex = 8;
@@ -276,7 +256,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.cbSound.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
 			this.cbSound.FormattingEnabled = true;
-			this.cbSound.Location = new System.Drawing.Point(6, 111);
+			this.cbSound.Location = new System.Drawing.Point(6, 86);
 			this.cbSound.Name = "cbSound";
 			this.cbSound.Size = new System.Drawing.Size(181, 21);
 			this.cbSound.TabIndex = 7;
@@ -338,9 +318,9 @@
             listViewItem5,
             listViewItem6,
             listViewItem7});
-			this.lvSounds.Location = new System.Drawing.Point(6, 138);
+			this.lvSounds.Location = new System.Drawing.Point(6, 113);
 			this.lvSounds.Name = "lvSounds";
-			this.lvSounds.Size = new System.Drawing.Size(206, 84);
+			this.lvSounds.Size = new System.Drawing.Size(206, 109);
 			this.lvSounds.TabIndex = 4;
 			this.lvSounds.UseCompatibleStateImageBehavior = false;
 			this.lvSounds.View = System.Windows.Forms.View.Details;
@@ -490,9 +470,9 @@
 			this.cbNotifySocial.CheckState = System.Windows.Forms.CheckState.Checked;
 			this.cbNotifySocial.Location = new System.Drawing.Point(6, 65);
 			this.cbNotifySocial.Name = "cbNotifySocial";
-			this.cbNotifySocial.Size = new System.Drawing.Size(55, 17);
+			this.cbNotifySocial.Size = new System.Drawing.Size(74, 17);
 			this.cbNotifySocial.TabIndex = 5;
-			this.cbNotifySocial.Text = "Social";
+			this.cbNotifySocial.Text = "Facebook";
 			this.cbNotifySocial.UseVisualStyleBackColor = true;
 			this.cbNotifySocial.CheckedChanged += new System.EventHandler(this.cbNotifySocial_CheckedChanged);
 			// 
@@ -635,8 +615,6 @@
 		private System.Windows.Forms.Button btnSave;
 		private System.Windows.Forms.Button btnSaveAndClose;
 		private System.Windows.Forms.Button btnResetChanges;
-		private System.Windows.Forms.ColumnHeader twitterName;
-		private System.Windows.Forms.CheckBox cbSoundTwitter;
 		private System.Windows.Forms.ColumnHeader chSound;
 		private System.Windows.Forms.TrackBar tbDuration;
 		private System.Windows.Forms.Label lbNotifyColor;

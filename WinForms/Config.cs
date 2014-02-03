@@ -16,10 +16,8 @@ namespace WinForms
 		public string Facebook { get; set; }
 		public string YouTube { get; set; }
 		public string Twitch { get; set; }
-		public string Twitter { get; set; }
 		public string LastVideo { get; set; }
 		public string LastFacebook { get; set; }
-		public string LastTwitter { get; set; }
 		public bool Livestreaming { get; set; }
 	}
 
@@ -28,7 +26,6 @@ namespace WinForms
 		public bool OnVideo { get; set; }
 		public bool OnLivestream { get; set; }
 		public bool OnFacebook { get; set; }
-		public bool OnTwitter { get; set; }
 	}
 
 	public class ConfigFormat
@@ -52,7 +49,7 @@ namespace WinForms
 
 		public static void Load()
 		{
-			if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = "255, 255, 255", CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, NotifyDelay = 100, CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnTwitter = false, OnVideo = false }, Checkers = new List<CheckerFormat>() { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol", Twitter = "TheLockNLol", LastFacebook = "", LastTwitter = "", LastVideo = "" } } }, Formatting.Indented));
+			if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = "255, 255, 255", CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, NotifyDelay = 100, CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnVideo = false }, Checkers = new List<CheckerFormat>() { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol", LastFacebook = "", LastVideo = "" } } }, Formatting.Indented));
 			Settings = JsonConvert.DeserializeObject<ConfigFormat>(File.ReadAllText("config.json"));
 		}
 
