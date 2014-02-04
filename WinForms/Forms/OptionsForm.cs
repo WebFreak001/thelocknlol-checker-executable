@@ -129,7 +129,6 @@ namespace WinForms.Forms
 				i.SubItems.Add(new ListViewItem.ListViewSubItem(i, "" + c.YouTube));
 				i.SubItems.Add(new ListViewItem.ListViewSubItem(i, "" + c.Twitch));
 				i.SubItems.Add(new ListViewItem.ListViewSubItem(i, "" + c.Facebook));
-				i.SubItems.Add(new ListViewItem.ListViewSubItem(i, "" + c.Twitter));
 				lvCheckers.Items.Add(i);
 			}
 			UpdateCheckers();
@@ -307,7 +306,8 @@ namespace WinForms.Forms
 
 		private void lvCheckers_ItemChecked(object sender, ItemCheckedEventArgs e)
 		{
-			tempConfig.Checkers.Where(i => i.Name == e.Item.Text).First().Enabled = e.Item.Checked;
+			List<CheckerFormat> x = tempConfig.Checkers.Where(i => i.Name == e.Item.Text).ToList();
+			if(x.Count != 0) x.First().Enabled = e.Item.Checked;
 		}
 	}
 }

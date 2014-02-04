@@ -34,11 +34,9 @@
 			this.cbYouTube = new System.Windows.Forms.CheckBox();
 			this.cbTwitch = new System.Windows.Forms.CheckBox();
 			this.cbFacebook = new System.Windows.Forms.CheckBox();
-			this.cbTwitter = new System.Windows.Forms.CheckBox();
 			this.tbYouTube = new System.Windows.Forms.TextBox();
 			this.tbTwitch = new System.Windows.Forms.TextBox();
 			this.tbFacebook = new System.Windows.Forms.TextBox();
-			this.tbTwitter = new System.Windows.Forms.TextBox();
 			this.tbTagName = new System.Windows.Forms.TextBox();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
@@ -49,7 +47,7 @@
 			this.panel1.Controls.Add(this.btnRem);
 			this.panel1.Controls.Add(this.btnAdd);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-			this.panel1.Location = new System.Drawing.Point(0, 137);
+			this.panel1.Location = new System.Drawing.Point(0, 113);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(287, 35);
 			this.panel1.TabIndex = 2;
@@ -113,19 +111,6 @@
 			this.cbFacebook.UseVisualStyleBackColor = true;
 			this.cbFacebook.CheckedChanged += new System.EventHandler(this.cbFacebook_CheckedChanged);
 			// 
-			// cbTwitter
-			// 
-			this.cbTwitter.AutoSize = true;
-			this.cbTwitter.Checked = true;
-			this.cbTwitter.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbTwitter.Location = new System.Drawing.Point(5, 114);
-			this.cbTwitter.Name = "cbTwitter";
-			this.cbTwitter.Size = new System.Drawing.Size(58, 17);
-			this.cbTwitter.TabIndex = 6;
-			this.cbTwitter.Text = "Twitter";
-			this.cbTwitter.UseVisualStyleBackColor = true;
-			this.cbTwitter.CheckedChanged += new System.EventHandler(this.cbTwitter_CheckedChanged);
-			// 
 			// tbYouTube
 			// 
 			this.tbYouTube.Location = new System.Drawing.Point(86, 43);
@@ -147,13 +132,6 @@
 			this.tbFacebook.Size = new System.Drawing.Size(196, 20);
 			this.tbFacebook.TabIndex = 9;
 			// 
-			// tbTwitter
-			// 
-			this.tbTwitter.Location = new System.Drawing.Point(86, 112);
-			this.tbTwitter.Name = "tbTwitter";
-			this.tbTwitter.Size = new System.Drawing.Size(196, 20);
-			this.tbTwitter.TabIndex = 10;
-			// 
 			// tbTagName
 			// 
 			this.tbTagName.Location = new System.Drawing.Point(12, 12);
@@ -165,13 +143,11 @@
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(287, 172);
+			this.ClientSize = new System.Drawing.Size(287, 148);
 			this.Controls.Add(this.tbTagName);
-			this.Controls.Add(this.tbTwitter);
 			this.Controls.Add(this.tbFacebook);
 			this.Controls.Add(this.tbTwitch);
 			this.Controls.Add(this.tbYouTube);
-			this.Controls.Add(this.cbTwitter);
 			this.Controls.Add(this.cbFacebook);
 			this.Controls.Add(this.cbTwitch);
 			this.Controls.Add(this.cbYouTube);
@@ -193,11 +169,9 @@
 		private System.Windows.Forms.CheckBox cbYouTube;
 		private System.Windows.Forms.CheckBox cbTwitch;
 		private System.Windows.Forms.CheckBox cbFacebook;
-		private System.Windows.Forms.CheckBox cbTwitter;
 		private System.Windows.Forms.TextBox tbYouTube;
 		private System.Windows.Forms.TextBox tbTwitch;
 		private System.Windows.Forms.TextBox tbFacebook;
-		private System.Windows.Forms.TextBox tbTwitter;
 		private System.Windows.Forms.TextBox tbTagName;
 	}
 }

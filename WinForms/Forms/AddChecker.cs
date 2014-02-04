@@ -16,7 +16,6 @@ namespace WinForms.Forms
 		public string YouTube { get { return tbYouTube.Text; } }
 		public string Twitch { get { return tbTwitch.Text; } }
 		public string Facebook { get { return tbFacebook.Text; } }
-		public string Twitter { get { return tbTwitter.Text; } }
 		public bool Success { get; protected set; }
 
 		public AddChecker()
@@ -39,11 +38,6 @@ namespace WinForms.Forms
 			tbFacebook.Enabled = cbFacebook.Checked;
 		}
 
-		private void cbTwitter_CheckedChanged(object sender, EventArgs e)
-		{
-			tbTwitter.Enabled = cbTwitter.Checked;
-		}
-
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
 			if (tbTagName.Text.Trim() == "")
@@ -56,8 +50,8 @@ namespace WinForms.Forms
 				MessageBox.Show("Bitte geben sie einen richtigen YouTube namen ein!", "Fehler");
 				return;
 			}
-			do { tbYouTube.Text = YouTube.Remove(0, YouTube.IndexOf('/') + 1); if (YouTube.EndsWith("/")) tbYouTube.Text = YouTube.Substring(YouTube.Length - 1, 1); }
-			while (YouTube.Contains("/"));
+			if (YouTube.EndsWith("/")) tbYouTube.Text = YouTube.Remove(YouTube.LastIndexOf('/'));
+			tbYouTube.Text = YouTube.Remove(0, YouTube.LastIndexOf('/') + 1);
 			Success = true;
 			Close();
 		}
