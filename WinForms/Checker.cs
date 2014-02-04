@@ -115,7 +115,7 @@ namespace WinForms
 												if (s == id.Substring(42)) goto ReadDone;
 												Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
 												if (Config.Settings.Sounds.OnVideo) PlaySound(Config.Settings.CurrentSound);
-												//lastID = id.Substring(42);
+												if(lastID == "") lastID = id.Substring(42);
 											}
 											catch (Exception e)
 											{
@@ -155,7 +155,9 @@ namespace WinForms
 								string lastID = "";
 								foreach (FacebookData d in fb.data)
 								{
+									
 									if (d.id == Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook) goto ReadDone;
+									if (lastID == "") lastID = d.id;
 									if (d.name != null && d.message != null)
 									{
 										if (!d.link.Contains("youtube"))
