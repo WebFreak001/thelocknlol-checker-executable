@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -69,6 +70,7 @@ namespace WinForms
 									if (!Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming)
 									{
 										Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
+										if (Config.Settings.Sounds.OnLivestream) PlaySound(Config.Settings.CurrentSound);
 									}
 									Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = true;
 								}
@@ -112,6 +114,7 @@ namespace WinForms
 												string s = Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo;
 												if (s == id.Substring(42)) goto ReadDone;
 												Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
+												if (Config.Settings.Sounds.OnVideo) PlaySound(Config.Settings.CurrentSound);
 												//lastID = id.Substring(42);
 											}
 											catch (Exception e)
@@ -159,6 +162,7 @@ namespace WinForms
 										{
 											if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
 											else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
+											if(Config.Settings.Sounds.OnFacebook) PlaySound(Config.Settings.CurrentSound);
 										}
 									}
 								}
@@ -174,6 +178,28 @@ namespace WinForms
 					}
 				}
 			}).Start();
+		}
+
+		public void PlaySound(string s)
+		{
+			if (s.ToLower().StartsWith("system:"))
+			{
+				string sound = s.Split(':')[1].ToLower().Trim();
+				if (sound == "asterisk") SystemSounds.Asterisk.Play();
+				if (sound == "beep") SystemSounds.Beep.Play();
+				if (sound == "exclamation") SystemSounds.Exclamation.Play();
+				if (sound == "hand") SystemSounds.Hand.Play();
+				if (sound == "question") SystemSounds.Question.Play();
+			}
+			else
+			{
+				SoundPlayer p = new SoundPlayer(s);
+				p.LoadCompleted += (a, b) =>
+				{
+					p.Play();
+				};
+				p.LoadAsync();
+			}
 		}
 	}
 }
