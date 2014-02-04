@@ -46,11 +46,18 @@ namespace WinForms.Forms
 
 		private void btnAdd_Click(object sender, EventArgs e)
 		{
-			if(tbTagName.Text.Trim() == "")
+			if (tbTagName.Text.Trim() == "")
 			{
 				MessageBox.Show("Bitte benennen Sie diese Person!", "Fehler");
 				return;
 			}
+			if (tbYouTube.Text.Contains("/") && !tbYouTube.Text.ToLower().Contains("youtube"))
+			{
+				MessageBox.Show("Bitte geben sie einen richtigen YouTube namen ein!", "Fehler");
+				return;
+			}
+			do { tbYouTube.Text = YouTube.Remove(0, YouTube.IndexOf('/') + 1); if (YouTube.EndsWith("/")) tbYouTube.Text = YouTube.Substring(YouTube.Length - 1, 1); }
+			while (YouTube.Contains("/"));
 			Success = true;
 			Close();
 		}

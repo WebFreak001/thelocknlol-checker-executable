@@ -79,9 +79,18 @@ namespace WinForms
 			Graphics g = e.Graphics;
 			g.DrawImage(Image.FromFile("Image/Notification.png"), new Rectangle(0, 0, Width, Height));
 			g.DrawImage(image, new Rectangle(20, (int)(20 + clipRegion.Y * imgScale), 61, (int)(61 * proportion)), clipRegion, GraphicsUnit.Pixel);
-			g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 20));
-			g.DrawString(desc, new Font("Arial", 10.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(96, 36, 256, 50));
 			g.DrawString("X", new Font("Arial", 9.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(346, 12, 12, 12));
+			int offy = 0;
+			if (g.MeasureString(title, new Font("Arial", 10.0f, FontStyle.Bold)).Width > 256)
+			{
+				g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 40));
+				offy = 12;
+			}
+			else
+			{
+				g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 20));
+			}
+			g.DrawString(desc, new Font("Arial", 10.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(96, 36 + offy, 256, 50 - offy));
 		}
 
 		private void Notification_Click(object sender, EventArgs e)
