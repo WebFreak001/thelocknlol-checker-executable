@@ -94,6 +94,7 @@
 			// 
 			// refreshTimer
 			// 
+			this.refreshTimer.Enabled = true;
 			this.refreshTimer.Interval = 10000;
 			this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
 			// 
@@ -163,7 +164,6 @@
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
 			this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
 			this.Load += new System.EventHandler(this.MainForm_Load);
-			this.Resize += new System.EventHandler(this.MainForm_Resize);
 			this.tsOptions.ResumeLayout(false);
 			this.tsOptions.PerformLayout();
 			this.trayMenu.ResumeLayout(false);

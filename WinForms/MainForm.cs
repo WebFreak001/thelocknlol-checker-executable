@@ -34,7 +34,6 @@ namespace WinForms
 			{
 				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol" });
 			}
-			UpdateLayout();
 		}
 
 		void OnClear(object sender, EventArgs e)
@@ -95,7 +94,6 @@ namespace WinForms
 		{
 			string s = sender.ToString();
 			GetList(s).AddNotification(e);
-			UpdateLayout();
 		}
 
 		private void btnRefresh_Click(object sender, EventArgs e)
@@ -118,29 +116,13 @@ namespace WinForms
 			new Forms.OptionsForm().ShowDialog();
 		}
 
-		private void MainForm_Resize(object sender, EventArgs e)
-		{
-			ResizeThings();
-		}
-
-		public void ResizeThings()
-		{
-
-		}
-
 		private void tsbAbout_Click(object sender, EventArgs e)
 		{
 			new Forms.About().ShowDialog();
 		}
 
-		public void UpdateLayout()
-		{
-			ResizeThings();
-		}
-
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			ResizeThings();
 			if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
 			foreach (CheckerFormat f in Config.Settings.Checkers)
 			{
