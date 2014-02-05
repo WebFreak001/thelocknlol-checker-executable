@@ -34,7 +34,6 @@
 			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
 			this.tsbAbout = new System.Windows.Forms.ToolStripButton();
-			this.refreshTimer = new System.Windows.Forms.Timer(this.components);
 			this.notifications = new System.Windows.Forms.FlowLayoutPanel();
 			this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -42,6 +41,7 @@
 			this.trayOptions = new System.Windows.Forms.ToolStripMenuItem();
 			this.trayAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.notificationTimer = new System.Windows.Forms.Timer(this.components);
+			this.refresher = new System.ComponentModel.BackgroundWorker();
 			this.tsOptions.SuspendLayout();
 			this.trayMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -91,12 +91,6 @@
 			this.tsbAbout.Size = new System.Drawing.Size(36, 22);
 			this.tsbAbout.Text = "Über";
 			this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
-			// 
-			// refreshTimer
-			// 
-			this.refreshTimer.Enabled = true;
-			this.refreshTimer.Interval = 10000;
-			this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
 			// 
 			// notifications
 			// 
@@ -152,6 +146,10 @@
 			this.notificationTimer.Interval = 10;
 			this.notificationTimer.Tick += new System.EventHandler(this.notificationTimer_Tick);
 			// 
+			// refresher
+			// 
+			this.refresher.DoWork += new System.ComponentModel.DoWorkEventHandler(this.refresher_DoWork);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -177,7 +175,6 @@
 		private System.Windows.Forms.ToolStrip tsOptions;
 		private System.Windows.Forms.ToolStripButton btnOptions;
 		private System.Windows.Forms.ToolStripButton btnRefresh;
-		private System.Windows.Forms.Timer refreshTimer;
 		private System.Windows.Forms.ToolStripButton tsbAbout;
 		private System.Windows.Forms.FlowLayoutPanel notifications;
 		private System.Windows.Forms.NotifyIcon trayIcon;
@@ -186,6 +183,7 @@
 		private System.Windows.Forms.ToolStripMenuItem trayOptions;
 		private System.Windows.Forms.ToolStripMenuItem trayAbout;
 		private System.Windows.Forms.Timer notificationTimer;
+		private System.ComponentModel.BackgroundWorker refresher;
 	}
 }
 

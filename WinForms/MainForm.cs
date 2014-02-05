@@ -22,34 +22,55 @@ namespace WinForms
 
 		public MainForm()
 		{
-			InitializeComponent();
-			checkers = new List<Checker>();
 			Notifications.OnMessage += OnMessage;
-			Config.Load();
-			if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
+			try
 			{
-				Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol");
+				InitializeComponent();
+				checkers = new List<Checker>();
+				Config.Load();
+				if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
+				{
+					Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol");
+				}
+				if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
+				{
+					Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol" });
+				}
 			}
-			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
+			catch (Exception e)
 			{
-				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol" });
+				ThrowError(e);
 			}
 		}
 
-		void OnClear(object sender, EventArgs e)
+		void OnClear(object sender, EventArgs ev)
 		{
-			notifications.Controls.Clear();
+			try
+			{
+				notifications.Controls.Clear();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		public Controls.NotifyList GetList(string tag)
 		{
-			foreach (Control c in notifications.Controls)
+			try
 			{
-				if (c is Controls.NotifyList)
+				foreach (Control c in notifications.Controls)
 				{
-					Controls.NotifyList l = (Controls.NotifyList)c;
-					if (l.NameTag == tag) return l;
+					if (c is Controls.NotifyList)
+					{
+						Controls.NotifyList l = (Controls.NotifyList)c;
+						if (l.NameTag == tag) return l;
+					}
 				}
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
 			}
 			return null;
 		}
@@ -82,58 +103,97 @@ namespace WinForms
 						}
 					}
 				}
+				return true;
 			}
-			catch
+			catch (Exception e)
 			{
-				return false;
+				ThrowError(e);
 			}
-			return true;
+			return false;
 		}
 
 		void OnMessage(object sender, Notification e)
 		{
-			string s = sender.ToString();
-			GetList(s).AddNotification(e);
+			try
+			{
+				string s = sender.ToString();
+				GetList(s).AddNotification(e);
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void btnRefresh_Click(object sender, EventArgs e)
 		{
-			RefreshThings();
-		}
-
-		private void refreshTimer_Tick(object sender, EventArgs e)
-		{
-			RefreshThings();
+			try
+			{
+				RefreshThings();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		public void RefreshThings()
 		{
-			checkers.ForEach(e => { e.checkYoutube(); e.checkTwitch(); e.checkFacebook(); });
+			try
+			{
+				checkers.ForEach(e => { e.checkYoutube(); e.checkTwitch(); e.checkFacebook(); });
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void btnOptions_Click(object sender, EventArgs e)
 		{
-			new Forms.OptionsForm().ShowDialog();
+			try
+			{
+				new Forms.OptionsForm().ShowDialog();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void tsbAbout_Click(object sender, EventArgs e)
 		{
-			new Forms.About().ShowDialog();
+			try
+			{
+				new Forms.About().ShowDialog();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
-			foreach (CheckerFormat f in Config.Settings.Checkers)
+			try
 			{
-				if (f.Enabled)
+				if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
+				foreach (CheckerFormat f in Config.Settings.Checkers)
 				{
-					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
-					checkers.Add(c);
-					Controls.NotifyList l = new Controls.NotifyList(f.Name);
-					l.RequestMore += (s, ev) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); };
-					notifications.Controls.Add(l);
+					if (f.Enabled)
+					{
+						Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
+						checkers.Add(c);
+						Controls.NotifyList l = new Controls.NotifyList(f.Name);
+						l.RequestMore += (s, ev) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); };
+						notifications.Controls.Add(l);
+					}
 				}
+				refresher.RunWorkerAsync();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
 			}
 		}
 
@@ -148,51 +208,121 @@ namespace WinForms
 
 		private void ShowMe()
 		{
-			if (WindowState == FormWindowState.Minimized)
+			try
 			{
-				WindowState = lastState;
+				if (WindowState == FormWindowState.Minimized)
+				{
+					WindowState = lastState;
+				}
+				bool top = TopMost;
+				TopMost = true;
+				TopMost = top;
 			}
-			bool top = TopMost;
-			TopMost = true;
-			TopMost = top;
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void trayClose_Click(object sender, EventArgs e)
 		{
-			mayClose = true;
-			Close();
+			try
+			{
+				mayClose = true;
+				Close();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void trayOptions_Click(object sender, EventArgs e)
 		{
-			new Forms.OptionsForm().ShowDialog();
+			try
+			{
+				new Forms.OptionsForm().ShowDialog();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void trayAbout_Click(object sender, EventArgs e)
 		{
-			new Forms.About().ShowDialog();
+			try
+			{
+				new Forms.About().ShowDialog();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
 		{
-			if (!mayClose)
+			try
 			{
-				e.Cancel = true;
-				lastState = WindowState;
-				WindowState = FormWindowState.Minimized;
-				Hide();
+				if (!mayClose)
+				{
+					e.Cancel = true;
+					lastState = WindowState;
+					WindowState = FormWindowState.Minimized;
+					Hide();
+				}
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
 			}
 		}
 
 		private void trayIcon_DoubleClick(object sender, EventArgs e)
 		{
-			Show();
-			WindowState = lastState;
+			try
+			{
+				Show();
+				WindowState = lastState;
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
 		}
 
 		private void notificationTimer_Tick(object sender, EventArgs e)
 		{
-			Notifications.FetchNotification();
+			try
+			{
+				Notifications.FetchNotification();
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
+		}
+
+		private void refresher_DoWork(object sender, DoWorkEventArgs e)
+		{
+			while (true)
+			{
+				try
+				{
+					RefreshThings();
+					Thread.Sleep(10000);
+				}
+				catch (Exception e)
+				{
+					ThrowError(e);
+				}
+			}
+		}
+
+		public void ThrowError(Exception e)
+		{
+			// Todo
 		}
 	}
 }
