@@ -50,8 +50,31 @@ namespace WinForms.Forms
 				MessageBox.Show("Bitte geben sie einen richtigen YouTube namen ein!", "Fehler");
 				return;
 			}
-			if (YouTube.EndsWith("/")) tbYouTube.Text = YouTube.Remove(YouTube.LastIndexOf('/'));
-			tbYouTube.Text = YouTube.Remove(0, YouTube.LastIndexOf('/') + 1);
+			if (tbYouTube.Text.Contains("/"))
+			{
+				if (YouTube.EndsWith("/")) tbYouTube.Text = YouTube.Remove(YouTube.LastIndexOf('/'));
+				tbYouTube.Text = YouTube.Remove(0, YouTube.LastIndexOf('/') + 1);
+			}
+			if (tbFacebook.Text.Contains("/") && !tbFacebook.Text.ToLower().Contains("facebook"))
+			{
+				MessageBox.Show("Bitte geben sie einen richtigen Facebook namen ein!", "Fehler");
+				return;
+			}
+			if (tbFacebook.Text.Contains("/"))
+			{
+				if (Facebook.EndsWith("/")) tbFacebook.Text = Facebook.Remove(Facebook.LastIndexOf('/'));
+				tbFacebook.Text = Facebook.Remove(0, Facebook.LastIndexOf('/') + 1);
+			}
+			if (tbTwitch.Text.Contains("/") && !tbTwitch.Text.ToLower().Contains("twitch"))
+			{
+				MessageBox.Show("Bitte geben sie einen richtigen Twitch namen ein!", "Fehler");
+				return;
+			}
+			if (tbTwitch.Text.Contains("/"))
+			{
+				if (Twitch.EndsWith("/")) tbTwitch.Text = Twitch.Remove(Twitch.LastIndexOf('/'));
+				tbTwitch.Text = Twitch.Remove(0, Twitch.LastIndexOf('/') + 1);
+			}
 			Success = true;
 			Close();
 		}
