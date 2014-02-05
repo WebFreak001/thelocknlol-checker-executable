@@ -22,12 +22,13 @@ namespace WinForms
 		float imgScale;
 		Bitmap image;
 		Rectangle clipRegion;
+		Color foreColor;
 		int step = 0;
 
 		public Notification(string image, string title, string desc, string link)
 		{
 			InitializeComponent();
-			if(image == null || title == null || desc == null || link == null) return;
+			if (image == null || title == null || desc == null || link == null) return;
 			WebClient wc = new WebClient();
 			byte[] bytes = wc.DownloadData(image);
 			MemoryStream ms = new MemoryStream(bytes);
@@ -41,7 +42,7 @@ namespace WinForms
 					Color c = this.image.GetPixel(x, y);
 					if (c.R + c.G + c.B > 30) isBlack = false;
 				}
-				if(isBlack)
+				if (isBlack)
 				{
 					if (y < this.image.Height / 2) y0 = y;
 					else y1 = y;
@@ -53,9 +54,11 @@ namespace WinForms
 			this.desc = desc;
 			this.link = link;
 			timer1.Interval = Config.Settings.NotifyDelay * 10;
-			if(Config.Settings.NotifyDelay != 300) timer1.Enabled = true;
+			if (Config.Settings.NotifyDelay != 300) timer1.Enabled = true;
 			proportion = clipRegion.Height / (float)this.image.Height;
 			imgScale = 61.0f / this.image.Height;
+			Bitmap b = new Bitmap(Image.FromStream(new MemoryStream(File.ReadAllBytes("Image/Palette.png"))));
+			foreColor = b.GetPixel(Config.Settings.NotifyColor, 1);
 		}
 
 		private void Notification_Load(object sender, EventArgs e)
@@ -77,20 +80,20 @@ namespace WinForms
 		private void Notification_Paint(object sender, PaintEventArgs e)
 		{
 			Graphics g = e.Graphics;
-			g.DrawImage(Image.FromFile("Image/Notification.png"), new Rectangle(0, 0, Width, Height));
+			g.DrawImage(Image.FromFile("Image/Notification" + Config.Settings.NotifyColor + ".png"), new Rectangle(0, 0, Width, Height));
 			g.DrawImage(image, new Rectangle(20, (int)(20 + clipRegion.Y * imgScale), 61, (int)(61 * proportion)), clipRegion, GraphicsUnit.Pixel);
-			g.DrawString("X", new Font("Arial", 9.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(346, 12, 12, 12));
+			g.DrawString("X", new Font("Arial", 9.0f, FontStyle.Regular), new SolidBrush(foreColor), new RectangleF(346, 12, 12, 12));
 			int offy = 0;
 			if (g.MeasureString(title, new Font("Arial", 10.0f, FontStyle.Bold)).Width > 256)
 			{
-				g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 40));
+				g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(foreColor), new RectangleF(96, 16, 256, 40));
 				offy = 12;
 			}
 			else
 			{
-				g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(Color.Black), new RectangleF(96, 16, 256, 20));
+				g.DrawString(title, new Font("Arial", 10.0f, FontStyle.Bold), new SolidBrush(foreColor), new RectangleF(96, 16, 256, 20));
 			}
-			g.DrawString(desc, new Font("Arial", 10.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(96, 36 + offy, 256, 50 - offy));
+			g.DrawString(desc, new Font("Arial", 10.0f, FontStyle.Regular), new SolidBrush(foreColor), new RectangleF(96, 36 + offy, 256, 50 - offy));
 		}
 
 		private void Notification_Click(object sender, EventArgs e)

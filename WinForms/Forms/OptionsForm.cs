@@ -17,6 +17,7 @@ namespace WinForms.Forms
 	public partial class OptionsForm : Form
 	{
 		ConfigFormat tempConfig;
+		Bitmap palette;
 
 		public OptionsForm()
 		{
@@ -191,11 +192,17 @@ namespace WinForms.Forms
 
 			tbDuration.Value = Math.Max(tbDuration.Minimum, Math.Min(tbDuration.Maximum, tempConfig.NotifyDelay));
 			tbDuration_Scroll(null, EventArgs.Empty);
-			string[] splits = tempConfig.NotifyColor.Split(',');
-			int r = int.Parse(splits[0].Trim());
-			int g = int.Parse(splits[1].Trim());
-			int b = int.Parse(splits[2].Trim());
-			pbColor.CreateGraphics().FillRectangle(new SolidBrush(Color.FromArgb(r, g, b)), 0, 0, pbColor.Width, pbColor.Height);
+			palette = new Bitmap(Image.FromStream(new MemoryStream(File.ReadAllBytes("Image/Palette.png"))));
+			pictureBox0.BackColor = palette.GetPixel(0, 0);
+			pictureBox1.BackColor = palette.GetPixel(1, 0);
+			pictureBox2.BackColor = palette.GetPixel(2, 0);
+			pictureBox3.BackColor = palette.GetPixel(3, 0);
+			pictureBox4.BackColor = palette.GetPixel(4, 0);
+			pictureBox5.BackColor = palette.GetPixel(5, 0);
+			pictureBox6.BackColor = palette.GetPixel(6, 0);
+			pictureBox7.BackColor = palette.GetPixel(7, 0);
+			pictureBox8.BackColor = palette.GetPixel(8, 0);
+			pictureBox9.BackColor = palette.GetPixel(9, 0);
 		}
 
 		private void btnSaveAndClose_Click(object sender, EventArgs e)
@@ -279,18 +286,6 @@ namespace WinForms.Forms
 			tempConfig.CurrentSound = cbSound.SelectedItem.ToString();
 		}
 
-		private void pbColor_Click(object sender, EventArgs e)
-		{
-			ColorDialog d = new ColorDialog();
-			DialogResult r = d.ShowDialog();
-			if(r == DialogResult.OK)
-			{
-				Color c = d.Color;
-				pbColor.CreateGraphics().FillRectangle(new SolidBrush(c), 0, 0, pbColor.Width, pbColor.Height);
-				tempConfig.NotifyColor = c.R + "," + c.G + "," + c.B;
-			}
-		}
-
 		private void tbDuration_Scroll(object sender, EventArgs e)
 		{
 			if (tbDuration.Value == tbDuration.Maximum)
@@ -308,6 +303,56 @@ namespace WinForms.Forms
 		{
 			List<CheckerFormat> x = tempConfig.Checkers.Where(i => i.Name == e.Item.Text).ToList();
 			if(x.Count != 0) x.First().Enabled = e.Item.Checked;
+		}
+
+		private void pictureBox0_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 0;
+		}
+
+		private void pictureBox1_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 1;
+		}
+
+		private void pictureBox2_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 2;
+		}
+
+		private void pictureBox3_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 3;
+		}
+
+		private void pictureBox4_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 4;
+		}
+
+		private void pictureBox8_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 5;
+		}
+
+		private void pictureBox5_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 6;
+		}
+
+		private void pictureBox6_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 7;
+		}
+
+		private void pictureBox7_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 8;
+		}
+
+		private void pictureBox9_Click(object sender, EventArgs e)
+		{
+			tempConfig.NotifyColor = 9;
 		}
 	}
 }
