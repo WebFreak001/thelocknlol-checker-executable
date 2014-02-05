@@ -160,7 +160,7 @@ namespace WinForms
 									if (lastID == "") lastID = d.id;
 									if (d.name != null && d.message != null)
 									{
-										if (!d.link.Contains("youtube"))
+										if (Config.Settings.MergeSocialVideo && !d.link.Contains("youtube") || !Config.Settings.MergeSocialVideo)
 										{
 											if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
 											else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
