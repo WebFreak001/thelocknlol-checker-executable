@@ -22,7 +22,7 @@ namespace WinForms.Forms
 			text.AppendText("TheLockNLol Checker ");
 			text.SelectionColor = Color.Gray;
 			text.SelectionFont = new System.Drawing.Font(text.SelectionFont.FontFamily, 12f, FontStyle.Regular);
-			text.AppendText("v" + (Version.VersionNumber * 0.1f).ToString().Replace(',', '.') + "\n");
+			text.AppendText("v1." + (Version.VersionNumber * 0.1f).ToString().Replace(',', '.') + "\n");
 			text.SelectionColor = Color.Black;
 			text.SelectionFont = new System.Drawing.Font(text.SelectionFont.FontFamily, 4f);
 			text.AppendText("\n");
