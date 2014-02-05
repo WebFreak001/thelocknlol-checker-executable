@@ -50,9 +50,8 @@ namespace WinForms.Controls
 		private void NotificationControl_Paint(object sender, PaintEventArgs e)
 		{
 			Graphics g = e.Graphics;
-			g.DrawImage(Image.FromFile("Image/Notification.png"), 0, 0, Width, Height);
+			g.DrawImage(Image.FromFile("Image/NotificationWOX.png"), 0, 0, Width, Height);
 			g.DrawImage(image, new Rectangle(20, (int)(20 + clipRegion.Y * imgScale), 61, (int)(61 * proportion)), clipRegion, GraphicsUnit.Pixel);
-			g.DrawString("X", new Font("Arial", 9.0f, FontStyle.Regular), new SolidBrush(Color.Black), new RectangleF(346, 12, 12, 12));
 			int offy = 0;
 			if (g.MeasureString(title, new Font("Arial", 10.0f, FontStyle.Bold)).Width > 256)
 			{
