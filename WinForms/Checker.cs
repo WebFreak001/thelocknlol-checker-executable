@@ -17,6 +17,8 @@ namespace WinForms
 	{
 		string name, twitch, youtube, facebook, defaultImage;
 
+		bool initialCheck = true;
+
 		public Checker(string name, string twitch, string youtube, string facebook)
 		{
 			this.name = name;
@@ -45,10 +47,20 @@ namespace WinForms
 			{
 				defaultImage = "Image/koala256.png";
 			}
+			Check();
+		}
+
+		public void Check()
+		{
+			checkTwitch();
+			checkYoutube();
+			checkFacebook();
+			initialCheck = false;
 		}
 
 		public void checkTwitch()
 		{
+			bool i = initialCheck;
 			new Thread(() =>
 			{
 				if (Config.Settings.CheckLivestream && twitch.Trim() != "")
@@ -68,7 +80,7 @@ namespace WinForms
 								{
 									if (!Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming)
 									{
-										Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
+										if (!i) Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
 										if (Config.Settings.Sounds.OnLivestream) PlaySound(Config.Settings.CurrentSound);
 									}
 									Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = true;
@@ -83,6 +95,7 @@ namespace WinForms
 
 		public void checkYoutube()
 		{
+			bool i = initialCheck;
 			new Thread(() =>
 			{
 				if (Config.Settings.CheckVideo && youtube.Trim() != "")
@@ -113,7 +126,7 @@ namespace WinForms
 												string thumbnail = reader["url"];
 												string s = Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo;
 												if (s == id.Substring(42)) goto ReadDone;
-												Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
+												if (!i) Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
 												if (Config.Settings.Sounds.OnVideo) PlaySound(Config.Settings.CurrentSound);
 												if (lastID == "") lastID = id.Substring(42);
 											}
@@ -141,6 +154,7 @@ namespace WinForms
 
 		public void checkFacebook()
 		{
+			bool i = initialCheck;
 			new Thread(() =>
 			{
 				if (Config.Settings.CheckSocial && facebook.Trim() != "")
@@ -158,15 +172,16 @@ namespace WinForms
 
 									if (d.id == Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook) goto ReadDone;
 									if (lastID == "") lastID = d.id;
-									if (d.name != null && d.message != null)
-									{
-										if (Config.Settings.MergeSocialVideo && !d.link.Contains("youtube") || !Config.Settings.MergeSocialVideo)
+									if (!i)
+										if (d.name != null && d.message != null)
 										{
-											if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
-											else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
-											if (Config.Settings.Sounds.OnFacebook) PlaySound(Config.Settings.CurrentSound);
+											if (Config.Settings.MergeSocialVideo && !d.link.Contains("youtube") || !Config.Settings.MergeSocialVideo)
+											{
+												if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
+												else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
+												if (Config.Settings.Sounds.OnFacebook) PlaySound(Config.Settings.CurrentSound);
+											}
 										}
-									}
 								}
 							ReadDone:
 								if (lastID != "")

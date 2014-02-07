@@ -141,7 +141,7 @@ namespace WinForms
 		{
 			try
 			{
-				checkers.ForEach(e => { e.checkYoutube(); e.checkTwitch(); e.checkFacebook(); });
+				checkers.ForEach(e => { e.Check(); });
 			}
 			catch (Exception e)
 			{
@@ -185,7 +185,7 @@ namespace WinForms
 						Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
 						checkers.Add(c);
 						Controls.NotifyList l = new Controls.NotifyList(f.Name);
-						l.RequestMore += (s, eve) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); };
+						l.RequestMore += (s, eve) => { c.Check(); };
 						notifications.Controls.Add(l);
 					}
 				}
