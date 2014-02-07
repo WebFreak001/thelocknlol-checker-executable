@@ -80,7 +80,7 @@ namespace WinForms
 								{
 									if (!Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming)
 									{
-										if (!ini) Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
+										Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
 										if (Config.Settings.Sounds.OnLivestream) PlaySound(Config.Settings.CurrentSound);
 									}
 									Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = true;
