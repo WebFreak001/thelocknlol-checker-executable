@@ -17,9 +17,6 @@ namespace WinForms
 		public string Facebook { get; set; }
 		public string YouTube { get; set; }
 		public string Twitch { get; set; }
-		public string LastVideo { get; set; }
-		public string LastFacebook { get; set; }
-		public bool Livestreaming { get; set; }
 	}
 
 	public class SoundFormat
@@ -51,7 +48,7 @@ namespace WinForms
 		{
 			try
 			{
-				if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = 0, CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, NotifyDelay = 100, CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnVideo = false }, Checkers = new List<CheckerFormat>() { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol", LastFacebook = "", LastVideo = "" } } }, Formatting.Indented));
+				if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = 0, CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, NotifyDelay = 100, CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnVideo = false }, Checkers = new List<CheckerFormat>() { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol" } } }, Formatting.Indented));
 				Settings = JsonConvert.DeserializeObject<ConfigFormat>(File.ReadAllText("config.json"));
 			}
 			catch
@@ -81,8 +78,6 @@ namespace WinForms
 							Twitch = "TheLockNLol",
 							YouTube = "TheLockNLol",
 							Name = "TheLockNLol",
-							LastFacebook = "",
-							LastVideo = ""
 						}
 					}
 				};

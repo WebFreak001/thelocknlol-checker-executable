@@ -30,7 +30,7 @@ namespace WinForms
 				Config.Load();
 				if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
 				{
-					Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol");
+					Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol", true);
 				}
 				if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 				{
@@ -99,7 +99,7 @@ namespace WinForms
 						}
 						else
 						{
-							Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update");
+							Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update", true);
 						}
 					}
 				}
@@ -322,7 +322,7 @@ namespace WinForms
 
 		public void ThrowError(Exception e)
 		{
-			// Todo
+			new Forms.ErrorForm(e).Show();
 		}
 	}
 }
