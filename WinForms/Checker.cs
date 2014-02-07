@@ -16,7 +16,6 @@ namespace WinForms
 	public class Checker
 	{
 		string name, twitch, youtube, facebook, defaultImage;
-		WebClient webClient;
 
 		public Checker(string name, string twitch, string youtube, string facebook)
 		{
@@ -25,20 +24,22 @@ namespace WinForms
 			this.youtube = youtube;
 			this.facebook = facebook;
 			defaultImage = "Image/koala256.png";
-			webClient = new WebClient();
 			try
 			{
-				webClient.DownloadStringCompleted += (a, b) =>
+				using (WebClient webClient = new WebClient())
 				{
-					if (!b.Cancelled)
+					webClient.DownloadStringCompleted += (a, b) =>
 					{
-						string xmlString = b.Result;
-						XmlReader reader = XmlReader.Create(new StringReader(xmlString));
-						reader.ReadToFollowing("media:thumbnail");
-						defaultImage = reader["url"];
+						if (!b.Cancelled)
+						{
+							string xmlString = b.Result;
+							XmlReader reader = XmlReader.Create(new StringReader(xmlString));
+							reader.ReadToFollowing("media:thumbnail");
+							defaultImage = reader["url"];
+						};
 					};
-				};
-				webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube));
+					webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube));
+				}
 			}
 			catch
 			{
@@ -52,27 +53,30 @@ namespace WinForms
 			{
 				if (Config.Settings.CheckLivestream && twitch.Trim() != "")
 				{
-					webClient.DownloadStringAsync(new Uri("http://api.justin.tv/api/stream/list.json?channel=" + twitch));
-					webClient.DownloadStringCompleted += (a, b) =>
+					using (WebClient webClient = new WebClient())
 					{
-						if (!b.Cancelled)
+						webClient.DownloadStringCompleted += (a, b) =>
 						{
-							string api = b.Result;
-							if (api.Trim().Replace(" ", "") == "[]")
+							if (!b.Cancelled)
 							{
-								Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = false;
-							}
-							else
-							{
-								if (!Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming)
+								string api = b.Result;
+								if (api.Trim().Replace(" ", "") == "[]")
 								{
-									Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
-									if (Config.Settings.Sounds.OnLivestream) PlaySound(Config.Settings.CurrentSound);
+									Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = false;
 								}
-								Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = true;
+								else
+								{
+									if (!Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming)
+									{
+										Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name);
+										if (Config.Settings.Sounds.OnLivestream) PlaySound(Config.Settings.CurrentSound);
+									}
+									Config.Settings.Checkers.Where(i => i.Name == name).First().Livestreaming = true;
+								}
 							}
-						}
-					};
+						};
+						webClient.DownloadStringAsync(new Uri("http://api.justin.tv/api/stream/list.json?channel=" + twitch));
+					}
 				}
 			}).Start();
 		}
@@ -83,51 +87,54 @@ namespace WinForms
 			{
 				if (Config.Settings.CheckVideo && youtube.Trim() != "")
 				{
-					webClient.DownloadStringCompleted += (a, b) =>
+					using (WebClient webClient = new WebClient())
 					{
-						if (!b.Cancelled)
+						webClient.DownloadStringCompleted += (a, b) =>
 						{
-							string xmlString = b.Result;
-							string lastID = "";
-							XmlReader reader = XmlReader.Create(new StringReader(xmlString));
-							while (reader.Read())
+							if (!b.Cancelled)
 							{
-								switch (reader.Name)
+								string xmlString = b.Result;
+								string lastID = "";
+								XmlReader reader = XmlReader.Create(new StringReader(xmlString));
+								while (reader.Read())
 								{
-									case "feed":
-										break;
-									case "entry":
-										try
-										{
-											reader.ReadToFollowing("id");
-											string id = reader.ReadElementContentAsString();
-											reader.ReadToFollowing("title");
-											string title = reader.ReadElementContentAsString();
-											reader.ReadToFollowing("media:thumbnail");
-											string thumbnail = reader["url"];
-											string s = Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo;
-											if (s == id.Substring(42)) goto ReadDone;
-											Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
-											if (Config.Settings.Sounds.OnVideo) PlaySound(Config.Settings.CurrentSound);
-											if (lastID == "") lastID = id.Substring(42);
-										}
-										catch (Exception e)
-										{
-										}
-										break;
+									switch (reader.Name)
+									{
+										case "feed":
+											break;
+										case "entry":
+											try
+											{
+												reader.ReadToFollowing("id");
+												string id = reader.ReadElementContentAsString();
+												reader.ReadToFollowing("title");
+												string title = reader.ReadElementContentAsString();
+												reader.ReadToFollowing("media:thumbnail");
+												string thumbnail = reader["url"];
+												string s = Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo;
+												if (s == id.Substring(42)) goto ReadDone;
+												Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name);
+												if (Config.Settings.Sounds.OnVideo) PlaySound(Config.Settings.CurrentSound);
+												if (lastID == "") lastID = id.Substring(42);
+											}
+											catch (Exception e)
+											{
+											}
+											break;
+									}
+								}
+							ReadDone:
+								reader.Close();
+								reader.Dispose();
+								if (lastID != "")
+								{
+									Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo = lastID;
+									Config.Save();
 								}
 							}
-						ReadDone:
-							reader.Close();
-							reader.Dispose();
-							if (lastID != "")
-							{
-								Config.Settings.Checkers.Where(i => i.Name == name).First().LastVideo = lastID;
-								Config.Save();
-							}
-						}
-					};
-					webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5"));
+						};
+						webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5"));
+					}
 				}
 			}).Start();
 		}
@@ -138,37 +145,39 @@ namespace WinForms
 			{
 				if (Config.Settings.CheckSocial && facebook.Trim() != "")
 				{
-					webClient.DownloadStringCompleted += (a, b) =>
+					using (WebClient webClient = new WebClient())
 					{
-						if (!b.Cancelled)
+						webClient.DownloadStringCompleted += (a, b) =>
 						{
-							Facebook fb = JsonConvert.DeserializeObject<Facebook>(b.Result);
-							string lastID = "";
-							foreach (FacebookData d in fb.data)
+							if (!b.Cancelled)
 							{
-
-								if (d.id == Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook) goto ReadDone;
-								if (lastID == "") lastID = d.id;
-								if (d.name != null && d.message != null)
+								Facebook fb = JsonConvert.DeserializeObject<Facebook>(b.Result);
+								string lastID = "";
+								foreach (FacebookData d in fb.data)
 								{
-									if (Config.Settings.MergeSocialVideo && !d.link.Contains("youtube") || !Config.Settings.MergeSocialVideo)
+
+									if (d.id == Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook) goto ReadDone;
+									if (lastID == "") lastID = d.id;
+									if (d.name != null && d.message != null)
 									{
-										if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
-										else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
-										if (Config.Settings.Sounds.OnFacebook) PlaySound(Config.Settings.CurrentSound);
+										if (Config.Settings.MergeSocialVideo && !d.link.Contains("youtube") || !Config.Settings.MergeSocialVideo)
+										{
+											if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name);
+											else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name);
+											if (Config.Settings.Sounds.OnFacebook) PlaySound(Config.Settings.CurrentSound);
+										}
 									}
 								}
+							ReadDone:
+								if (lastID != "")
+								{
+									Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook = lastID;
+									Config.Save();
+								}
 							}
-						ReadDone:
-							if (lastID != "")
-							{
-								Config.Settings.Checkers.Where(i => i.Name == name).First().LastFacebook = lastID;
-								Config.Save();
-							}
-						}
-					};
-					webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y"));
-
+						};
+						webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y"));
+					}
 				}
 			}).Start();
 		}

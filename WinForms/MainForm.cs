@@ -112,12 +112,12 @@ namespace WinForms
 			return false;
 		}
 
-		void OnMessage(object sender, Notification e)
+		void OnMessage(object sender, Notification ev)
 		{
 			try
 			{
 				string s = sender.ToString();
-				GetList(s).AddNotification(e);
+				GetList(s).AddNotification(ev);
 			}
 			catch (Exception e)
 			{
@@ -125,7 +125,7 @@ namespace WinForms
 			}
 		}
 
-		private void btnRefresh_Click(object sender, EventArgs e)
+		private void btnRefresh_Click(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -149,7 +149,7 @@ namespace WinForms
 			}
 		}
 
-		private void btnOptions_Click(object sender, EventArgs e)
+		private void btnOptions_Click(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -161,7 +161,7 @@ namespace WinForms
 			}
 		}
 
-		private void tsbAbout_Click(object sender, EventArgs e)
+		private void tsbAbout_Click(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -173,7 +173,7 @@ namespace WinForms
 			}
 		}
 
-		private void MainForm_Load(object sender, EventArgs e)
+		private void MainForm_Load(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -185,7 +185,7 @@ namespace WinForms
 						Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
 						checkers.Add(c);
 						Controls.NotifyList l = new Controls.NotifyList(f.Name);
-						l.RequestMore += (s, ev) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); };
+						l.RequestMore += (s, eve) => { c.checkYoutube(); c.checkTwitch(); c.checkFacebook(); };
 						notifications.Controls.Add(l);
 					}
 				}
@@ -224,7 +224,7 @@ namespace WinForms
 			}
 		}
 
-		private void trayClose_Click(object sender, EventArgs e)
+		private void trayClose_Click(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -237,7 +237,7 @@ namespace WinForms
 			}
 		}
 
-		private void trayOptions_Click(object sender, EventArgs e)
+		private void trayOptions_Click(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -249,7 +249,7 @@ namespace WinForms
 			}
 		}
 
-		private void trayAbout_Click(object sender, EventArgs e)
+		private void trayAbout_Click(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -261,13 +261,13 @@ namespace WinForms
 			}
 		}
 
-		private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+		private void MainForm_FormClosing(object sender, FormClosingEventArgs ev)
 		{
 			try
 			{
 				if (!mayClose)
 				{
-					e.Cancel = true;
+					ev.Cancel = true;
 					lastState = WindowState;
 					WindowState = FormWindowState.Minimized;
 					Hide();
@@ -279,7 +279,7 @@ namespace WinForms
 			}
 		}
 
-		private void trayIcon_DoubleClick(object sender, EventArgs e)
+		private void trayIcon_DoubleClick(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -292,7 +292,7 @@ namespace WinForms
 			}
 		}
 
-		private void notificationTimer_Tick(object sender, EventArgs e)
+		private void notificationTimer_Tick(object sender, EventArgs ev)
 		{
 			try
 			{
@@ -304,7 +304,7 @@ namespace WinForms
 			}
 		}
 
-		private void refresher_DoWork(object sender, DoWorkEventArgs e)
+		private void refresher_DoWork(object sender, DoWorkEventArgs ev)
 		{
 			while (true)
 			{
