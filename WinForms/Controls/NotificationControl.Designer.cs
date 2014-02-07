@@ -38,6 +38,7 @@
 			this.Name = "NotificationControl";
 			this.Size = new System.Drawing.Size(370, 100);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.NotificationControl_Paint);
+			this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.NotificationControl_MouseDown);
 			this.ResumeLayout(false);
 
 		}

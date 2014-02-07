@@ -23,12 +23,17 @@ namespace WinForms
 		Bitmap image;
 		Rectangle clipRegion;
 		Color foreColor;
+		MainForm f;
+		string tag;
 		int step = 0;
+		bool read;
 
-		public Notification(string image, string title, string desc, string link)
+		public Notification(MainForm f, string tag, string image, string title, string desc, string link, bool read)
 		{
 			InitializeComponent();
 			if (image == null || title == null || desc == null || link == null) return;
+			this.tag = tag;
+			this.f = f;
 			WebClient wc = new WebClient();
 			byte[] bytes = wc.DownloadData(image);
 			MemoryStream ms = new MemoryStream(bytes);
@@ -59,6 +64,7 @@ namespace WinForms
 			imgScale = 61.0f / this.image.Height;
 			Bitmap b = new Bitmap(Image.FromStream(new MemoryStream(File.ReadAllBytes("Image/Palette.png"))));
 			foreColor = b.GetPixel(Config.Settings.NotifyColor, 1);
+			this.read = read;
 		}
 
 		private void Notification_Load(object sender, EventArgs e)
@@ -99,14 +105,11 @@ namespace WinForms
 		private void Notification_Click(object sender, EventArgs e)
 		{
 			Point p = PointToClient(Cursor.Position);
-			if (p.X >= 343 && p.X <= 361 && p.Y >= 10 && p.Y <= 28)
-			{
-				//TODO: Remove from history
-			}
-			else
+			if (!(p.X >= 343 && p.X <= 361 && p.Y >= 10 && p.Y <= 28))
 			{
 				Process.Start(link);
 			}
+			f.MarkRead(tag, ToControl());
 			Close();
 			Notifications.Count--;
 		}
@@ -138,7 +141,7 @@ namespace WinForms
 
 		public NotificationControl ToControl()
 		{
-			return new NotificationControl(image, title, desc, link, clipRegion);
+			return new NotificationControl(image, title, desc, link, clipRegion, read);
 		}
 	}
 }

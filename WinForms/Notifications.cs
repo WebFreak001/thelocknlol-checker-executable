@@ -28,13 +28,13 @@ namespace WinForms
 			return Screen.PrimaryScreen.Bounds.Height - Screen.PrimaryScreen.WorkingArea.Height;
 		}
 
-		public static void FetchNotification()
+		public static void FetchNotification(MainForm f)
 		{
 			if (Count < 0) Count = 0;
 			if(Queued.Count != 0)
 			{
 				NotificationType n = Queued.Dequeue();
-				Notification notification = new Notification(n.Control.Image, n.Control.Title, n.Control.Desc, n.Link);
+				Notification notification = new Notification(f, n.Tag, n.Control.Image, n.Control.Title, n.Control.Desc, n.Link, !n.ShowInWindow);
 				if(n.ShowInWindow)
 				{
 					notification.ShowInTaskbar = false;

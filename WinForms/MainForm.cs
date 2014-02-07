@@ -296,7 +296,7 @@ namespace WinForms
 		{
 			try
 			{
-				Notifications.FetchNotification();
+				Notifications.FetchNotification(this);
 			}
 			catch (Exception e)
 			{
@@ -318,6 +318,16 @@ namespace WinForms
 					ThrowError(e);
 				}
 			}
+		}
+
+		public void MarkRead(string hint, Controls.NotificationControl n)
+		{
+			List<Controls.NotificationControl> controls = new List<Controls.NotificationControl>();
+			foreach (Control c in GetList(hint).Controls)
+			{
+				if (c is Controls.NotificationControl) controls.Add((Controls.NotificationControl)c);
+			}
+			controls.Where(i => i.title == n.title && i.desc == n.desc).First().MarkRead();
 		}
 
 		public void ThrowError(Exception e)
