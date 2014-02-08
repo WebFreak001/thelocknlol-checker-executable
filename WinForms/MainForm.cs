@@ -117,7 +117,12 @@ namespace WinForms
 			try
 			{
 				string s = sender.ToString();
+				List<Control> cs = new List<Control>();
+				foreach(Control c in GetList(s).GetControls()) cs.Add(c);
+				GetList(s).GetControls().Clear();
 				GetList(s).AddNotification(ev);
+				GetList(s).GetControls().AddRange(cs.ToArray());
+				GetList(s).AddNotification(null);
 			}
 			catch (Exception e)
 			{

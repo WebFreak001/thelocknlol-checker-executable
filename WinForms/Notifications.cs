@@ -21,7 +21,7 @@ namespace WinForms
 	{
 		public static int Count = 0;
 		public static event EventHandler<Notification> OnMessage;
-		protected static Queue<NotificationType> Queued = new Queue<NotificationType>();
+		protected static Queue<NotificationType> Queued = new Queue<NotificationType>(64);
 
 		public static int GetTaskbarHeight()
 		{

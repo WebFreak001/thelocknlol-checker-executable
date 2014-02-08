@@ -92,7 +92,7 @@ namespace WinForms.Controls
 				}
 				else
 				{
-					Process.Start(link);
+					if(link != null && link != "") Process.Start(link);
 					MarkRead();
 				}
 			}

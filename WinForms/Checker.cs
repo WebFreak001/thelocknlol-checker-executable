@@ -13,6 +13,14 @@ using System.Xml;
 
 namespace WinForms
 {
+	public struct NotifyStruct
+	{
+		public ImagedMessageControl control { get; set; }
+		public string link { get; set; }
+		public string tab { get; set; }
+		public bool showInWindow { get; set; }
+	}
+
 	public class Checker
 	{
 		string name, twitch, youtube, facebook, defaultImage;
@@ -110,6 +118,7 @@ namespace WinForms
 							{
 								string xmlString = b.Result;
 								string lastID = "";
+								List<NotifyStruct> notifys = new List<NotifyStruct>();
 								XmlReader reader = XmlReader.Create(new StringReader(xmlString));
 								while (reader.Read())
 								{
@@ -128,7 +137,14 @@ namespace WinForms
 												string thumbnail = reader["url"];
 												string s = lastYoutube;
 												if (s == id.Substring(42)) goto ReadDone;
-												Notifications.Notify(new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title), "http://www.youtube.com/watch?v=" + id.Substring(42), name, ini);
+												NotifyStruct sn = new NotifyStruct()
+												{
+													control = new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title),
+													link = "http://www.youtube.com/watch?v=" + id.Substring(42),
+													showInWindow = ini,
+													tab = name
+												};
+												notifys.Add(sn);
 												if (Config.Settings.Sounds.OnVideo) PlaySound(Config.Settings.CurrentSound);
 												if (lastID == "") lastID = id.Substring(42);
 											}
@@ -144,6 +160,10 @@ namespace WinForms
 								if (lastID != "")
 								{
 									lastYoutube = lastID;
+								}
+								for(int i = notifys.Count - 1; i >= 0; i--)
+								{
+									Notifications.Notify(notifys[i].control, notifys[i].link, notifys[i].tab, notifys[i].showInWindow);
 								}
 							}
 						};
@@ -173,8 +193,11 @@ namespace WinForms
 
 									if (d.id == lastFacebook) goto ReadDone;
 									if (lastID == "") lastID = d.id;
-									if (d.name != null && d.message != null)
+									if (d.message != null && d.id != null)
 									{
+										d.link = d.link ?? "";
+										d.name = d.name ?? name;
+										d.picture = d.picture ?? defaultImage;
 										if (Config.Settings.MergeSocialVideo && !d.link.Contains("youtube") || !Config.Settings.MergeSocialVideo)
 										{
 											if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name, ini);

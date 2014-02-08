@@ -28,17 +28,25 @@ namespace WinForms.Controls
 			Request();
 		}
 
+		public ControlCollection GetControls()
+		{
+			return layout.Controls;
+		}
+
 		public void AddNotification(Notification n)
 		{
 			layout.SuspendLayout();
 			//n.Parent = layout;
-			NotificationControl c = n.ToControl();
-			c.Refresh();
-			c.Visible = true;
-			c.Parent = layout;
-			c.Location = new Point(0, 0);
-			c.Size = new Size(c.Width, n.Height);
-			layout.Controls.Add(c);
+			if (n != null)
+			{
+				NotificationControl c = n.ToControl();
+				c.Refresh();
+				c.Visible = true;
+				c.Parent = layout;
+				c.Location = new Point(0, 0);
+				c.Size = new Size(c.Width, n.Height);
+				layout.Controls.Add(c);
+			}
 			layout.ResumeLayout();
 			List<Control> l = new List<Control>();
 			foreach (Control c2 in layout.Controls) l.Add(c2);
