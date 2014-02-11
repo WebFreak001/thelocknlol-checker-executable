@@ -213,6 +213,7 @@ namespace WinForms.Forms
 
 		public void SaveChanges()
 		{
+			if(Config.Settings.Checkers != tempConfig.Checkers) MessageBox.Show("Bitte starte das Programm neu, damit diese Änderungen wirksam werden!", "Achtung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
 			Config.Settings = tempConfig;
 			Config.Save();
 		}
@@ -353,6 +354,62 @@ namespace WinForms.Forms
 		private void pictureBox9_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 9;
+		}
+
+		private void btnMvDown_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (lvCheckers.SelectedItems.Count > 0)
+				{
+					ListViewItem selected = lvCheckers.SelectedItems[0];
+					int indx = selected.Index;
+					int totl = lvCheckers.Items.Count;
+
+					if (indx == totl - 1)
+					{
+						lvCheckers.Items.Remove(selected);
+						lvCheckers.Items.Insert(0, selected);
+					}
+					else
+					{
+						lvCheckers.Items.Remove(selected);
+						lvCheckers.Items.Insert(indx + 1, selected);
+					}
+				}
+			}
+			catch
+			{
+			}
+			UpdateCheckers();
+		}
+
+		private void btnMvUp_Click(object sender, EventArgs e)
+		{
+			try
+			{
+				if (lvCheckers.SelectedItems.Count > 0)
+				{
+					ListViewItem selected = lvCheckers.SelectedItems[0];
+					int indx = selected.Index;
+					int totl = lvCheckers.Items.Count;
+
+					if (indx == 0)
+					{
+						lvCheckers.Items.Remove(selected);
+						lvCheckers.Items.Insert(totl - 1, selected);
+					}
+					else
+					{
+						lvCheckers.Items.Remove(selected);
+						lvCheckers.Items.Insert(indx - 1, selected);
+					}
+				}
+			}
+			catch
+			{
+			}
+			UpdateCheckers();
 		}
 	}
 }
