@@ -347,5 +347,10 @@ namespace WinForms
 		{
 			new Forms.ErrorForm(e).Show();
 		}
+
+		private void btnSendProps_Click(object sender, EventArgs e)
+		{
+			Process.Start("https://github.com/WebFreak001/thelocknlol-checker-executable/issues?state=open");
+		}
 	}
 }

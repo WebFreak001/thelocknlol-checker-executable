@@ -42,6 +42,7 @@
 			this.trayAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.notificationTimer = new System.Windows.Forms.Timer(this.components);
 			this.refresher = new System.ComponentModel.BackgroundWorker();
+			this.btnSendProps = new System.Windows.Forms.ToolStripButton();
 			this.tsOptions.SuspendLayout();
 			this.trayMenu.SuspendLayout();
 			this.SuspendLayout();
@@ -52,7 +53,8 @@
 			this.tsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.btnRefresh,
             this.btnOptions,
-            this.tsbAbout});
+            this.tsbAbout,
+            this.btnSendProps});
 			this.tsOptions.Location = new System.Drawing.Point(0, 0);
 			this.tsOptions.Name = "tsOptions";
 			this.tsOptions.Size = new System.Drawing.Size(654, 25);
@@ -150,6 +152,16 @@
 			// 
 			this.refresher.DoWork += new System.ComponentModel.DoWorkEventHandler(this.refresher_DoWork);
 			// 
+			// btnSendProps
+			// 
+			this.btnSendProps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.btnSendProps.Image = ((System.Drawing.Image)(resources.GetObject("btnSendProps.Image")));
+			this.btnSendProps.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.btnSendProps.Name = "btnSendProps";
+			this.btnSendProps.Size = new System.Drawing.Size(148, 22);
+			this.btnSendProps.Text = "Fehler/Vorschläge Senden";
+			this.btnSendProps.Click += new System.EventHandler(this.btnSendProps_Click);
+			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -184,6 +196,7 @@
 		private System.Windows.Forms.ToolStripMenuItem trayAbout;
 		private System.Windows.Forms.Timer notificationTimer;
 		private System.ComponentModel.BackgroundWorker refresher;
+		private System.Windows.Forms.ToolStripButton btnSendProps;
 	}
 }
 
