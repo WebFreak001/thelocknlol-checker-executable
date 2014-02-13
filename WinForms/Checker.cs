@@ -35,7 +35,7 @@ namespace WinForms
 			this.twitch = twitch;
 			this.youtube = youtube;
 			this.facebook = facebook;
-			defaultImage = "Image/koala256.png";
+			defaultImage = "Image/unknown.png";
 			try
 			{
 				using (WebClient webClient = new WebClient())
@@ -55,7 +55,7 @@ namespace WinForms
 			}
 			catch
 			{
-				defaultImage = "Image/koala256.png";
+				defaultImage = "Image/unknown.png";
 			}
 			Check();
 		}
