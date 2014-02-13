@@ -30,10 +30,6 @@ namespace WinForms
 				InitializeComponent();
 				checkers = new List<Checker>();
 				Config.Load();
-				if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
-				{
-					Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol", true);
-				}
 				if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 				{
 					Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol" });
@@ -231,7 +227,10 @@ namespace WinForms
 					Properties.Settings.Default.FirstStart = false;
 					Properties.Settings.Default.Save();
 				}
-
+				if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
+				{
+					Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol", true);
+				}
 				RegisterInStartup(Config.Settings.AutoStart);
 			}
 			catch (Exception e)
