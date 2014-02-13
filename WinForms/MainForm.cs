@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,11 +21,12 @@ namespace WinForms
 		bool mayClose;
 		FormWindowState lastState = FormWindowState.Maximized;
 
-		public MainForm()
+		public MainForm(bool silent)
 		{
-			Notifications.OnMessage += OnMessage;
 			try
 			{
+				if (silent) Hide();
+				Notifications.OnMessage += OnMessage;
 				InitializeComponent();
 				checkers = new List<Checker>();
 				Config.Load();
@@ -186,6 +188,19 @@ namespace WinForms
 			}
 		}
 
+		private void RegisterInStartup(bool isChecked)
+		{
+			RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
+			if (isChecked)
+			{
+				registryKey.SetValue("TheLockNLolChecker", Application.ExecutablePath + " -silent");
+			}
+			else
+			{
+				registryKey.DeleteValue("TheLockNLolChecker");
+			}
+		}
+
 		private void MainForm_Load(object sender, EventArgs ev)
 		{
 			try
@@ -203,6 +218,21 @@ namespace WinForms
 					}
 				}
 				refresher.RunWorkerAsync();
+
+				if (Properties.Settings.Default.FirstStart)
+				{
+					DialogResult r = MessageBox.Show("Möchten Sie dieses Programm im AutoStart haben?\nSie können diese Einstellung jeder Zeit in den Einstellungen ändern!", "Willkommen zum TheLockNLol-Checker!", MessageBoxButtons.YesNo);
+					if (r == DialogResult.Yes)
+					{
+						Config.Settings.AutoStart = true;
+						Config.Save();
+						RegisterInStartup(true);
+					}
+					Properties.Settings.Default.FirstStart = false;
+					Properties.Settings.Default.Save();
+				}
+
+				RegisterInStartup(Config.Settings.AutoStart);
 			}
 			catch (Exception e)
 			{

@@ -12,13 +12,13 @@ namespace WinForms
 		static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
 
 		[STAThread]
-		static void Main()
+		static void Main(string[] args)
 		{
 			if (mutex.WaitOne(TimeSpan.Zero, true))
 			{
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new MainForm());
+				Application.Run(new MainForm(args.Contains("-silent")));
 				mutex.ReleaseMutex();
 			}
 			else
