@@ -74,6 +74,7 @@ namespace WinForms
 			checkTwitch();
 			checkYoutube(youtube + 1);
 			checkFacebook(facebook);
+			initialCheck = false;
 		}
 
 		public void checkTwitch()
@@ -87,7 +88,7 @@ namespace WinForms
 					{
 						webClient.DownloadStringCompleted += (a, b) =>
 						{
-							if (!b.Cancelled)
+							if (!b.Cancelled && b.Error == null)
 							{
 								string api = b.Result;
 								if (api.Trim().Replace(" ", "") == "[]")
@@ -122,7 +123,7 @@ namespace WinForms
 					{
 						webClient.DownloadStringCompleted += (a, b) =>
 						{
-							if (!b.Cancelled)
+							if (!b.Cancelled && b.Error == null)
 							{
 								string xmlString = b.Result;
 								string lastID = "";
@@ -150,14 +151,14 @@ namespace WinForms
 													control = new ImagedMessageControl(thumbnail, name + " hat ein neues Video hochgeladen!", title),
 													link = "http://www.youtube.com/watch?v=" + id.Substring(42),
 													showInWindow = ini,
-													tab = name
+													tab = name,
+													id = id.Substring(42)
 												};
 												notifys.Add(sn);
 												if (Config.Settings.Sounds.OnVideo) PlaySound(Config.Settings.CurrentSound);
 												if (lastID == "") lastID = id.Substring(42);
 											}
-											catch (Exception e)
-											{
+											catch {
 											}
 											break;
 									}
@@ -192,7 +193,7 @@ namespace WinForms
 					{
 						webClient.DownloadStringCompleted += (a, b) =>
 						{
-							if (!b.Cancelled)
+							if (!b.Cancelled && b.Error == null)
 							{
 								Facebook fb = JsonConvert.DeserializeObject<Facebook>(b.Result);
 								string lastID = "";
