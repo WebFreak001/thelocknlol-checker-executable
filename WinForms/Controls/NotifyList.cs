@@ -43,7 +43,6 @@ namespace WinForms.Controls
 
 		public void AddGenericNotification(Notification n)
 		{
-			layout.SuspendLayout();
 			//n.Parent = layout;
 			if (n != null)
 			{
@@ -53,9 +52,10 @@ namespace WinForms.Controls
 				c.Parent = layout;
 				c.Location = new Point(0, 0);
 				c.Size = new Size(c.Width, n.Height);
+				layout.SuspendLayout();
 				layout.Controls.Add(c);
+				layout.ResumeLayout();
 			}
-			layout.ResumeLayout();
 			List<Control> l = new List<Control>();
 			foreach (Control c2 in layout.Controls) l.Add(c2);
 			Height = Math.Min(1000, header.Height + l.Sum(e => e.Height) + footer.Height + 50);
@@ -102,13 +102,13 @@ namespace WinForms.Controls
 				if (GetFacebook() == null)
 				{
 					int yt = GetYoutube();
-					RequestMore(null, new YtFb() { LastFacebookDate = "", YouTubeCount = yt });
+					RequestMore(lbName.Text, new YtFb() { LastFacebookDate = "", YouTubeCount = yt });
 				}
 				else
 				{
 					int yt = GetYoutube();
 					string fb = GetFacebook().created_time;
-					RequestMore(null, new YtFb() { LastFacebookDate = fb, YouTubeCount = GetYoutube() });
+					RequestMore(lbName.Text, new YtFb() { LastFacebookDate = fb, YouTubeCount = yt });
 				}
 			}
 		}

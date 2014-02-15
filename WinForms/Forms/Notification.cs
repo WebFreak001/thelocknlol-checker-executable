@@ -58,19 +58,12 @@ namespace WinForms
 			this.title = title;
 			this.desc = desc;
 			this.link = link;
-			timer1.Interval = Config.Settings.NotifyDelay * 10;
-			if (Config.Settings.NotifyDelay != 300) timer1.Enabled = true;
+			timer1.Interval = Config.Settings.NotifyDelay * 100;
 			proportion = clipRegion.Height / (float)this.image.Height;
 			imgScale = 61.0f / this.image.Height;
 			Bitmap b = new Bitmap(Image.FromStream(new MemoryStream(File.ReadAllBytes("Image/Palette.png"))));
 			foreColor = b.GetPixel(Config.Settings.NotifyColor, 1);
 			this.read = read;
-		}
-
-		private void Notification_Load(object sender, EventArgs e)
-		{
-			TransparencyKey = Color.Magenta;
-			BackColor = Color.Magenta;
 		}
 
 		protected override CreateParams CreateParams
@@ -142,6 +135,13 @@ namespace WinForms
 		public NotificationControl ToControl()
 		{
 			return new NotificationControl(image, title, desc, link, clipRegion, read);
+		}
+
+		private void Notification_Load_1(object sender, EventArgs e)
+		{
+			if (Config.Settings.NotifyDelay != 300) timer1.Enabled = true;
+			TransparencyKey = Color.Magenta;
+			BackColor = Color.Magenta;
 		}
 	}
 }

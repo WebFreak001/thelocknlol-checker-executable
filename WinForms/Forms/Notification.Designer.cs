@@ -54,6 +54,7 @@
 			this.Text = "Notification";
 			this.TopMost = true;
 			this.TransparencyKey = System.Drawing.Color.Fuchsia;
+			this.Load += new System.EventHandler(this.Notification_Load_1);
 			this.Click += new System.EventHandler(this.Notification_Click);
 			this.Paint += new System.Windows.Forms.PaintEventHandler(this.Notification_Paint);
 			this.ResumeLayout(false);
