@@ -29,10 +29,10 @@
 		private void InitializeComponent()
 		{
 			this.header = new System.Windows.Forms.Panel();
+			this.lbName = new System.Windows.Forms.Label();
 			this.layout = new System.Windows.Forms.FlowLayoutPanel();
 			this.footer = new System.Windows.Forms.Panel();
 			this.btnLoadMore = new System.Windows.Forms.Button();
-			this.lbName = new System.Windows.Forms.Label();
 			this.header.SuspendLayout();
 			this.footer.SuspendLayout();
 			this.SuspendLayout();
@@ -46,6 +46,16 @@
 			this.header.Padding = new System.Windows.Forms.Padding(0, 0, 0, 5);
 			this.header.Size = new System.Drawing.Size(395, 27);
 			this.header.TabIndex = 0;
+			// 
+			// lbName
+			// 
+			this.lbName.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.lbName.Location = new System.Drawing.Point(0, 0);
+			this.lbName.Name = "lbName";
+			this.lbName.Size = new System.Drawing.Size(395, 22);
+			this.lbName.TabIndex = 0;
+			this.lbName.Text = "<None>";
+			this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// layout
 			// 
@@ -69,7 +79,6 @@
 			// btnLoadMore
 			// 
 			this.btnLoadMore.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.btnLoadMore.Enabled = false;
 			this.btnLoadMore.Location = new System.Drawing.Point(0, 5);
 			this.btnLoadMore.Name = "btnLoadMore";
 			this.btnLoadMore.Size = new System.Drawing.Size(395, 31);
@@ -77,16 +86,6 @@
 			this.btnLoadMore.Text = "Mehr Laden";
 			this.btnLoadMore.UseVisualStyleBackColor = true;
 			this.btnLoadMore.Click += new System.EventHandler(this.btnLoadMore_Click);
-			// 
-			// lbName
-			// 
-			this.lbName.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.lbName.Location = new System.Drawing.Point(0, 0);
-			this.lbName.Name = "lbName";
-			this.lbName.Size = new System.Drawing.Size(395, 22);
-			this.lbName.TabIndex = 0;
-			this.lbName.Text = "<None>";
-			this.lbName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// NotifyList
 			// 

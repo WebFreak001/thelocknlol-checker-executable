@@ -34,6 +34,7 @@
 			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
 			this.tsbAbout = new System.Windows.Forms.ToolStripButton();
+			this.btnSendProps = new System.Windows.Forms.ToolStripButton();
 			this.notifications = new System.Windows.Forms.FlowLayoutPanel();
 			this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
@@ -42,9 +43,12 @@
 			this.trayAbout = new System.Windows.Forms.ToolStripMenuItem();
 			this.notificationTimer = new System.Windows.Forms.Timer(this.components);
 			this.refresher = new System.ComponentModel.BackgroundWorker();
-			this.btnSendProps = new System.Windows.Forms.ToolStripButton();
+			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+			this.updateStatus = new System.Windows.Forms.ToolStripProgressBar();
+			this.refreshTimer = new System.Windows.Forms.Timer(this.components);
 			this.tsOptions.SuspendLayout();
 			this.trayMenu.SuspendLayout();
+			this.statusStrip1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tsOptions
@@ -94,13 +98,23 @@
 			this.tsbAbout.Text = "Über";
 			this.tsbAbout.Click += new System.EventHandler(this.tsbAbout_Click);
 			// 
+			// btnSendProps
+			// 
+			this.btnSendProps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+			this.btnSendProps.Image = ((System.Drawing.Image)(resources.GetObject("btnSendProps.Image")));
+			this.btnSendProps.ImageTransparentColor = System.Drawing.Color.Magenta;
+			this.btnSendProps.Name = "btnSendProps";
+			this.btnSendProps.Size = new System.Drawing.Size(148, 22);
+			this.btnSendProps.Text = "Fehler/Vorschläge Senden";
+			this.btnSendProps.Click += new System.EventHandler(this.btnSendProps_Click);
+			// 
 			// notifications
 			// 
 			this.notifications.AutoScroll = true;
 			this.notifications.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.notifications.Location = new System.Drawing.Point(0, 25);
 			this.notifications.Name = "notifications";
-			this.notifications.Size = new System.Drawing.Size(654, 422);
+			this.notifications.Size = new System.Drawing.Size(654, 400);
 			this.notifications.TabIndex = 1;
 			// 
 			// trayIcon
@@ -152,15 +166,26 @@
 			// 
 			this.refresher.DoWork += new System.ComponentModel.DoWorkEventHandler(this.refresher_DoWork);
 			// 
-			// btnSendProps
+			// statusStrip1
 			// 
-			this.btnSendProps.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.btnSendProps.Image = ((System.Drawing.Image)(resources.GetObject("btnSendProps.Image")));
-			this.btnSendProps.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.btnSendProps.Name = "btnSendProps";
-			this.btnSendProps.Size = new System.Drawing.Size(148, 22);
-			this.btnSendProps.Text = "Fehler/Vorschläge Senden";
-			this.btnSendProps.Click += new System.EventHandler(this.btnSendProps_Click);
+			this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateStatus});
+			this.statusStrip1.Location = new System.Drawing.Point(0, 425);
+			this.statusStrip1.Name = "statusStrip1";
+			this.statusStrip1.Size = new System.Drawing.Size(654, 22);
+			this.statusStrip1.TabIndex = 2;
+			this.statusStrip1.Text = "statusStrip1";
+			// 
+			// updateStatus
+			// 
+			this.updateStatus.Name = "updateStatus";
+			this.updateStatus.Size = new System.Drawing.Size(300, 16);
+			// 
+			// refreshTimer
+			// 
+			this.refreshTimer.Enabled = true;
+			this.refreshTimer.Interval = 10000;
+			this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
 			// 
 			// MainForm
 			// 
@@ -168,7 +193,9 @@
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(654, 447);
 			this.Controls.Add(this.notifications);
+			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.tsOptions);
+			this.MinimumSize = new System.Drawing.Size(410, 420);
 			this.Name = "MainForm";
 			this.Text = "TheLockNLol Checker";
 			this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
@@ -177,6 +204,8 @@
 			this.tsOptions.ResumeLayout(false);
 			this.tsOptions.PerformLayout();
 			this.trayMenu.ResumeLayout(false);
+			this.statusStrip1.ResumeLayout(false);
+			this.statusStrip1.PerformLayout();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -197,6 +226,9 @@
 		private System.Windows.Forms.Timer notificationTimer;
 		private System.ComponentModel.BackgroundWorker refresher;
 		private System.Windows.Forms.ToolStripButton btnSendProps;
+		private System.Windows.Forms.StatusStrip statusStrip1;
+		private System.Windows.Forms.ToolStripProgressBar updateStatus;
+		private System.Windows.Forms.Timer refreshTimer;
 	}
 }
 

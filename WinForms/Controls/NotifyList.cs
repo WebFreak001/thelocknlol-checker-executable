@@ -11,9 +11,17 @@ using System.Reflection;
 
 namespace WinForms.Controls
 {
+	public struct YtFb
+	{
+		public int YouTubeCount { get; set; }
+		public string LastFacebookDate { get; set; }
+	}
+
 	public partial class NotifyList : UserControl
 	{
-		public event EventHandler RequestMore;
+		public event EventHandler<YtFb> RequestMore;
+		public List<FacebookData> Facebooks = new List<FacebookData>();
+		public List<string> Youtubes = new List<string>();
 		public string NameTag { get { return lbName.Text; } set { lbName.Text = value; } }
 
 		public NotifyList()
@@ -33,7 +41,7 @@ namespace WinForms.Controls
 			return layout.Controls;
 		}
 
-		public void AddNotification(Notification n)
+		public void AddGenericNotification(Notification n)
 		{
 			layout.SuspendLayout();
 			//n.Parent = layout;
@@ -53,6 +61,29 @@ namespace WinForms.Controls
 			Height = Math.Min(1000, header.Height + l.Sum(e => e.Height) + footer.Height + 50);
 		}
 
+		public void AddFacebookNotification(Notification n, FacebookData d)
+		{
+			Facebooks.Add(d);
+			AddGenericNotification(n);
+		}
+
+		public void AddYouTubeNotification(Notification n, string id)
+		{
+			Youtubes.Add(id);
+			AddGenericNotification(n);
+		}
+
+		public FacebookData GetFacebook()
+		{
+			if (Facebooks.Count == 0) return null;
+			return Facebooks[Facebooks.Count - 1];
+		}
+
+		public int GetYoutube()
+		{
+			return Youtubes.Count;
+		}
+
 		private void btnLoadMore_Click(object sender, EventArgs e)
 		{
 			Request();
@@ -66,7 +97,20 @@ namespace WinForms.Controls
 
 		protected void Request()
 		{
-			if (RequestMore != null && lbName.Text != "<None>") RequestMore(null, EventArgs.Empty);
+			if (RequestMore != null && lbName.Text != "<None>")
+			{
+				if (GetFacebook() == null)
+				{
+					int yt = GetYoutube();
+					RequestMore(null, new YtFb() { LastFacebookDate = "", YouTubeCount = yt });
+				}
+				else
+				{
+					int yt = GetYoutube();
+					string fb = GetFacebook().created_time;
+					RequestMore(null, new YtFb() { LastFacebookDate = fb, YouTubeCount = GetYoutube() });
+				}
+			}
 		}
 
 		private void cbNamePicker_SelectedIndexChanged(object sender, EventArgs e)

@@ -14,6 +14,7 @@ namespace WinForms
 		public string link { get; set; }
 		public string message { get; set; }
 		public string description { get; set; }
+		public string created_time { get; set; }
 	}
 
 	public class Facebook

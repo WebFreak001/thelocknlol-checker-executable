@@ -18,7 +18,13 @@ namespace WinForms
 			{
 				Application.EnableVisualStyles();
 				Application.SetCompatibleTextRenderingDefault(false);
-				Application.Run(new MainForm(args.Contains("-silent")));
+				MainForm f = new MainForm();
+				if (args.Contains("-s"))
+				{
+					f.WindowState = FormWindowState.Minimized;
+					f.ShowInTaskbar = false;
+				}
+				Application.Run(f);
 				mutex.ReleaseMutex();
 			}
 			else

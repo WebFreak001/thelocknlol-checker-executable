@@ -19,6 +19,7 @@ namespace WinForms
 		public string link { get; set; }
 		public string tab { get; set; }
 		public bool showInWindow { get; set; }
+		public string id { get; set; }
 	}
 
 	public class Checker
@@ -57,15 +58,22 @@ namespace WinForms
 			{
 				defaultImage = "Image/unknown.png";
 			}
-			Check();
+			Check(0, "");
 		}
 
-		public void Check()
+		public void CheckNew()
 		{
 			checkTwitch();
-			checkYoutube();
-			checkFacebook();
+			checkYoutube(1);
+			checkFacebook("");
 			initialCheck = false;
+		}
+
+		public void Check(int youtube, string facebook)
+		{
+			checkTwitch();
+			checkYoutube(youtube + 1);
+			checkFacebook(facebook);
 		}
 
 		public void checkTwitch()
@@ -90,7 +98,7 @@ namespace WinForms
 								{
 									if (!streaming)
 									{
-										Notifications.Notify(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name, ini);
+										Notifications.NotifyGeneric(new ImagedMessageControl(defaultImage, name + " streamt nun!", "Klicke mich und gelange direkt zum stream!"), "http://www.twitch.tv/" + twitch, name, ini);
 										if (Config.Settings.Sounds.OnLivestream) PlaySound(Config.Settings.CurrentSound);
 									}
 									streaming = true;
@@ -103,7 +111,7 @@ namespace WinForms
 			}).Start();
 		}
 
-		public void checkYoutube()
+		public void checkYoutube(int id_)
 		{
 			bool ini = !initialCheck;
 			new Thread(() =>
@@ -163,17 +171,17 @@ namespace WinForms
 								}
 								for(int i = notifys.Count - 1; i >= 0; i--)
 								{
-									Notifications.Notify(notifys[i].control, notifys[i].link, notifys[i].tab, notifys[i].showInWindow);
+									Notifications.NotifyYouTube(notifys[i].control, notifys[i].link, notifys[i].tab, notifys[i].showInWindow, notifys[i].id);
 								}
 							}
 						};
-						webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?max-results=5"));
+						webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?start-index=" + id_ + "&max-results=5"));
 					}
 				}
 			}).Start();
 		}
 
-		public void checkFacebook()
+		public void checkFacebook(string last)
 		{
 			bool ini = !initialCheck;
 			new Thread(() =>
@@ -200,8 +208,8 @@ namespace WinForms
 										d.picture = d.picture ?? defaultImage;
 										if (Config.Settings.MergeSocialVideo && !d.link.Contains("youtube") || !Config.Settings.MergeSocialVideo)
 										{
-											if (d.picture == null) Notifications.Notify(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name, ini);
-											else Notifications.Notify(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name, ini);
+											if (d.picture == null) Notifications.NotifyFacebook(new ImagedMessageControl(defaultImage, d.name, d.message), d.link, name, ini, d);
+											else Notifications.NotifyFacebook(new ImagedMessageControl(d.picture, d.name, d.message), d.link, name, ini, d);
 											if (Config.Settings.Sounds.OnFacebook) PlaySound(Config.Settings.CurrentSound);
 										}
 									}
@@ -213,10 +221,28 @@ namespace WinForms
 								}
 							}
 						};
-						webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y"));
+						if (last == "") webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y"));
+						else webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y&since=" + GetUnix(last)));
 					}
 				}
 			}).Start();
+		}
+
+		public double GetUnix(DateTime dateTime)
+		{
+			return (dateTime - new DateTime(1970, 1, 1).ToLocalTime()).TotalSeconds;
+		}
+
+		public double GetUnix(string s)
+		{
+			string time = s.Substring(0, s.IndexOf("+"));
+			int year = int.Parse(time.Split('-')[0]);
+			int month = int.Parse(time.Split('-')[1]);
+			int day = int.Parse(time.Split('-')[2].Split('T')[0]);
+			int hour = int.Parse(time.Split('T')[1].Split(':')[0]);
+			int minute = int.Parse(time.Split('T')[1].Split(':')[1]);
+			int second = int.Parse(time.Split('T')[1].Split(':')[2]);
+			return GetUnix(new DateTime(year, month, day, hour, minute, second));
 		}
 
 		public void PlaySound(string s)

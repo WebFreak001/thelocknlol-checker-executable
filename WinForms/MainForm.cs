@@ -1,4 +1,8 @@
-﻿using Microsoft.Win32;
+﻿#if !DEBUG
+#define R
+#endif
+
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -7,6 +11,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Media;
 using System.Net;
 using System.Text;
 using System.Threading;
@@ -21,12 +26,15 @@ namespace WinForms
 		bool mayClose;
 		FormWindowState lastState = FormWindowState.Maximized;
 
-		public MainForm(bool silent)
+		public MainForm()
 		{
+			#if R
 			try
 			{
-				if (silent) Hide();
-				Notifications.OnMessage += OnMessage;
+			#endif
+				Notifications.OnGenericMessage += OnGenericMessage;
+				Notifications.OnYouTubeMessage += OnYoutubeMessage;
+				Notifications.OnFacebookMessage += OnFacebookMessage;
 				InitializeComponent();
 				checkers = new List<Checker>();
 				Config.Load();
@@ -34,29 +42,37 @@ namespace WinForms
 				{
 					Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol" });
 				}
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		void OnClear(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				notifications.Controls.Clear();
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		public Controls.NotifyList GetList(string tag)
 		{
+			#if R
 			try
 			{
+			#endif
 				foreach (Control c in notifications.Controls)
 				{
 					if (c is Controls.NotifyList)
@@ -65,18 +81,22 @@ namespace WinForms
 						if (l.NameTag == tag) return l;
 					}
 				}
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 			return null;
 		}
 
 		public bool CheckForUpdate()
 		{
+			#if R
 			try
 			{
+			#endif
 				using (WebClient c = new WebClient())
 				{
 					string s = c.DownloadString("https://raw.github.com/WebFreak001/thelocknlol-checker-executable/master/WinForms/Version.cs");
@@ -97,23 +117,27 @@ namespace WinForms
 						}
 						else
 						{
-							Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update", true);
+							Notifications.NotifyGeneric(new ImagedMessageControl("Image/koala256.png", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update", true);
 						}
 					}
 				}
 				return true;
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 			return false;
 		}
 
-		void OnMessage(object sender, Notification ev)
+		void OnGenericMessage(object sender, Notification ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				string s = sender.ToString();
 				List<Control> cs = new List<Control>();
 				foreach (Control c in GetList(s).GetControls())
@@ -126,62 +150,141 @@ namespace WinForms
 					cs.Add(c);
 				}
 				GetList(s).GetControls().Clear();
-				GetList(s).AddNotification(ev);
+				GetList(s).AddGenericNotification(ev);
 				GetList(s).GetControls().AddRange(cs.ToArray());
-				GetList(s).AddNotification(null);
+				GetList(s).AddGenericNotification(null);
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
+		}
+
+		void OnYoutubeMessage(object sender, NotificationYoutube ev)
+		{
+			#if R
+			try
+			{
+			#endif
+				string s = sender.ToString();
+				List<Control> cs = new List<Control>();
+				foreach (Control c in GetList(s).GetControls())
+				{
+					if (c is Controls.NotificationControl)
+					{
+						Controls.NotificationControl con = ev.N.ToControl();
+						if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+					}
+					cs.Add(c);
+				}
+				GetList(s).GetControls().Clear();
+				GetList(s).AddYouTubeNotification(ev.N, ev.Yt);
+				GetList(s).GetControls().AddRange(cs.ToArray());
+				GetList(s).AddGenericNotification(null);
+			#if R
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
+			#endif
+		}
+
+		void OnFacebookMessage(object sender, NotificationFacebook ev)
+		{
+			#if R
+			try
+			{
+			#endif
+				string s = sender.ToString();
+				List<Control> cs = new List<Control>();
+				foreach (Control c in GetList(s).GetControls())
+				{
+					if (c is Controls.NotificationControl)
+					{
+						Controls.NotificationControl con = ev.N.ToControl();
+						if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+					}
+					cs.Add(c);
+				}
+				GetList(s).GetControls().Clear();
+				GetList(s).AddFacebookNotification(ev.N, ev.Fb);
+				GetList(s).GetControls().AddRange(cs.ToArray());
+				GetList(s).AddGenericNotification(null);
+			#if R
+			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
+			#endif
 		}
 
 		private void btnRefresh_Click(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				RefreshThings();
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		public void RefreshThings()
 		{
+			#if R
 			try
 			{
-				checkers.ForEach(e => { e.Check(); });
+			#endif
+				int i = 0;
+				checkers.ForEach(e => { e.CheckNew(); i++; updateStatus.Value = (int)((i / (float)checkers.Count) * 100); });
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void btnOptions_Click(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				new Forms.OptionsForm().ShowDialog();
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void tsbAbout_Click(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				new Forms.About().ShowDialog();
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void RegisterInStartup(bool isChecked)
@@ -199,8 +302,10 @@ namespace WinForms
 
 		private void MainForm_Load(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
 				foreach (CheckerFormat f in Config.Settings.Checkers)
 				{
@@ -209,7 +314,7 @@ namespace WinForms
 						Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
 						checkers.Add(c);
 						Controls.NotifyList l = new Controls.NotifyList(f.Name);
-						l.RequestMore += (s, eve) => { c.Check(); };
+						l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate); updateStatus.Value = 100; };
 						notifications.Controls.Add(l);
 					}
 				}
@@ -229,14 +334,16 @@ namespace WinForms
 				}
 				if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
 				{
-					Notifications.Notify(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol", true);
+					Notifications.NotifyGeneric(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol", true);
 				}
 				RegisterInStartup(Config.Settings.AutoStart);
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		protected override void WndProc(ref Message m)
@@ -250,8 +357,10 @@ namespace WinForms
 
 		private void ShowMe()
 		{
+			#if R
 			try
 			{
+			#endif
 				if (WindowState == FormWindowState.Minimized)
 				{
 					WindowState = lastState;
@@ -259,54 +368,70 @@ namespace WinForms
 				bool top = TopMost;
 				TopMost = true;
 				TopMost = top;
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void trayClose_Click(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				mayClose = true;
 				Close();
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void trayOptions_Click(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				new Forms.OptionsForm().ShowDialog();
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void trayAbout_Click(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				new Forms.About().ShowDialog();
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void MainForm_FormClosing(object sender, FormClosingEventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				if (!mayClose)
 				{
 					ev.Cancel = true;
@@ -314,52 +439,62 @@ namespace WinForms
 					WindowState = FormWindowState.Minimized;
 					Hide();
 				}
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void trayIcon_DoubleClick(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				Show();
 				WindowState = lastState;
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void notificationTimer_Tick(object sender, EventArgs ev)
 		{
+			#if R
 			try
 			{
+			#endif
 				Notifications.FetchNotification(this);
+			#if R
 			}
 			catch (Exception e)
 			{
 				ThrowError(e);
 			}
+			#endif
 		}
 
 		private void refresher_DoWork(object sender, DoWorkEventArgs ev)
 		{
-			while (true)
+			#if R
+			try
 			{
-				try
-				{
-					RefreshThings();
-					Thread.Sleep(10000);
-				}
-				catch (Exception e)
-				{
-					ThrowError(e);
-				}
+			#endif
+				RefreshThings();
+			#if R
 			}
+			catch (Exception e)
+			{
+				ThrowError(e);
+			}
+			#endif
 		}
 
 		public void MarkRead(string hint, Controls.NotificationControl n)
@@ -369,7 +504,7 @@ namespace WinForms
 			{
 				if (c is Controls.NotificationControl) controls.Add((Controls.NotificationControl)c);
 			}
-			controls.Where(i => i.title == n.title && i.desc == n.desc).First().MarkRead();
+			if(controls.Count != 0) controls.Where(i => i.title == n.title && i.desc == n.desc).First().MarkRead();
 		}
 
 		public void ThrowError(Exception e)
@@ -380,6 +515,11 @@ namespace WinForms
 		private void btnSendProps_Click(object sender, EventArgs e)
 		{
 			Process.Start("https://github.com/WebFreak001/thelocknlol-checker-executable/issues?state=open");
+		}
+
+		private void refreshTimer_Tick(object sender, EventArgs e)
+		{
+			refresher.RunWorkerAsync();
 		}
 	}
 }
