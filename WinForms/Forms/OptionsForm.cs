@@ -203,6 +203,8 @@ namespace WinForms.Forms
 			pictureBox7.BackColor = palette.GetPixel(7, 0);
 			pictureBox8.BackColor = palette.GetPixel(8, 0);
 			pictureBox9.BackColor = palette.GetPixel(9, 0);
+
+			cbAutostart.Checked = tempConfig.AutoStart;
 		}
 
 		private void btnSaveAndClose_Click(object sender, EventArgs e)
@@ -410,6 +412,11 @@ namespace WinForms.Forms
 			{
 			}
 			UpdateCheckers();
+		}
+
+		private void cbAutostart_CheckedChanged(object sender, EventArgs e)
+		{
+			tempConfig.AutoStart = cbAutostart.Checked;
 		}
 	}
 }

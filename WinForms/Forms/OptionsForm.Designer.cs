@@ -28,20 +28,20 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem(new string[] {
+			System.Windows.Forms.ListViewItem listViewItem36 = new System.Windows.Forms.ListViewItem(new string[] {
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol"}, -1);
-			System.Windows.Forms.ListViewGroup listViewGroup4 = new System.Windows.Forms.ListViewGroup("Festgelegt", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup5 = new System.Windows.Forms.ListViewGroup("System", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup6 = new System.Windows.Forms.ListViewGroup("Benutzerdefiniert", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewItem listViewItem9 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
-			System.Windows.Forms.ListViewItem listViewItem10 = new System.Windows.Forms.ListViewItem("System:Asterisk");
-			System.Windows.Forms.ListViewItem listViewItem11 = new System.Windows.Forms.ListViewItem("System:Beep");
-			System.Windows.Forms.ListViewItem listViewItem12 = new System.Windows.Forms.ListViewItem("System:Exclamation");
-			System.Windows.Forms.ListViewItem listViewItem13 = new System.Windows.Forms.ListViewItem("System:Hand");
-			System.Windows.Forms.ListViewItem listViewItem14 = new System.Windows.Forms.ListViewItem("System:Question");
+			System.Windows.Forms.ListViewGroup listViewGroup16 = new System.Windows.Forms.ListViewGroup("Festgelegt", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup17 = new System.Windows.Forms.ListViewGroup("System", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup18 = new System.Windows.Forms.ListViewGroup("Benutzerdefiniert", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewItem listViewItem37 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
+			System.Windows.Forms.ListViewItem listViewItem38 = new System.Windows.Forms.ListViewItem("System:Asterisk");
+			System.Windows.Forms.ListViewItem listViewItem39 = new System.Windows.Forms.ListViewItem("System:Beep");
+			System.Windows.Forms.ListViewItem listViewItem40 = new System.Windows.Forms.ListViewItem("System:Exclamation");
+			System.Windows.Forms.ListViewItem listViewItem41 = new System.Windows.Forms.ListViewItem("System:Hand");
+			System.Windows.Forms.ListViewItem listViewItem42 = new System.Windows.Forms.ListViewItem("System:Question");
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tpCheckers = new System.Windows.Forms.TabPage();
 			this.lvCheckers = new System.Windows.Forms.ListView();
@@ -50,6 +50,8 @@
 			this.twitchName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.fbName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
 			this.panel1 = new System.Windows.Forms.Panel();
+			this.btnMvUp = new System.Windows.Forms.Button();
+			this.btnMvDown = new System.Windows.Forms.Button();
 			this.btnRem = new System.Windows.Forms.Button();
 			this.btnAdd = new System.Windows.Forms.Button();
 			this.tpNotifications = new System.Windows.Forms.TabPage();
@@ -88,8 +90,7 @@
 			this.btnResetChanges = new System.Windows.Forms.Button();
 			this.btnSaveAndClose = new System.Windows.Forms.Button();
 			this.btnSave = new System.Windows.Forms.Button();
-			this.btnMvDown = new System.Windows.Forms.Button();
-			this.btnMvUp = new System.Windows.Forms.Button();
+			this.cbAutostart = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tpCheckers.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -148,10 +149,10 @@
 			this.lvCheckers.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvCheckers.FullRowSelect = true;
 			this.lvCheckers.GridLines = true;
-			listViewItem8.Checked = true;
-			listViewItem8.StateImageIndex = 1;
+			listViewItem36.Checked = true;
+			listViewItem36.StateImageIndex = 1;
 			this.lvCheckers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem8});
+            listViewItem36});
 			this.lvCheckers.Location = new System.Drawing.Point(3, 3);
 			this.lvCheckers.Name = "lvCheckers";
 			this.lvCheckers.Size = new System.Drawing.Size(436, 222);
@@ -192,6 +193,26 @@
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(436, 35);
 			this.panel1.TabIndex = 1;
+			// 
+			// btnMvUp
+			// 
+			this.btnMvUp.Location = new System.Drawing.Point(197, 6);
+			this.btnMvUp.Name = "btnMvUp";
+			this.btnMvUp.Size = new System.Drawing.Size(24, 24);
+			this.btnMvUp.TabIndex = 3;
+			this.btnMvUp.Text = "▲";
+			this.btnMvUp.UseVisualStyleBackColor = true;
+			this.btnMvUp.Click += new System.EventHandler(this.btnMvUp_Click);
+			// 
+			// btnMvDown
+			// 
+			this.btnMvDown.Location = new System.Drawing.Point(167, 6);
+			this.btnMvDown.Name = "btnMvDown";
+			this.btnMvDown.Size = new System.Drawing.Size(24, 24);
+			this.btnMvDown.TabIndex = 2;
+			this.btnMvDown.Text = "▼";
+			this.btnMvDown.UseVisualStyleBackColor = true;
+			this.btnMvDown.Click += new System.EventHandler(this.btnMvDown_Click);
 			// 
 			// btnRem
 			// 
@@ -314,32 +335,32 @@
             this.chSound});
 			this.lvSounds.FullRowSelect = true;
 			this.lvSounds.GridLines = true;
-			listViewGroup4.Header = "Festgelegt";
-			listViewGroup4.Name = "lvgDefined";
-			listViewGroup5.Header = "System";
-			listViewGroup5.Name = "lvgSystem";
-			listViewGroup6.Header = "Benutzerdefiniert";
-			listViewGroup6.Name = "lvgUser";
+			listViewGroup16.Header = "Festgelegt";
+			listViewGroup16.Name = "lvgDefined";
+			listViewGroup17.Header = "System";
+			listViewGroup17.Name = "lvgSystem";
+			listViewGroup18.Header = "Benutzerdefiniert";
+			listViewGroup18.Name = "lvgUser";
 			this.lvSounds.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup4,
-            listViewGroup5,
-            listViewGroup6});
+            listViewGroup16,
+            listViewGroup17,
+            listViewGroup18});
 			this.lvSounds.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			listViewItem9.Checked = true;
-			listViewItem9.Group = listViewGroup4;
-			listViewItem9.StateImageIndex = 1;
-			listViewItem10.Group = listViewGroup5;
-			listViewItem11.Group = listViewGroup5;
-			listViewItem12.Group = listViewGroup5;
-			listViewItem13.Group = listViewGroup5;
-			listViewItem14.Group = listViewGroup5;
+			listViewItem37.Checked = true;
+			listViewItem37.Group = listViewGroup16;
+			listViewItem37.StateImageIndex = 1;
+			listViewItem38.Group = listViewGroup17;
+			listViewItem39.Group = listViewGroup17;
+			listViewItem40.Group = listViewGroup17;
+			listViewItem41.Group = listViewGroup17;
+			listViewItem42.Group = listViewGroup17;
 			this.lvSounds.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem9,
-            listViewItem10,
-            listViewItem11,
-            listViewItem12,
-            listViewItem13,
-            listViewItem14});
+            listViewItem37,
+            listViewItem38,
+            listViewItem39,
+            listViewItem40,
+            listViewItem41,
+            listViewItem42});
 			this.lvSounds.Location = new System.Drawing.Point(6, 113);
 			this.lvSounds.Name = "lvSounds";
 			this.lvSounds.Size = new System.Drawing.Size(206, 109);
@@ -389,6 +410,7 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.cbAutostart);
 			this.groupBox2.Controls.Add(this.pictureBox9);
 			this.groupBox2.Controls.Add(this.pictureBox8);
 			this.groupBox2.Controls.Add(this.pictureBox7);
@@ -512,7 +534,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
 			this.tbDuration.AutoSize = false;
 			this.tbDuration.BackColor = System.Drawing.Color.White;
-			this.tbDuration.Location = new System.Drawing.Point(3, 130);
+			this.tbDuration.Location = new System.Drawing.Point(2, 130);
 			this.tbDuration.Maximum = 300;
 			this.tbDuration.Minimum = 50;
 			this.tbDuration.Name = "tbDuration";
@@ -543,6 +565,7 @@
 			// 
 			// lbNotifyDura
 			// 
+			this.lbNotifyDura.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 			this.lbNotifyDura.Location = new System.Drawing.Point(144, 130);
 			this.lbNotifyDura.Name = "lbNotifyDura";
 			this.lbNotifyDura.Size = new System.Drawing.Size(67, 23);
@@ -662,25 +685,18 @@
 			this.btnSave.UseVisualStyleBackColor = true;
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
-			// btnMvDown
+			// cbAutostart
 			// 
-			this.btnMvDown.Location = new System.Drawing.Point(167, 6);
-			this.btnMvDown.Name = "btnMvDown";
-			this.btnMvDown.Size = new System.Drawing.Size(24, 24);
-			this.btnMvDown.TabIndex = 2;
-			this.btnMvDown.Text = "▼";
-			this.btnMvDown.UseVisualStyleBackColor = true;
-			this.btnMvDown.Click += new System.EventHandler(this.btnMvDown_Click);
-			// 
-			// btnMvUp
-			// 
-			this.btnMvUp.Location = new System.Drawing.Point(197, 6);
-			this.btnMvUp.Name = "btnMvUp";
-			this.btnMvUp.Size = new System.Drawing.Size(24, 24);
-			this.btnMvUp.TabIndex = 3;
-			this.btnMvUp.Text = "▲";
-			this.btnMvUp.UseVisualStyleBackColor = true;
-			this.btnMvUp.Click += new System.EventHandler(this.btnMvUp_Click);
+			this.cbAutostart.AutoSize = true;
+			this.cbAutostart.Checked = true;
+			this.cbAutostart.CheckState = System.Windows.Forms.CheckState.Checked;
+			this.cbAutostart.Location = new System.Drawing.Point(4, 228);
+			this.cbAutostart.Name = "cbAutostart";
+			this.cbAutostart.Size = new System.Drawing.Size(68, 17);
+			this.cbAutostart.TabIndex = 22;
+			this.cbAutostart.Text = "Autostart";
+			this.cbAutostart.UseVisualStyleBackColor = true;
+			this.cbAutostart.CheckedChanged += new System.EventHandler(this.cbAutostart_CheckedChanged);
 			// 
 			// OptionsForm
 			// 
@@ -689,7 +705,7 @@
 			this.ClientSize = new System.Drawing.Size(450, 328);
 			this.Controls.Add(this.tabControl1);
 			this.Controls.Add(this.panel2);
-			this.MinimumSize = new System.Drawing.Size(402, 240);
+			this.MinimumSize = new System.Drawing.Size(466, 367);
 			this.Name = "OptionsForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
 			this.Text = "Optionen";
@@ -772,5 +788,6 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button btnMvUp;
 		private System.Windows.Forms.Button btnMvDown;
+		private System.Windows.Forms.CheckBox cbAutostart;
 	}
 }

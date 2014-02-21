@@ -25,6 +25,7 @@ namespace WinForms
 		List<Checker> checkers;
 		bool mayClose;
 		FormWindowState lastState = FormWindowState.Maximized;
+		int value;
 
 		public MainForm()
 		{
@@ -245,7 +246,7 @@ namespace WinForms
 			{
 #endif
 			int i = 0;
-			checkers.ForEach(e => { e.CheckNew(); i++; updateStatus.Value = (int)((i / (float)checkers.Count) * 100); });
+			checkers.ForEach(e => { e.CheckNew(); i++; value = (int)((i / (float)checkers.Count) * 100); });
 #if R
 			}
 			catch (Exception e)
@@ -292,7 +293,7 @@ namespace WinForms
 			RegistryKey registryKey = Registry.CurrentUser.OpenSubKey("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", true);
 			if (isChecked)
 			{
-				registryKey.SetValue("TheLockNLolChecker", Application.ExecutablePath + " -silent");
+				registryKey.SetValue("TheLockNLolChecker", Application.ExecutablePath + " -a");
 			}
 			else
 			{
@@ -471,6 +472,7 @@ namespace WinForms
 			try
 			{
 #endif
+			updateStatus.Value = value;
 			Notifications.FetchNotification(this);
 #if R
 			}
@@ -509,7 +511,7 @@ namespace WinForms
 
 		public void ThrowError(Exception e)
 		{
-			new Forms.ErrorForm(e).Show();
+			new Forms.ErrorForm(e).ShowDialog();
 		}
 
 		private void btnSendProps_Click(object sender, EventArgs e)

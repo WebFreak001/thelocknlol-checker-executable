@@ -39,9 +39,9 @@ namespace WinForms
 			MemoryStream ms = new MemoryStream(bytes);
 			this.image = new Bitmap(ms);
 			int y0 = 0, y1 = this.image.Height;
+			bool isBlack = true;
 			for (int y = 0; y < this.image.Height; y++)
 			{
-				bool isBlack = true;
 				for (int x = 0; x < this.image.Width; x++)
 				{
 					Color c = this.image.GetPixel(x, y);
