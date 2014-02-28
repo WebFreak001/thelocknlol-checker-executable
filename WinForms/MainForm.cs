@@ -33,13 +33,13 @@ namespace WinForms
 			try
 			{
 #endif
-			InitializeComponent();
-			checkers = new List<Checker>();
-			Config.Load();
-			if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
-			{
-				Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol" });
-			}
+				InitializeComponent();
+				checkers = new List<Checker>();
+				Config.Load();
+				if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
+				{
+					Config.Settings.Checkers.Add(new CheckerFormat() { Name = "TheLockNLol", Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol" });
+				}
 #if R
 			}
 			catch (Exception e)
@@ -55,7 +55,7 @@ namespace WinForms
 			try
 			{
 #endif
-			notifications.Controls.Clear();
+				notifications.Controls.Clear();
 #if R
 			}
 			catch (Exception e)
@@ -71,14 +71,14 @@ namespace WinForms
 			try
 			{
 #endif
-			foreach (Control c in notifications.Controls)
-			{
-				if (c is Controls.NotifyList)
+				foreach (Control c in notifications.Controls)
 				{
-					Controls.NotifyList l = (Controls.NotifyList)c;
-					if (l.NameTag == tag) return l;
+					if (c is Controls.NotifyList)
+					{
+						Controls.NotifyList l = (Controls.NotifyList)c;
+						if (l.NameTag == tag) return l;
+					}
 				}
-			}
 #if R
 			}
 			catch (Exception e)
@@ -95,31 +95,31 @@ namespace WinForms
 			try
 			{
 #endif
-			using (WebClient c = new WebClient())
-			{
-				string s = c.DownloadString("https://raw.github.com/WebFreak001/thelocknlol-checker-executable/master/WinForms/Version.cs");
-				string[] lines = s.Split('\n');
-				string vRaw = lines[2].Trim().Substring("public static int VersionNumber = ".Length).Replace(";", "");
-				string link = lines[3].Trim().Substring("public static string Download = ".Length).Replace("\"", "").Replace(";", "");
-				int version = int.Parse(vRaw);
-				if (Version.VersionNumber < version)
+				using (WebClient c = new WebClient())
 				{
-					if (Config.Settings.AutoUpdate)
+					string s = c.DownloadString("https://raw.github.com/WebFreak001/thelocknlol-checker-executable/master/WinForms/Version.cs");
+					string[] lines = s.Split('\n');
+					string vRaw = lines[2].Trim().Substring("public static int VersionNumber = ".Length).Replace(";", "");
+					string link = lines[3].Trim().Substring("public static string Download = ".Length).Replace("\"", "").Replace(";", "");
+					int version = int.Parse(vRaw);
+					if (Version.VersionNumber < version)
 					{
-						c.DownloadFileAsync(new Uri(link), Path.Combine(Directory.GetCurrentDirectory(), "update.zip"));
-						c.DownloadFileCompleted += (a, b) =>
+						if (Config.Settings.AutoUpdate)
 						{
-							ProcessStartInfo pfi = new ProcessStartInfo("Explorer.exe", string.Format("/Select, \"{0}\"", Path.Combine(Directory.GetCurrentDirectory(), "update.zip")));
-							Process.Start(pfi);
-						};
-					}
-					else
-					{
-						Notifications.NotifyGeneric(new ImagedMessageControl("Image/koala256.png", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update", true);
+							c.DownloadFileAsync(new Uri(link), Path.Combine(Directory.GetCurrentDirectory(), "update.zip"));
+							c.DownloadFileCompleted += (a, b) =>
+							{
+								ProcessStartInfo pfi = new ProcessStartInfo("Explorer.exe", string.Format("/Select, \"{0}\"", Path.Combine(Directory.GetCurrentDirectory(), "update.zip")));
+								Process.Start(pfi);
+							};
+						}
+						else
+						{
+							Notifications.NotifyGeneric(new ImagedMessageControl("Image/koala256.png", "Update verfügbar!", "Es ist ein Update verfügbar! Drücke mich um es zu Downloaden."), link, "Update", true);
+						}
 					}
 				}
-			}
-			return true;
+				return true;
 #if R
 			}
 			catch (Exception e)
@@ -136,25 +136,25 @@ namespace WinForms
 			try
 			{
 #endif
-			string s = sender.ToString();
-			Controls.NotifyList n = GetList(s);
-			if(n != null)
-			{
-				List<Control> cs = new List<Control>();
-				foreach (Control c in n.GetControls())
+				string s = sender.ToString();
+				Controls.NotifyList n = GetList(s);
+				if (n != null)
 				{
-					if (c is Controls.NotificationControl)
+					List<Control> cs = new List<Control>();
+					foreach (Control c in n.GetControls())
 					{
-						Controls.NotificationControl con = ev.ToControl();
-						if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+						if (c is Controls.NotificationControl)
+						{
+							Controls.NotificationControl con = ev.ToControl();
+							if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+						}
+						cs.Add(c);
 					}
-					cs.Add(c);
+					n.GetControls().Clear();
+					n.AddGenericNotification(ev);
+					n.GetControls().AddRange(cs.ToArray());
+					n.AddGenericNotification(null);
 				}
-				n.GetControls().Clear();
-				n.AddGenericNotification(ev);
-				n.GetControls().AddRange(cs.ToArray());
-				n.AddGenericNotification(null);
-			}
 #if R
 			}
 			catch (Exception e)
@@ -170,21 +170,25 @@ namespace WinForms
 			try
 			{
 #endif
-			string s = sender.ToString();
-			Controls.NotificationControl con = ev.N.ToControl();
-			List<Control> cs = new List<Control>();
-			foreach (Control c in GetList(s).GetControls())
-			{
-				if (c is Controls.NotificationControl)
+				string s = sender.ToString();
+				Controls.NotifyList n = GetList(s);
+				if (n != null)
 				{
-					if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+					Controls.NotificationControl con = ev.N.ToControl();
+					List<Control> cs = new List<Control>();
+					foreach (Control c in n.GetControls())
+					{
+						if (c is Controls.NotificationControl)
+						{
+							if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+						}
+						cs.Add(c);
+					}
+					n.GetControls().Clear();
+					n.AddYouTubeNotification(ev.N, ev.Yt);
+					n.GetControls().AddRange(cs.ToArray());
+					n.AddGenericNotification(null);
 				}
-				cs.Add(c);
-			}
-			GetList(s).GetControls().Clear();
-			GetList(s).AddYouTubeNotification(ev.N, ev.Yt);
-			GetList(s).GetControls().AddRange(cs.ToArray());
-			GetList(s).AddGenericNotification(null);
 #if R
 			}
 			catch (Exception e)
@@ -200,21 +204,25 @@ namespace WinForms
 			try
 			{
 #endif
-			string s = sender.ToString();
-			List<Control> cs = new List<Control>();
-			foreach (Control c in GetList(s).GetControls())
-			{
-				if (c is Controls.NotificationControl)
+				string s = sender.ToString();
+				Controls.NotifyList n = GetList(s);
+				if (n != null)
 				{
-					Controls.NotificationControl con = ev.N.ToControl();
-					if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+					List<Control> cs = new List<Control>();
+					foreach (Control c in n.GetControls())
+					{
+						if (c is Controls.NotificationControl)
+						{
+							Controls.NotificationControl con = ev.N.ToControl();
+							if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+						}
+						cs.Add(c);
+					}
+					n.GetControls().Clear();
+					n.AddFacebookNotification(ev.N, ev.Fb);
+					n.GetControls().AddRange(cs.ToArray());
+					n.AddGenericNotification(null);
 				}
-				cs.Add(c);
-			}
-			GetList(s).GetControls().Clear();
-			GetList(s).AddFacebookNotification(ev.N, ev.Fb);
-			GetList(s).GetControls().AddRange(cs.ToArray());
-			GetList(s).AddGenericNotification(null);
 #if R
 			}
 			catch (Exception e)
@@ -230,7 +238,7 @@ namespace WinForms
 			try
 			{
 #endif
-			RefreshThings();
+				RefreshThings();
 #if R
 			}
 			catch (Exception e)
@@ -246,8 +254,8 @@ namespace WinForms
 			try
 			{
 #endif
-			int i = 0;
-			checkers.ForEach(e => { e.CheckNew(); i++; value = (int)((i / (float)checkers.Count) * 100); });
+				int i = 0;
+				checkers.ForEach(e => { e.CheckNew(); i++; value = (int)((i / (float)checkers.Count) * 100); });
 #if R
 			}
 			catch (Exception e)
@@ -263,7 +271,7 @@ namespace WinForms
 			try
 			{
 #endif
-			new Forms.OptionsForm().ShowDialog();
+				new Forms.OptionsForm().ShowDialog();
 #if R
 			}
 			catch (Exception e)
@@ -279,7 +287,7 @@ namespace WinForms
 			try
 			{
 #endif
-			new Forms.About().ShowDialog();
+				new Forms.About().ShowDialog();
 #if R
 			}
 			catch (Exception e)
@@ -308,40 +316,40 @@ namespace WinForms
 			try
 			{
 #endif
-			Notifications.OnGenericMessage += OnGenericMessage;
-			Notifications.OnYouTubeMessage += OnYoutubeMessage;
-			Notifications.OnFacebookMessage += OnFacebookMessage;
-			if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
-			foreach (CheckerFormat f in Config.Settings.Checkers)
-			{
-				if (f.Enabled)
+				Notifications.OnGenericMessage += OnGenericMessage;
+				Notifications.OnYouTubeMessage += OnYoutubeMessage;
+				Notifications.OnFacebookMessage += OnFacebookMessage;
+				if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
+				foreach (CheckerFormat f in Config.Settings.Checkers)
 				{
-					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
-					checkers.Add(c);
-					Controls.NotifyList l = new Controls.NotifyList(f.Name);
-					l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate); updateStatus.Value = 100; };
-					notifications.Controls.Add(l);
+					if (f.Enabled)
+					{
+						Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
+						checkers.Add(c);
+						Controls.NotifyList l = new Controls.NotifyList(f.Name);
+						l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate); updateStatus.Value = 100; };
+						notifications.Controls.Add(l);
+					}
 				}
-			}
-			refresher.RunWorkerAsync();
+				refresher.RunWorkerAsync();
 
-			if (Properties.Settings.Default.FirstStart)
-			{
-				DialogResult r = MessageBox.Show("Möchten Sie dieses Programm im AutoStart haben?\nSie können diese Einstellung jeder Zeit in den Einstellungen ändern!", "Willkommen zum TheLockNLol-Checker!", MessageBoxButtons.YesNo);
-				if (r == DialogResult.Yes)
+				if (Properties.Settings.Default.FirstStart)
 				{
-					Config.Settings.AutoStart = true;
-					Config.Save();
-					RegisterInStartup(true);
+					DialogResult r = MessageBox.Show("Möchten Sie dieses Programm im AutoStart haben?\nSie können diese Einstellung jeder Zeit in den Einstellungen ändern!", "Willkommen zum TheLockNLol-Checker!", MessageBoxButtons.YesNo);
+					if (r == DialogResult.Yes)
+					{
+						Config.Settings.AutoStart = true;
+						Config.Save();
+						RegisterInStartup(true);
+					}
+					Properties.Settings.Default.FirstStart = false;
+					Properties.Settings.Default.Save();
 				}
-				Properties.Settings.Default.FirstStart = false;
-				Properties.Settings.Default.Save();
-			}
-			if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
-			{
-				Notifications.NotifyGeneric(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol", true);
-			}
-			RegisterInStartup(Config.Settings.AutoStart);
+				if (DateTime.Now.Day == 4 && DateTime.Now.Month == 11)
+				{
+					Notifications.NotifyGeneric(new ImagedMessageControl("Image/koala256.png", "TheLockNLol hat heute geburtstag!", "Gratuliere ihm doch auf Facebook :)"), "http://www.facebook.de/TheLockNLol", "TheLockNLol", true);
+				}
+				RegisterInStartup(Config.Settings.AutoStart);
 #if R
 			}
 			catch (Exception e)
@@ -366,13 +374,13 @@ namespace WinForms
 			try
 			{
 #endif
-			if (WindowState == FormWindowState.Minimized)
-			{
-				WindowState = lastState;
-			}
-			bool top = TopMost;
-			TopMost = true;
-			TopMost = top;
+				if (WindowState == FormWindowState.Minimized)
+				{
+					WindowState = lastState;
+				}
+				bool top = TopMost;
+				TopMost = true;
+				TopMost = top;
 #if R
 			}
 			catch (Exception e)
@@ -388,8 +396,8 @@ namespace WinForms
 			try
 			{
 #endif
-			mayClose = true;
-			Close();
+				mayClose = true;
+				Close();
 #if R
 			}
 			catch (Exception e)
@@ -405,7 +413,7 @@ namespace WinForms
 			try
 			{
 #endif
-			new Forms.OptionsForm().ShowDialog();
+				new Forms.OptionsForm().ShowDialog();
 #if R
 			}
 			catch (Exception e)
@@ -421,7 +429,7 @@ namespace WinForms
 			try
 			{
 #endif
-			new Forms.About().ShowDialog();
+				new Forms.About().ShowDialog();
 #if R
 			}
 			catch (Exception e)
@@ -437,13 +445,13 @@ namespace WinForms
 			try
 			{
 #endif
-			if (!mayClose)
-			{
-				ev.Cancel = true;
-				lastState = WindowState;
-				WindowState = FormWindowState.Minimized;
-				Hide();
-			}
+				if (!mayClose)
+				{
+					ev.Cancel = true;
+					lastState = WindowState;
+					WindowState = FormWindowState.Minimized;
+					Hide();
+				}
 #if R
 			}
 			catch (Exception e)
@@ -459,8 +467,8 @@ namespace WinForms
 			try
 			{
 #endif
-			Show();
-			WindowState = lastState;
+				Show();
+				WindowState = lastState;
 #if R
 			}
 			catch (Exception e)
@@ -476,8 +484,8 @@ namespace WinForms
 			try
 			{
 #endif
-			Notifications.FetchNotification(this);
-			updateStatus.Value = value;
+				Notifications.FetchNotification(this);
+				updateStatus.Value = value;
 #if R
 			}
 			catch (Exception e)
@@ -493,7 +501,7 @@ namespace WinForms
 			try
 			{
 #endif
-			RefreshThings();
+				RefreshThings();
 #if R
 			}
 			catch (Exception e)
