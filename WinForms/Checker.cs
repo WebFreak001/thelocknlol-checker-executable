@@ -58,19 +58,12 @@ namespace WinForms
 			{
 				defaultImage = "Image/unknown.png";
 			}
-			Check(0, "");
+			Check(0, "", true);
 		}
 
-		public void CheckNew()
+		public void Check(int youtube, string facebook, bool hidden = false)
 		{
-			checkTwitch();
-			checkYoutube(1);
-			checkFacebook("");
-			initialCheck = false;
-		}
-
-		public void Check(int youtube, string facebook)
-		{
+			initialCheck = hidden;
 			checkTwitch();
 			checkYoutube(youtube + 1);
 			checkFacebook(facebook);

@@ -146,7 +146,7 @@ namespace WinForms
 						if (c is Controls.NotificationControl)
 						{
 							Controls.NotificationControl con = ev.ToControl();
-							if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+							if (con.title == ((Controls.NotificationControl)c).title && con.desc == ((Controls.NotificationControl)c).desc) return;
 						}
 						cs.Add(c);
 					}
@@ -180,7 +180,7 @@ namespace WinForms
 					{
 						if (c is Controls.NotificationControl)
 						{
-							if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+							if (con.title == ((Controls.NotificationControl)c).title && con.desc == ((Controls.NotificationControl)c).desc) return;
 						}
 						cs.Add(c);
 					}
@@ -214,7 +214,7 @@ namespace WinForms
 						if (c is Controls.NotificationControl)
 						{
 							Controls.NotificationControl con = ev.N.ToControl();
-							if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+							if (con.title == ((Controls.NotificationControl)c).title && con.desc == ((Controls.NotificationControl)c).desc) return;
 						}
 						cs.Add(c);
 					}
@@ -255,7 +255,7 @@ namespace WinForms
 			{
 #endif
 				int i = 0;
-				checkers.ForEach(e => { e.CheckNew(); i++; value = (int)((i / (float)checkers.Count) * 100); });
+				checkers.ForEach(e => { e.Check(0, "", true); i++; value = (int)((i / (float)checkers.Count) * 100); });
 #if R
 			}
 			catch (Exception e)
@@ -327,7 +327,7 @@ namespace WinForms
 						Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
 						checkers.Add(c);
 						Controls.NotifyList l = new Controls.NotifyList(f.Name);
-						l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate); updateStatus.Value = 100; };
+						l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate, eve.Hidden); updateStatus.Value = 100; };
 						notifications.Controls.Add(l);
 					}
 				}
