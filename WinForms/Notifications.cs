@@ -64,19 +64,11 @@ namespace WinForms
 			if (Queued.Count != 0)
 			{
 				NotificationType n = Queued.Dequeue();
-
+				byte[] bytes = Encoding.Default.GetBytes(n.Control.Title);
+				n.Control.Title = Encoding.UTF8.GetString(bytes);
+				bytes = Encoding.Default.GetBytes(n.Control.Desc);
+				n.Control.Desc = Encoding.UTF8.GetString(bytes);
 				Notification notification = new Notification(f, n.Tag, n.Control.Image, n.Control.Title, n.Control.Desc, n.Link, !n.ShowInWindow);
-				if (n.ShowInWindow)
-				{
-					notification.ShowInTaskbar = false;
-					notification.Show();
-					notification.Left = Screen.PrimaryScreen.Bounds.Width - 375;
-					if (SystemInformation.WorkingArea.Top > 0) notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105;
-					else notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105 - GetTaskbarHeight();
-					Count++;
-					notification.Opacity = 1;
-				}
-
 				if (n.Type == 0)
 				{
 					if (OnGenericMessage != null) OnGenericMessage(n.Tag, notification);
@@ -88,6 +80,17 @@ namespace WinForms
 				else if (n.Type == 2)
 				{
 					if (OnFacebookMessage != null) OnFacebookMessage(n.Tag, new NotificationFacebook() { N = notification, Fb = ((FacebookNotificationType)n).Data });
+				}
+
+				if (n.ShowInWindow)
+				{
+					notification.ShowInTaskbar = false;
+					notification.Show();
+					notification.Left = Screen.PrimaryScreen.Bounds.Width - 375;
+					if (SystemInformation.WorkingArea.Top > 0) notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105;
+					else notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105 - GetTaskbarHeight();
+					Count++;
+					notification.Opacity = 1;
 				}
 			}
 		}
