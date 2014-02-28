@@ -19,8 +19,10 @@ namespace WinForms
 		{
 			if (args.Contains("-a"))
 			{
-				MessageBox.Show(Application.ExecutablePath + " -s");
-				Process.Start(Application.ExecutablePath + " -s");
+				new Thread(() =>
+				{
+					Process.Start(Application.ExecutablePath + " -s");
+				}).Start();
 				return;
 			}
 			try
@@ -47,9 +49,9 @@ namespace WinForms
 						IntPtr.Zero);
 				}
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
-				using(StreamWriter w = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt"))
+				using (StreamWriter w = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt"))
 				{
 					w.WriteLine("OMFG AN ERROR OCCURED!");
 					w.WriteLine();
