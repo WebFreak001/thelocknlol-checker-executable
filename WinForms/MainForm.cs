@@ -33,9 +33,6 @@ namespace WinForms
 			try
 			{
 #endif
-			Notifications.OnGenericMessage += OnGenericMessage;
-			Notifications.OnYouTubeMessage += OnYoutubeMessage;
-			Notifications.OnFacebookMessage += OnFacebookMessage;
 			InitializeComponent();
 			checkers = new List<Checker>();
 			Config.Load();
@@ -140,20 +137,24 @@ namespace WinForms
 			{
 #endif
 			string s = sender.ToString();
-			List<Control> cs = new List<Control>();
-			foreach (Control c in GetList(s).GetControls())
+			Controls.NotifyList n = GetList(s);
+			if(n != null)
 			{
-				if (c is Controls.NotificationControl)
+				List<Control> cs = new List<Control>();
+				foreach (Control c in n.GetControls())
 				{
-					Controls.NotificationControl con = ev.ToControl();
-					if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+					if (c is Controls.NotificationControl)
+					{
+						Controls.NotificationControl con = ev.ToControl();
+						if (con.title == ((Controls.NotificationControl)c).title && con.title == ((Controls.NotificationControl)c).title) return;
+					}
+					cs.Add(c);
 				}
-				cs.Add(c);
+				n.GetControls().Clear();
+				n.AddGenericNotification(ev);
+				n.GetControls().AddRange(cs.ToArray());
+				n.AddGenericNotification(null);
 			}
-			GetList(s).GetControls().Clear();
-			GetList(s).AddGenericNotification(ev);
-			GetList(s).GetControls().AddRange(cs.ToArray());
-			GetList(s).AddGenericNotification(null);
 #if R
 			}
 			catch (Exception e)
@@ -307,6 +308,9 @@ namespace WinForms
 			try
 			{
 #endif
+			Notifications.OnGenericMessage += OnGenericMessage;
+			Notifications.OnYouTubeMessage += OnYoutubeMessage;
+			Notifications.OnFacebookMessage += OnFacebookMessage;
 			if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
 			foreach (CheckerFormat f in Config.Settings.Checkers)
 			{
@@ -472,8 +476,8 @@ namespace WinForms
 			try
 			{
 #endif
-			updateStatus.Value = value;
 			Notifications.FetchNotification(this);
+			updateStatus.Value = value;
 #if R
 			}
 			catch (Exception e)
