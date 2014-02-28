@@ -451,6 +451,11 @@ namespace WinForms
 					lastState = WindowState;
 					WindowState = FormWindowState.Minimized;
 					Hide();
+					if (Properties.Settings.Default.FirstHide)
+					{
+						trayIcon.ShowBalloonTip(8000, "TheLockNLol Checker läuft noch!", "TheLockNLol Checker läuft im Hintergrund weiter. Rechtsklicken Sie und beenden Sie dann das Programm um es zu Beenden", ToolTipIcon.Info);
+						Properties.Settings.Default.FirstHide = false;
+					}
 				}
 #if R
 			}
