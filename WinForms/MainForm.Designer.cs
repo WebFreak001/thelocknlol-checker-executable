@@ -195,6 +195,7 @@
 			this.Controls.Add(this.notifications);
 			this.Controls.Add(this.statusStrip1);
 			this.Controls.Add(this.tsOptions);
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.MinimumSize = new System.Drawing.Size(410, 420);
 			this.Name = "MainForm";
 			this.Text = "TheLockNLol Checker";
