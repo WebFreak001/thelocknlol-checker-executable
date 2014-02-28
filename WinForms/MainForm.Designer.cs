@@ -133,8 +133,7 @@
             this.trayAbout});
 			this.trayMenu.Name = "trayMenu";
 			this.trayMenu.ShowItemToolTips = false;
-			this.trayMenu.Size = new System.Drawing.Size(153, 92);
-			this.trayMenu.Text = "TheLockNLol Checker";
+			this.trayMenu.Size = new System.Drawing.Size(125, 70);
 			// 
 			// trayClose
 			// 

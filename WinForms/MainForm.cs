@@ -310,6 +310,22 @@ namespace WinForms
 			}
 		}
 
+		void RefreshPeople()
+		{
+			notifications.Controls.Clear();
+			foreach (CheckerFormat f in Config.Settings.Checkers)
+			{
+				if (f.Enabled)
+				{
+					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
+					checkers.Add(c);
+					Controls.NotifyList l = new Controls.NotifyList(f.Name);
+					l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate, eve.Hidden, eve.Reverse); updateStatus.Value = 100; };
+					notifications.Controls.Add(l);
+				}
+			}
+		}
+
 		private void MainForm_Load(object sender, EventArgs ev)
 		{
 #if R
@@ -320,17 +336,7 @@ namespace WinForms
 				Notifications.OnYouTubeMessage += OnYoutubeMessage;
 				Notifications.OnFacebookMessage += OnFacebookMessage;
 				if (!CheckForUpdate()) MessageBox.Show("Es konnte nicht nach neuen Updates geprüft werden!");
-				foreach (CheckerFormat f in Config.Settings.Checkers)
-				{
-					if (f.Enabled)
-					{
-						Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
-						checkers.Add(c);
-						Controls.NotifyList l = new Controls.NotifyList(f.Name);
-						l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate, eve.Hidden); updateStatus.Value = 100; };
-						notifications.Controls.Add(l);
-					}
-				}
+				RefreshPeople();
 				refresher.RunWorkerAsync();
 
 				if (Properties.Settings.Default.FirstStart)

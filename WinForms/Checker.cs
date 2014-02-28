@@ -61,11 +61,11 @@ namespace WinForms
 			Check(0, "", true);
 		}
 
-		public void Check(int youtube, string facebook, bool hidden = false)
+		public void Check(int youtube, string facebook, bool hidden = false, bool reverse = true)
 		{
 			initialCheck = hidden;
 			checkTwitch();
-			checkYoutube(youtube + 1);
+			checkYoutube(youtube + 1, reverse);
 			checkFacebook(facebook);
 			initialCheck = false;
 		}
@@ -105,7 +105,7 @@ namespace WinForms
 			}).Start();
 		}
 
-		public void checkYoutube(int id_)
+		public void checkYoutube(int id_, bool reverse = true)
 		{
 			bool ini = !initialCheck;
 			new Thread(() =>
@@ -151,7 +151,8 @@ namespace WinForms
 												if (Config.Settings.Sounds.OnVideo) PlaySound(Config.Settings.CurrentSound);
 												if (lastID == "") lastID = id.Substring(42);
 											}
-											catch {
+											catch
+											{
 											}
 											break;
 									}
@@ -163,10 +164,16 @@ namespace WinForms
 								{
 									lastYoutube = lastID;
 								}
-								for(int i = notifys.Count - 1; i >= 0; i--)
-								{
-									Notifications.NotifyYouTube(notifys[i].control, notifys[i].link, notifys[i].tab, notifys[i].showInWindow, notifys[i].id);
-								}
+								if (reverse)
+									for (int i = notifys.Count - 1; i >= 0; i--)
+									{
+										Notifications.NotifyYouTube(notifys[i].control, notifys[i].link, notifys[i].tab, notifys[i].showInWindow, notifys[i].id);
+									}
+								else
+									for (int i = 0; i < notifys.Count; i++)
+									{
+										Notifications.NotifyYouTube(notifys[i].control, notifys[i].link, notifys[i].tab, notifys[i].showInWindow, notifys[i].id);
+									}
 							}
 						};
 						webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?start-index=" + id_ + "&max-results=5"));

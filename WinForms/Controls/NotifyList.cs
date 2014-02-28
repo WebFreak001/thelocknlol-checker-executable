@@ -16,6 +16,7 @@ namespace WinForms.Controls
 		public int YouTubeCount { get; set; }
 		public string LastFacebookDate { get; set; }
 		public bool Hidden { get; set; }
+		public bool Reverse { get; set; }
 	}
 
 	public partial class NotifyList : UserControl
@@ -87,7 +88,7 @@ namespace WinForms.Controls
 
 		private void btnLoadMore_Click(object sender, EventArgs e)
 		{
-			Request(true);
+			Request(true, false);
 		}
 
 		public void Change(string tag)
@@ -96,20 +97,20 @@ namespace WinForms.Controls
 			Request();
 		}
 
-		protected void Request(bool hidden = false)
+		protected void Request(bool hidden = false, bool reverse = true)
 		{
 			if (RequestMore != null && lbName.Text != "<None>")
 			{
 				if (GetFacebook() == null)
 				{
 					int yt = GetYoutube();
-					RequestMore(lbName.Text, new YtFb() { LastFacebookDate = "", YouTubeCount = yt, Hidden = hidden });
+					RequestMore(lbName.Text, new YtFb() { LastFacebookDate = "", YouTubeCount = yt, Hidden = hidden, Reverse = reverse });
 				}
 				else
 				{
 					int yt = GetYoutube();
 					string fb = GetFacebook().created_time;
-					RequestMore(lbName.Text, new YtFb() { LastFacebookDate = fb, YouTubeCount = yt, Hidden = hidden });
+					RequestMore(lbName.Text, new YtFb() { LastFacebookDate = fb, YouTubeCount = yt, Hidden = hidden, Reverse = reverse });
 				}
 			}
 		}
