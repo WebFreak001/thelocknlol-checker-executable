@@ -13,6 +13,7 @@ using System.IO;
 using System.Linq;
 using System.Media;
 using System.Net;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -20,12 +21,32 @@ using System.Windows.Forms;
 
 namespace WinForms
 {
-	public partial class MainForm : Form
+	public partial class MainForm : Form, IMessageFilter
 	{
+		[DllImport("user32.dll")]
+		private static extern IntPtr WindowFromPoint(Point pt);
+		[DllImport("user32.dll")]
+		private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
+
 		List<Checker> checkers;
 		bool mayClose;
 		FormWindowState lastState = FormWindowState.Maximized;
 		int value;
+
+		public bool PreFilterMessage(ref Message m)
+		{
+			if (m.Msg == 0x20a)
+			{
+				Point pos = new Point(m.LParam.ToInt32() & 0xffff, m.LParam.ToInt32() >> 16);
+				IntPtr hWnd = WindowFromPoint(pos);
+				if (hWnd != IntPtr.Zero && hWnd != m.HWnd && Control.FromHandle(hWnd) != null)
+				{
+					SendMessage(hWnd, m.Msg, m.WParam, m.LParam);
+					return true;
+				}
+			}
+			return false;
+		}
 
 		public MainForm()
 		{
@@ -34,6 +55,7 @@ namespace WinForms
 			{
 #endif
 				InitializeComponent();
+				Application.AddMessageFilter(this);
 				checkers = new List<Checker>();
 				Config.Load();
 				if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
@@ -271,7 +293,7 @@ namespace WinForms
 			try
 			{
 #endif
-				new Forms.OptionsForm().ShowDialog();
+				ShowOptions();
 #if R
 			}
 			catch (Exception e)
@@ -310,7 +332,7 @@ namespace WinForms
 			}
 		}
 
-		void RefreshPeople()
+		public void RefreshPeople()
 		{
 			notifications.Controls.Clear();
 			foreach (CheckerFormat f in Config.Settings.Checkers)
@@ -320,6 +342,24 @@ namespace WinForms
 					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
 					checkers.Add(c);
 					Controls.NotifyList l = new Controls.NotifyList(f.Name);
+					MouseEventHandler func = (s, e) =>
+					{
+						l.Focus();
+						l.FocusScroll();
+					}; EventHandler func2 = (s, e) =>
+					{
+						l.Focus();
+						l.FocusScroll();
+					};
+					l.MouseMove += func;
+					l.MouseWheel += func;
+					l.MouseHover += func2;
+					l.MouseEnter += func2;
+					l.Click += func2;
+					l.MouseLeave += (s, e) =>
+					{
+						notifications.Focus();
+					};
 					l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate, eve.Hidden, eve.Reverse); updateStatus.Value = 100; };
 					notifications.Controls.Add(l);
 				}
@@ -413,13 +453,20 @@ namespace WinForms
 #endif
 		}
 
+		void ShowOptions()
+		{
+			Forms.OptionsForm f = new Forms.OptionsForm();
+			f.ShowDialog();
+			if (f.ChangedCheckers) RefreshPeople();
+		}
+
 		private void trayOptions_Click(object sender, EventArgs ev)
 		{
 #if R
 			try
 			{
 #endif
-				new Forms.OptionsForm().ShowDialog();
+				ShowOptions();
 #if R
 			}
 			catch (Exception e)
