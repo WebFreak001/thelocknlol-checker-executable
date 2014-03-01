@@ -19,61 +19,92 @@ namespace WinForms
 		{
 			if (args.Contains("-a"))
 			{
-				new Thread(() =>
+				try
 				{
-					Process.Start(Application.ExecutablePath + " -s");
-				}).Start();
-				return;
-			}
-			try
-			{
-				if (mutex.WaitOne(TimeSpan.Zero, true))
-				{
-					Application.EnableVisualStyles();
-					Application.SetCompatibleTextRenderingDefault(false);
-					MainForm f = new MainForm();
-					if (args.Contains("-s"))
-					{
-						f.WindowState = FormWindowState.Minimized;
-						f.ShowInTaskbar = false;
-					}
-					Application.Run(f);
-					mutex.ReleaseMutex();
+					ProcessStartInfo s = new ProcessStartInfo();
+					s.FileName = Application.ExecutablePath;
+					s.Arguments = "-s";
+					Process.Start(s);
 				}
-				else
+				catch (Exception e)
 				{
-					NativeMethods.PostMessage(
-						(IntPtr)NativeMethods.HWND_BROADCAST,
-						NativeMethods.WM_SHOWME,
-						IntPtr.Zero,
-						IntPtr.Zero);
+					using (StreamWriter w = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt"))
+					{
+						w.WriteLine("Error trying to start " + Application.ExecutablePath + " -s");
+						w.WriteLine();
+						w.WriteLine("============");
+						w.WriteLine();
+						w.WriteLine(e.Message);
+						w.WriteLine(e.StackTrace);
+						w.WriteLine(e.Source);
+						w.WriteLine();
+						w.WriteLine("============");
+						w.WriteLine();
+						if (e.Data.Count > 0)
+						{
+							w.WriteLine("  Extra details:");
+							foreach (DictionaryEntry de in e.Data)
+								w.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
+						}
+						w.WriteLine();
+						w.WriteLine("============");
+						w.WriteLine();
+						w.WriteLine("Send message to naronco pls!");
+						MessageBox.Show("Error Document written to " + Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt");
+					}
 				}
 			}
-			catch (Exception e)
+			else
 			{
-				using (StreamWriter w = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt"))
+				try
 				{
-					w.WriteLine("OMFG AN ERROR OCCURED!");
-					w.WriteLine();
-					w.WriteLine("============");
-					w.WriteLine();
-					w.WriteLine(e.Message);
-					w.WriteLine(e.StackTrace);
-					w.WriteLine(e.Source);
-					w.WriteLine();
-					w.WriteLine("============");
-					w.WriteLine();
-					if (e.Data.Count > 0)
+					if (mutex.WaitOne(TimeSpan.Zero, true))
 					{
-						w.WriteLine("  Extra details:");
-						foreach (DictionaryEntry de in e.Data)
-							w.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
+						Application.EnableVisualStyles();
+						Application.SetCompatibleTextRenderingDefault(false);
+						MainForm f = new MainForm();
+						if (args.Contains("-s"))
+						{
+							f.Hidden = true;
+						}
+						Application.Run(f);
+						mutex.ReleaseMutex();
 					}
-					w.WriteLine();
-					w.WriteLine("============");
-					w.WriteLine();
-					w.WriteLine("Send message to naronco pls!");
-					MessageBox.Show("Error Document written to " + Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt");
+					else
+					{
+						NativeMethods.PostMessage(
+							(IntPtr)NativeMethods.HWND_BROADCAST,
+							NativeMethods.WM_SHOWME,
+							IntPtr.Zero,
+							IntPtr.Zero);
+					}
+				}
+				catch (Exception e)
+				{
+					using (StreamWriter w = new StreamWriter(Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt"))
+					{
+						w.WriteLine("OMFG AN ERROR OCCURED!");
+						w.WriteLine();
+						w.WriteLine("============");
+						w.WriteLine();
+						w.WriteLine(e.Message);
+						w.WriteLine(e.StackTrace);
+						w.WriteLine(e.Source);
+						w.WriteLine();
+						w.WriteLine("============");
+						w.WriteLine();
+						if (e.Data.Count > 0)
+						{
+							w.WriteLine("  Extra details:");
+							foreach (DictionaryEntry de in e.Data)
+								w.WriteLine("    Key: {0,-20}      Value: {1}", "'" + de.Key.ToString() + "'", de.Value);
+						}
+						w.WriteLine();
+						w.WriteLine("============");
+						w.WriteLine();
+						w.WriteLine("Send message to naronco pls!");
+						MessageBox.Show("Error Document written to " + Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt");
+					}
 				}
 			}
 		}

@@ -31,6 +31,7 @@ namespace WinForms
 		List<Checker> checkers;
 		bool mayClose;
 		FormWindowState lastState = FormWindowState.Maximized;
+		public bool Hidden = false;
 		int value;
 
 		public bool PreFilterMessage(ref Message m)
@@ -56,6 +57,7 @@ namespace WinForms
 #endif
 				InitializeComponent();
 				Application.AddMessageFilter(this);
+				Hide();
 				checkers = new List<Checker>();
 				Config.Load();
 				if (Config.Settings.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
@@ -354,6 +356,14 @@ namespace WinForms
 			try
 			{
 #endif
+				if (Hidden)
+				{
+					Properties.Settings.Default.FirstHide = false;
+					mayClose = false;
+					Show();
+					Close();
+					Properties.Settings.Default.Reload();
+				}
 				Notifications.OnGenericMessage += OnGenericMessage;
 				Notifications.OnYouTubeMessage += OnYoutubeMessage;
 				Notifications.OnFacebookMessage += OnFacebookMessage;
