@@ -68,7 +68,7 @@ namespace WinForms.Controls
 			}
 			List<Control> l = new List<Control>();
 			foreach (Control c2 in layout.Controls) l.Add(c2);
-			Height = Math.Min(1000, header.Height + l.Sum(e => e.Height) + footer.Height + 50);
+			Height = Math.Min(600, header.Height + l.Sum(e => e.Height) + footer.Height + 50);
 		}
 
 		public void AddFacebookNotification(Notification n, FacebookData d)
