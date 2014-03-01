@@ -151,6 +151,7 @@ namespace WinForms
 				ThrowError(e);
 			}
 #endif
+			return false;
 		}
 
 		void OnGenericMessage(object sender, Notification ev)

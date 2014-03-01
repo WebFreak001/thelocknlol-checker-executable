@@ -83,7 +83,7 @@ namespace WinForms
 		{
 			try
 			{
-				if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = 0, AutoStart = false, CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, NotifyDelay = 100, CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnVideo = false }, Checkers = new List<CheckerFormat>() { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol" } } }, Formatting.Indented));
+				if (!File.Exists("config.json")) File.WriteAllText("config.json", JsonConvert.SerializeObject(new ConfigFormat() { NotifyColor = 0, AutoStart = false, CurrentSound = "Sounds/pew.wav", CheckSocial = true, MergeSocialVideo = true, NotifyDelay = 100, CheckLivestream = true, CheckVideo = true, AutoUpdate = false, Sounds = new SoundFormat() { OnFacebook = false, OnLivestream = true, OnVideo = false }, Checkers = new List<CheckerFormat>() { new CheckerFormat() { Enabled = true, Facebook = "TheLockNLol", Twitch = "TheLockNLol", YouTube = "TheLockNLol", Name = "TheLockNLol" } }, MaxNotifications = 3, LoadMoreNotifications = 5 }, Formatting.Indented));
 				Settings = JsonConvert.DeserializeObject<ConfigFormat>(File.ReadAllText("config.json"));
 			}
 			catch
@@ -115,7 +115,9 @@ namespace WinForms
 							YouTube = "TheLockNLol",
 							Name = "TheLockNLol",
 						}
-					}
+					},
+					MaxNotifications = 3,
+					LoadMoreNotifications = 5
 				};
 			}
 		}
