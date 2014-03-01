@@ -121,7 +121,7 @@
 			// 
 			this.trayIcon.ContextMenuStrip = this.trayMenu;
 			this.trayIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("trayIcon.Icon")));
-			this.trayIcon.Text = "notifyIcon1";
+			this.trayIcon.Text = "TheLockNLol Checker";
 			this.trayIcon.Visible = true;
 			this.trayIcon.DoubleClick += new System.EventHandler(this.trayIcon_DoubleClick);
 			// 
