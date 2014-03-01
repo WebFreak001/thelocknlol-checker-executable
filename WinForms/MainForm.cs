@@ -342,24 +342,6 @@ namespace WinForms
 					Checker c = new Checker(f.Name, f.Twitch, f.YouTube, f.Facebook);
 					checkers.Add(c);
 					Controls.NotifyList l = new Controls.NotifyList(f.Name);
-					MouseEventHandler func = (s, e) =>
-					{
-						l.Focus();
-						l.FocusScroll();
-					}; EventHandler func2 = (s, e) =>
-					{
-						l.Focus();
-						l.FocusScroll();
-					};
-					l.MouseMove += func;
-					l.MouseWheel += func;
-					l.MouseHover += func2;
-					l.MouseEnter += func2;
-					l.Click += func2;
-					l.MouseLeave += (s, e) =>
-					{
-						notifications.Focus();
-					};
 					l.RequestMore += (s, eve) => { updateStatus.Value = 10; c.Check(eve.YouTubeCount, eve.LastFacebookDate, eve.Hidden, eve.Reverse); updateStatus.Value = 100; };
 					notifications.Controls.Add(l);
 				}
