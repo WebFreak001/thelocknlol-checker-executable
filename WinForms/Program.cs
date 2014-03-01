@@ -56,28 +56,31 @@ namespace WinForms
 			}
 			else
 			{
+#if !DEBUG
 				try
 				{
-					if (mutex.WaitOne(TimeSpan.Zero, true))
+#endif
+				if (mutex.WaitOne(TimeSpan.Zero, true))
+				{
+					Application.EnableVisualStyles();
+					Application.SetCompatibleTextRenderingDefault(false);
+					MainForm f = new MainForm();
+					if (args.Contains("-s"))
 					{
-						Application.EnableVisualStyles();
-						Application.SetCompatibleTextRenderingDefault(false);
-						MainForm f = new MainForm();
-						if (args.Contains("-s"))
-						{
-							f.Hidden = true;
-						}
-						Application.Run(f);
-						mutex.ReleaseMutex();
+						f.Hidden = true;
 					}
-					else
-					{
-						NativeMethods.PostMessage(
-							(IntPtr)NativeMethods.HWND_BROADCAST,
-							NativeMethods.WM_SHOWME,
-							IntPtr.Zero,
-							IntPtr.Zero);
-					}
+					Application.Run(f);
+					mutex.ReleaseMutex();
+				}
+				else
+				{
+					NativeMethods.PostMessage(
+						(IntPtr)NativeMethods.HWND_BROADCAST,
+						NativeMethods.WM_SHOWME,
+						IntPtr.Zero,
+						IntPtr.Zero);
+				}
+#if !DEBUG
 				}
 				catch (Exception e)
 				{
@@ -106,6 +109,7 @@ namespace WinForms
 						MessageBox.Show("Error Document written to " + Path.GetDirectoryName(Application.ExecutablePath) + "/error.txt");
 					}
 				}
+#endif
 			}
 		}
 	}

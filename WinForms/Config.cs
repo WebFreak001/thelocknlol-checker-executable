@@ -49,6 +49,8 @@ namespace WinForms
 		public int NotifyColor { get; set; }
 		public List<CheckerFormat> Checkers { get; set; }
 		public bool AutoStart { get; set; }
+		public int LoadMoreNotifications { get; set; }
+		public int MaxNotifications { get; set; }
 
 		public ConfigFormat Copy()
 		{
@@ -66,7 +68,9 @@ namespace WinForms
 				NotifyDelay = NotifyDelay,
 				NotifyColor = NotifyColor,
 				Checkers = f,
-				AutoStart = AutoStart
+				AutoStart = AutoStart,
+				LoadMoreNotifications = LoadMoreNotifications,
+				MaxNotifications = MaxNotifications
 			};
 		}
 	}

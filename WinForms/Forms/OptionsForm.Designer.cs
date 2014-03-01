@@ -28,20 +28,20 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem(new string[] {
+			System.Windows.Forms.ListViewItem listViewItem29 = new System.Windows.Forms.ListViewItem(new string[] {
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol"}, -1);
-			System.Windows.Forms.ListViewGroup listViewGroup1 = new System.Windows.Forms.ListViewGroup("Festgelegt", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup2 = new System.Windows.Forms.ListViewGroup("System", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup3 = new System.Windows.Forms.ListViewGroup("Benutzerdefiniert", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
-			System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("System:Asterisk");
-			System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("System:Beep");
-			System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("System:Exclamation");
-			System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("System:Hand");
-			System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("System:Question");
+			System.Windows.Forms.ListViewGroup listViewGroup13 = new System.Windows.Forms.ListViewGroup("Festgelegt", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup14 = new System.Windows.Forms.ListViewGroup("System", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup15 = new System.Windows.Forms.ListViewGroup("Benutzerdefiniert", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewItem listViewItem30 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
+			System.Windows.Forms.ListViewItem listViewItem31 = new System.Windows.Forms.ListViewItem("System:Asterisk");
+			System.Windows.Forms.ListViewItem listViewItem32 = new System.Windows.Forms.ListViewItem("System:Beep");
+			System.Windows.Forms.ListViewItem listViewItem33 = new System.Windows.Forms.ListViewItem("System:Exclamation");
+			System.Windows.Forms.ListViewItem listViewItem34 = new System.Windows.Forms.ListViewItem("System:Hand");
+			System.Windows.Forms.ListViewItem listViewItem35 = new System.Windows.Forms.ListViewItem("System:Question");
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tpCheckers = new System.Windows.Forms.TabPage();
 			this.lvCheckers = new System.Windows.Forms.ListView();
@@ -87,19 +87,19 @@
 			this.cbNotifySocial = new System.Windows.Forms.CheckBox();
 			this.cbNotifyLivestream = new System.Windows.Forms.CheckBox();
 			this.cbNotifyVideo = new System.Windows.Forms.CheckBox();
+			this.tpDisplay = new System.Windows.Forms.TabPage();
+			this.btnSleep2Hour = new System.Windows.Forms.Button();
+			this.btnSleepHour = new System.Windows.Forms.Button();
+			this.tbMaxNotify = new System.Windows.Forms.TrackBar();
+			this.lbMaxNotify = new System.Windows.Forms.Label();
+			this.label1 = new System.Windows.Forms.Label();
+			this.lbReloadDesc = new System.Windows.Forms.Label();
+			this.tbReloadLength = new System.Windows.Forms.TrackBar();
+			this.lbReload = new System.Windows.Forms.Label();
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.btnResetChanges = new System.Windows.Forms.Button();
 			this.btnSaveAndClose = new System.Windows.Forms.Button();
 			this.btnSave = new System.Windows.Forms.Button();
-			this.tpDisplay = new System.Windows.Forms.TabPage();
-			this.tbReloadLength = new System.Windows.Forms.TrackBar();
-			this.lbReload = new System.Windows.Forms.Label();
-			this.lbReloadDesc = new System.Windows.Forms.Label();
-			this.label1 = new System.Windows.Forms.Label();
-			this.trackBar1 = new System.Windows.Forms.TrackBar();
-			this.label2 = new System.Windows.Forms.Label();
-			this.btnSleepHour = new System.Windows.Forms.Button();
-			this.btnSleep2Hour = new System.Windows.Forms.Button();
 			this.tabControl1.SuspendLayout();
 			this.tpCheckers.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -121,10 +121,10 @@
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox0)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tbDuration)).BeginInit();
-			this.panel2.SuspendLayout();
 			this.tpDisplay.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tbMaxNotify)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.tbReloadLength)).BeginInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
+			this.panel2.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// tabControl1
@@ -162,10 +162,10 @@
 			this.lvCheckers.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvCheckers.FullRowSelect = true;
 			this.lvCheckers.GridLines = true;
-			listViewItem1.Checked = true;
-			listViewItem1.StateImageIndex = 1;
+			listViewItem29.Checked = true;
+			listViewItem29.StateImageIndex = 1;
 			this.lvCheckers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1});
+            listViewItem29});
 			this.lvCheckers.Location = new System.Drawing.Point(3, 3);
 			this.lvCheckers.Name = "lvCheckers";
 			this.lvCheckers.Size = new System.Drawing.Size(436, 222);
@@ -348,32 +348,32 @@
             this.chSound});
 			this.lvSounds.FullRowSelect = true;
 			this.lvSounds.GridLines = true;
-			listViewGroup1.Header = "Festgelegt";
-			listViewGroup1.Name = "lvgDefined";
-			listViewGroup2.Header = "System";
-			listViewGroup2.Name = "lvgSystem";
-			listViewGroup3.Header = "Benutzerdefiniert";
-			listViewGroup3.Name = "lvgUser";
+			listViewGroup13.Header = "Festgelegt";
+			listViewGroup13.Name = "lvgDefined";
+			listViewGroup14.Header = "System";
+			listViewGroup14.Name = "lvgSystem";
+			listViewGroup15.Header = "Benutzerdefiniert";
+			listViewGroup15.Name = "lvgUser";
 			this.lvSounds.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup1,
-            listViewGroup2,
-            listViewGroup3});
+            listViewGroup13,
+            listViewGroup14,
+            listViewGroup15});
 			this.lvSounds.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			listViewItem2.Checked = true;
-			listViewItem2.Group = listViewGroup1;
-			listViewItem2.StateImageIndex = 1;
-			listViewItem3.Group = listViewGroup2;
-			listViewItem4.Group = listViewGroup2;
-			listViewItem5.Group = listViewGroup2;
-			listViewItem6.Group = listViewGroup2;
-			listViewItem7.Group = listViewGroup2;
+			listViewItem30.Checked = true;
+			listViewItem30.Group = listViewGroup13;
+			listViewItem30.StateImageIndex = 1;
+			listViewItem31.Group = listViewGroup14;
+			listViewItem32.Group = listViewGroup14;
+			listViewItem33.Group = listViewGroup14;
+			listViewItem34.Group = listViewGroup14;
+			listViewItem35.Group = listViewGroup14;
 			this.lvSounds.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7});
+            listViewItem30,
+            listViewItem31,
+            listViewItem32,
+            listViewItem33,
+            listViewItem34,
+            listViewItem35});
 			this.lvSounds.Location = new System.Drawing.Point(6, 113);
 			this.lvSounds.Name = "lvSounds";
 			this.lvSounds.Size = new System.Drawing.Size(206, 109);
@@ -662,6 +662,118 @@
 			this.cbNotifyVideo.UseVisualStyleBackColor = true;
 			this.cbNotifyVideo.CheckedChanged += new System.EventHandler(this.cbNotifyVideo_CheckedChanged);
 			// 
+			// tpDisplay
+			// 
+			this.tpDisplay.Controls.Add(this.btnSleep2Hour);
+			this.tpDisplay.Controls.Add(this.btnSleepHour);
+			this.tpDisplay.Controls.Add(this.tbMaxNotify);
+			this.tpDisplay.Controls.Add(this.lbMaxNotify);
+			this.tpDisplay.Controls.Add(this.label1);
+			this.tpDisplay.Controls.Add(this.lbReloadDesc);
+			this.tpDisplay.Controls.Add(this.tbReloadLength);
+			this.tpDisplay.Controls.Add(this.lbReload);
+			this.tpDisplay.Location = new System.Drawing.Point(4, 22);
+			this.tpDisplay.Name = "tpDisplay";
+			this.tpDisplay.Padding = new System.Windows.Forms.Padding(3);
+			this.tpDisplay.Size = new System.Drawing.Size(442, 263);
+			this.tpDisplay.TabIndex = 2;
+			this.tpDisplay.Text = "Anzeige";
+			this.tpDisplay.UseVisualStyleBackColor = true;
+			// 
+			// btnSleep2Hour
+			// 
+			this.btnSleep2Hour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSleep2Hour.Location = new System.Drawing.Point(11, 224);
+			this.btnSleep2Hour.Name = "btnSleep2Hour";
+			this.btnSleep2Hour.Size = new System.Drawing.Size(421, 33);
+			this.btnSleep2Hour.TabIndex = 17;
+			this.btnSleep2Hour.Text = "2 Stunden nicht stören";
+			this.btnSleep2Hour.UseVisualStyleBackColor = true;
+			this.btnSleep2Hour.Click += new System.EventHandler(this.btnSleep2Hour_Click);
+			// 
+			// btnSleepHour
+			// 
+			this.btnSleepHour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.btnSleepHour.Location = new System.Drawing.Point(11, 185);
+			this.btnSleepHour.Name = "btnSleepHour";
+			this.btnSleepHour.Size = new System.Drawing.Size(421, 33);
+			this.btnSleepHour.TabIndex = 16;
+			this.btnSleepHour.Text = "1 Stunde nicht stören";
+			this.btnSleepHour.UseVisualStyleBackColor = true;
+			this.btnSleepHour.Click += new System.EventHandler(this.btnSleepHour_Click);
+			// 
+			// tbMaxNotify
+			// 
+			this.tbMaxNotify.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbMaxNotify.AutoSize = false;
+			this.tbMaxNotify.BackColor = System.Drawing.Color.White;
+			this.tbMaxNotify.Location = new System.Drawing.Point(6, 61);
+			this.tbMaxNotify.Minimum = 1;
+			this.tbMaxNotify.Name = "tbMaxNotify";
+			this.tbMaxNotify.Size = new System.Drawing.Size(408, 23);
+			this.tbMaxNotify.TabIndex = 14;
+			this.tbMaxNotify.TickFrequency = 0;
+			this.tbMaxNotify.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.tbMaxNotify.Value = 3;
+			this.tbMaxNotify.Scroll += new System.EventHandler(this.tbMaxNotify_Scroll);
+			// 
+			// lbMaxNotify
+			// 
+			this.lbMaxNotify.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lbMaxNotify.Location = new System.Drawing.Point(398, 61);
+			this.lbMaxNotify.Name = "lbMaxNotify";
+			this.lbMaxNotify.Size = new System.Drawing.Size(34, 23);
+			this.lbMaxNotify.TabIndex = 15;
+			this.lbMaxNotify.Text = "3";
+			this.lbMaxNotify.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
+			// label1
+			// 
+			this.label1.AutoSize = true;
+			this.label1.Location = new System.Drawing.Point(8, 45);
+			this.label1.Name = "label1";
+			this.label1.Size = new System.Drawing.Size(149, 13);
+			this.label1.TabIndex = 13;
+			this.label1.Text = "Maximale Benachrichtigungen";
+			// 
+			// lbReloadDesc
+			// 
+			this.lbReloadDesc.AutoSize = true;
+			this.lbReloadDesc.Location = new System.Drawing.Point(8, 3);
+			this.lbReloadDesc.Name = "lbReloadDesc";
+			this.lbReloadDesc.Size = new System.Drawing.Size(270, 13);
+			this.lbReloadDesc.TabIndex = 12;
+			this.lbReloadDesc.Text = "Maximale Anzahl an zu ladenden Videos pro mehr laden";
+			// 
+			// tbReloadLength
+			// 
+			this.tbReloadLength.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+			this.tbReloadLength.AutoSize = false;
+			this.tbReloadLength.BackColor = System.Drawing.Color.White;
+			this.tbReloadLength.Location = new System.Drawing.Point(6, 19);
+			this.tbReloadLength.Minimum = 1;
+			this.tbReloadLength.Name = "tbReloadLength";
+			this.tbReloadLength.Size = new System.Drawing.Size(408, 23);
+			this.tbReloadLength.TabIndex = 10;
+			this.tbReloadLength.TickFrequency = 0;
+			this.tbReloadLength.TickStyle = System.Windows.Forms.TickStyle.None;
+			this.tbReloadLength.Value = 5;
+			this.tbReloadLength.Scroll += new System.EventHandler(this.tbReloadLength_Scroll);
+			// 
+			// lbReload
+			// 
+			this.lbReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+			this.lbReload.Location = new System.Drawing.Point(398, 19);
+			this.lbReload.Name = "lbReload";
+			this.lbReload.Size = new System.Drawing.Size(34, 23);
+			this.lbReload.TabIndex = 11;
+			this.lbReload.Text = "5";
+			this.lbReload.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+			// 
 			// panel2
 			// 
 			this.panel2.BackColor = System.Drawing.SystemColors.ControlDark;
@@ -711,114 +823,6 @@
 			this.btnSave.UseVisualStyleBackColor = true;
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
-			// tpDisplay
-			// 
-			this.tpDisplay.Controls.Add(this.btnSleep2Hour);
-			this.tpDisplay.Controls.Add(this.btnSleepHour);
-			this.tpDisplay.Controls.Add(this.trackBar1);
-			this.tpDisplay.Controls.Add(this.label2);
-			this.tpDisplay.Controls.Add(this.label1);
-			this.tpDisplay.Controls.Add(this.lbReloadDesc);
-			this.tpDisplay.Controls.Add(this.tbReloadLength);
-			this.tpDisplay.Controls.Add(this.lbReload);
-			this.tpDisplay.Location = new System.Drawing.Point(4, 22);
-			this.tpDisplay.Name = "tpDisplay";
-			this.tpDisplay.Padding = new System.Windows.Forms.Padding(3);
-			this.tpDisplay.Size = new System.Drawing.Size(442, 263);
-			this.tpDisplay.TabIndex = 2;
-			this.tpDisplay.Text = "Anzeige";
-			this.tpDisplay.UseVisualStyleBackColor = true;
-			// 
-			// tbReloadLength
-			// 
-			this.tbReloadLength.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.tbReloadLength.AutoSize = false;
-			this.tbReloadLength.BackColor = System.Drawing.Color.White;
-			this.tbReloadLength.Location = new System.Drawing.Point(6, 19);
-			this.tbReloadLength.Minimum = 1;
-			this.tbReloadLength.Name = "tbReloadLength";
-			this.tbReloadLength.Size = new System.Drawing.Size(408, 23);
-			this.tbReloadLength.TabIndex = 10;
-			this.tbReloadLength.TickFrequency = 0;
-			this.tbReloadLength.TickStyle = System.Windows.Forms.TickStyle.None;
-			this.tbReloadLength.Value = 5;
-			// 
-			// lbReload
-			// 
-			this.lbReload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.lbReload.Location = new System.Drawing.Point(398, 19);
-			this.lbReload.Name = "lbReload";
-			this.lbReload.Size = new System.Drawing.Size(34, 23);
-			this.lbReload.TabIndex = 11;
-			this.lbReload.Text = "5";
-			this.lbReload.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// lbReloadDesc
-			// 
-			this.lbReloadDesc.AutoSize = true;
-			this.lbReloadDesc.Location = new System.Drawing.Point(8, 3);
-			this.lbReloadDesc.Name = "lbReloadDesc";
-			this.lbReloadDesc.Size = new System.Drawing.Size(270, 13);
-			this.lbReloadDesc.TabIndex = 12;
-			this.lbReloadDesc.Text = "Maximale Anzahl an zu ladenden Videos pro mehr laden";
-			// 
-			// label1
-			// 
-			this.label1.AutoSize = true;
-			this.label1.Location = new System.Drawing.Point(8, 45);
-			this.label1.Name = "label1";
-			this.label1.Size = new System.Drawing.Size(149, 13);
-			this.label1.TabIndex = 13;
-			this.label1.Text = "Maximale Benachrichtigungen";
-			// 
-			// trackBar1
-			// 
-			this.trackBar1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.trackBar1.AutoSize = false;
-			this.trackBar1.BackColor = System.Drawing.Color.White;
-			this.trackBar1.Location = new System.Drawing.Point(6, 61);
-			this.trackBar1.Minimum = 1;
-			this.trackBar1.Name = "trackBar1";
-			this.trackBar1.Size = new System.Drawing.Size(408, 23);
-			this.trackBar1.TabIndex = 14;
-			this.trackBar1.TickFrequency = 0;
-			this.trackBar1.TickStyle = System.Windows.Forms.TickStyle.None;
-			this.trackBar1.Value = 3;
-			// 
-			// label2
-			// 
-			this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-			this.label2.Location = new System.Drawing.Point(398, 61);
-			this.label2.Name = "label2";
-			this.label2.Size = new System.Drawing.Size(34, 23);
-			this.label2.TabIndex = 15;
-			this.label2.Text = "3";
-			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-			// 
-			// btnSleepHour
-			// 
-			this.btnSleepHour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSleepHour.Location = new System.Drawing.Point(11, 185);
-			this.btnSleepHour.Name = "btnSleepHour";
-			this.btnSleepHour.Size = new System.Drawing.Size(421, 33);
-			this.btnSleepHour.TabIndex = 16;
-			this.btnSleepHour.Text = "1 Stunde nicht stören";
-			this.btnSleepHour.UseVisualStyleBackColor = true;
-			// 
-			// btnSleep2Hour
-			// 
-			this.btnSleep2Hour.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-			this.btnSleep2Hour.Location = new System.Drawing.Point(11, 224);
-			this.btnSleep2Hour.Name = "btnSleep2Hour";
-			this.btnSleep2Hour.Size = new System.Drawing.Size(421, 33);
-			this.btnSleep2Hour.TabIndex = 17;
-			this.btnSleep2Hour.Text = "2 Stunden nicht stören";
-			this.btnSleep2Hour.UseVisualStyleBackColor = true;
-			// 
 			// OptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -854,11 +858,11 @@
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox0)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.tbDuration)).EndInit();
-			this.panel2.ResumeLayout(false);
 			this.tpDisplay.ResumeLayout(false);
 			this.tpDisplay.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.tbMaxNotify)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.tbReloadLength)).EndInit();
-			((System.ComponentModel.ISupportInitialize)(this.trackBar1)).EndInit();
+			this.panel2.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -918,8 +922,8 @@
 		private System.Windows.Forms.Label lbReload;
 		private System.Windows.Forms.TrackBar tbReloadLength;
 		private System.Windows.Forms.Label lbReloadDesc;
-		private System.Windows.Forms.TrackBar trackBar1;
-		private System.Windows.Forms.Label label2;
+		private System.Windows.Forms.TrackBar tbMaxNotify;
+		private System.Windows.Forms.Label lbMaxNotify;
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnSleep2Hour;
 		private System.Windows.Forms.Button btnSleepHour;

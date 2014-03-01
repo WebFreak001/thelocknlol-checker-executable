@@ -52,6 +52,7 @@ namespace WinForms
 		public static event EventHandler<NotificationFacebook> OnFacebookMessage;
 		public static event EventHandler<NotificationYoutube> OnYouTubeMessage;
 		protected static Queue<NotificationType> Queued = new Queue<NotificationType>(64);
+		public static DateTime Allow = new DateTime(0);
 
 		public static int GetTaskbarHeight()
 		{
@@ -84,13 +85,16 @@ namespace WinForms
 
 				if (n.ShowInWindow)
 				{
-					notification.ShowInTaskbar = false;
-					notification.Show();
-					notification.Left = Screen.PrimaryScreen.Bounds.Width - 375;
-					if (SystemInformation.WorkingArea.Top > 0) notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105;
-					else notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105 - GetTaskbarHeight();
-					Count++;
-					notification.Opacity = 1;
+					if (DateTime.Now > Allow && Count <= Config.Settings.MaxNotifications)
+					{
+						notification.ShowInTaskbar = false;
+						notification.Show();
+						notification.Left = Screen.PrimaryScreen.Bounds.Width - 375;
+						if (SystemInformation.WorkingArea.Top > 0) notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105;
+						else notification.Top = Screen.PrimaryScreen.Bounds.Height - 100 * Count - 105 - GetTaskbarHeight();
+						Count++;
+						notification.Opacity = 1;
+					}
 				}
 			}
 		}

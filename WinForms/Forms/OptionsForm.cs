@@ -204,6 +204,18 @@ namespace WinForms.Forms
 			pictureBox7.BackColor = palette.GetPixel(7, 0);
 			pictureBox8.BackColor = palette.GetPixel(8, 0);
 			pictureBox9.BackColor = palette.GetPixel(9, 0);
+			
+			List<Control> cons = new List<Control>();
+			foreach(Control ci in groupBox2.Controls) cons.Add(ci);
+			foreach(Control b in cons.Where(e => e.Name.StartsWith("pictureBox")))
+			{
+				if(b.Name == "pictureBox" + tempConfig.NotifyColor) ((PictureBox)b).BorderStyle = BorderStyle.Fixed3D;
+			}
+
+			tbReloadLength.Value = Math.Max(tbReloadLength.Minimum, Math.Min(tbReloadLength.Maximum, tempConfig.LoadMoreNotifications));
+			tbMaxNotify.Value = Math.Max(tbMaxNotify.Minimum, Math.Min(tbMaxNotify.Maximum, tempConfig.MaxNotifications));
+			lbReload.Text = tbReloadLength.Value + "";
+			lbMaxNotify.Text = tbMaxNotify.Value + "";
 
 			cbAutostart.Checked = tempConfig.AutoStart;
 		}
@@ -309,54 +321,88 @@ namespace WinForms.Forms
 			if(x.Count != 0) x.First().Enabled = e.Item.Checked;
 		}
 
+		public void ResetBorder()
+		{
+			pictureBox0.BorderStyle = BorderStyle.None;
+			pictureBox1.BorderStyle = BorderStyle.None;
+			pictureBox2.BorderStyle = BorderStyle.None;
+			pictureBox3.BorderStyle = BorderStyle.None;
+			pictureBox4.BorderStyle = BorderStyle.None;
+			pictureBox5.BorderStyle = BorderStyle.None;
+			pictureBox6.BorderStyle = BorderStyle.None;
+			pictureBox7.BorderStyle = BorderStyle.None;
+			pictureBox8.BorderStyle = BorderStyle.None;
+			pictureBox9.BorderStyle = BorderStyle.None;
+		}
+
 		private void pictureBox0_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 0;
+			ResetBorder();
+			pictureBox0.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox1_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 1;
+			ResetBorder();
+			pictureBox1.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox2_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 2;
+			ResetBorder();
+			pictureBox2.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox3_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 3;
+			ResetBorder();
+			pictureBox3.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox4_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 4;
+			ResetBorder();
+			pictureBox4.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox5_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 5;
+			ResetBorder();
+			pictureBox5.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox6_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 6;
+			ResetBorder();
+			pictureBox6.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox7_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 7;
+			ResetBorder();
+			pictureBox7.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox8_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 8;
+			ResetBorder();
+			pictureBox8.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void pictureBox9_Click(object sender, EventArgs e)
 		{
 			tempConfig.NotifyColor = 9;
+			ResetBorder();
+			pictureBox9.BorderStyle = BorderStyle.Fixed3D;
 		}
 
 		private void btnMvDown_Click(object sender, EventArgs e)
@@ -418,6 +464,28 @@ namespace WinForms.Forms
 		private void cbAutostart_CheckedChanged(object sender, EventArgs e)
 		{
 			tempConfig.AutoStart = cbAutostart.Checked;
+		}
+
+		private void tbReloadLength_Scroll(object sender, EventArgs e)
+		{
+			lbReload.Text = tbReloadLength.Value + "";
+			tempConfig.LoadMoreNotifications = tbReloadLength.Value;
+		}
+
+		private void tbMaxNotify_Scroll(object sender, EventArgs e)
+		{
+			lbMaxNotify.Text = tbMaxNotify.Value + "";
+			tempConfig.MaxNotifications = tbMaxNotify.Value;
+		}
+
+		private void btnSleepHour_Click(object sender, EventArgs e)
+		{
+			Notifications.Allow = DateTime.Now + new TimeSpan(1, 0, 0);
+		}
+
+		private void btnSleep2Hour_Click(object sender, EventArgs e)
+		{
+			Notifications.Allow = DateTime.Now + new TimeSpan(2, 0, 0);
 		}
 	}
 }
