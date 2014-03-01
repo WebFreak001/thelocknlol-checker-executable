@@ -83,7 +83,7 @@
 			this.btnLoadMore.Name = "btnLoadMore";
 			this.btnLoadMore.Size = new System.Drawing.Size(395, 36);
 			this.btnLoadMore.TabIndex = 0;
-			this.btnLoadMore.Click += new System.EventHandler(this.btnLoadMore_Click);
+			this.btnLoadMore.OnClick += new System.EventHandler(this.btnLoadMore_Click);
 			// 
 			// NotifyList
 			// 
