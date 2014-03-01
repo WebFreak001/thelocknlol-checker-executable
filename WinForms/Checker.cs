@@ -176,7 +176,7 @@ namespace WinForms
 									}
 							}
 						};
-						webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?start-index=" + id_ + "&max-results=5"));
+						webClient.DownloadStringAsync(new Uri("http://gdata.youtube.com/feeds/api/users/" + youtube + "/uploads?start-index=" + id_ + "&max-results=" + Config.Settings.LoadMoreNotifications));
 					}
 				}
 			}).Start();
@@ -222,8 +222,8 @@ namespace WinForms
 								}
 							}
 						};
-						if (last == "") webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y"));
-						else webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=5&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y&since=" + GetUnix(last)));
+						if (last == "") webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=" + Config.Settings.LoadMoreNotifications + "&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y"));
+						else webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit="  + Config.Settings.LoadMoreNotifications + "&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y&since=" + GetUnix(last)));
 					}
 				}
 			}).Start();
