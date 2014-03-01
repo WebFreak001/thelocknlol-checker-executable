@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using System.IO;
 
 namespace WinForms.Controls
 {
@@ -25,6 +26,7 @@ namespace WinForms.Controls
 		public List<FacebookData> Facebooks = new List<FacebookData>();
 		public List<string> Youtubes = new List<string>();
 		public string NameTag { get { return lbName.Text; } set { lbName.Text = value; } }
+		public Color Back;
 
 		public NotifyList()
 		{
@@ -34,6 +36,11 @@ namespace WinForms.Controls
 		public NotifyList(string tag)
 		{
 			InitializeComponent();
+			Bitmap b = new Bitmap(Image.FromStream(new MemoryStream(File.ReadAllBytes("Image/Palette.png"))));
+			Back = b.GetPixel(Config.Settings.NotifyColor, 2);
+			footer.BackColor = Color.FromArgb((int)(Back.R * 0.7f), (int)(Back.G * 0.7f), (int)(Back.B * 0.7f));
+			header.BackColor = Color.FromArgb((int)(Back.R * 0.7f), (int)(Back.G * 0.7f), (int)(Back.B * 0.7f));
+			layout.BackColor = Color.FromArgb((int)(Back.R * 0.8f), (int)(Back.G * 0.8f), (int)(Back.B * 0.8f));
 			Change(tag);
 			Request();
 		}

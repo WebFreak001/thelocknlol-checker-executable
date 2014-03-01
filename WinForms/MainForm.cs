@@ -348,6 +348,8 @@ namespace WinForms
 					notifications.Controls.Add(l);
 				}
 			}
+			Bitmap b = new Bitmap(Image.FromStream(new MemoryStream(File.ReadAllBytes("Image/Palette.png"))));
+			notifications.BackColor = b.GetPixel(Config.Settings.NotifyColor, 2);
 		}
 
 		private void MainForm_Load(object sender, EventArgs ev)

@@ -32,7 +32,7 @@
 			this.lbName = new System.Windows.Forms.Label();
 			this.layout = new System.Windows.Forms.FlowLayoutPanel();
 			this.footer = new System.Windows.Forms.Panel();
-			this.btnLoadMore = new System.Windows.Forms.Button();
+			this.btnLoadMore = new WinForms.Controls.ThemedButton();
 			this.header.SuspendLayout();
 			this.footer.SuspendLayout();
 			this.SuspendLayout();
@@ -72,19 +72,17 @@
 			this.footer.Dock = System.Windows.Forms.DockStyle.Bottom;
 			this.footer.Location = new System.Drawing.Point(0, 58);
 			this.footer.Name = "footer";
-			this.footer.Padding = new System.Windows.Forms.Padding(0, 5, 0, 0);
 			this.footer.Size = new System.Drawing.Size(395, 36);
 			this.footer.TabIndex = 2;
 			// 
 			// btnLoadMore
 			// 
+			this.btnLoadMore.ButtonText = "Mehr Laden";
 			this.btnLoadMore.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.btnLoadMore.Location = new System.Drawing.Point(0, 5);
+			this.btnLoadMore.Location = new System.Drawing.Point(0, 0);
 			this.btnLoadMore.Name = "btnLoadMore";
-			this.btnLoadMore.Size = new System.Drawing.Size(395, 31);
+			this.btnLoadMore.Size = new System.Drawing.Size(395, 36);
 			this.btnLoadMore.TabIndex = 0;
-			this.btnLoadMore.Text = "Mehr Laden";
-			this.btnLoadMore.UseVisualStyleBackColor = true;
 			this.btnLoadMore.Click += new System.EventHandler(this.btnLoadMore_Click);
 			// 
 			// NotifyList
@@ -108,7 +106,7 @@
 		private System.Windows.Forms.Panel header;
 		private System.Windows.Forms.FlowLayoutPanel layout;
 		private System.Windows.Forms.Panel footer;
-		private System.Windows.Forms.Button btnLoadMore;
 		private System.Windows.Forms.Label lbName;
+		private ThemedButton btnLoadMore;
 	}
 }

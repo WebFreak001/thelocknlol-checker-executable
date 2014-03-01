@@ -71,6 +71,12 @@
     <Compile Include="Controls\NotifyList.Designer.cs">
       <DependentUpon>NotifyList.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ThemedButton.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ThemedButton.Designer.cs">
+      <DependentUpon>ThemedButton.cs</DependentUpon>
+    </Compile>
     <Compile Include="Facebook.cs" />
     <Compile Include="Forms\About.cs">
       <SubType>Form</SubType>
@@ -130,6 +136,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\NotifyList.resx">
       <DependentUpon>NotifyList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\ThemedButton.resx">
+      <DependentUpon>ThemedButton.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\About.resx">
       <DependentUpon>About.cs</DependentUpon>
