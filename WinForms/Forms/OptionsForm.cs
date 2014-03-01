@@ -18,6 +18,7 @@ namespace WinForms.Forms
 	{
 		ConfigFormat tempConfig;
 		Bitmap palette;
+		public bool ChangedCheckers = false;
 
 		public OptionsForm()
 		{
@@ -161,7 +162,7 @@ namespace WinForms.Forms
 
 		public void ResetChanges()
 		{
-			tempConfig = Config.Settings;
+			tempConfig = Config.Settings.Copy();
 			lvCheckers.Items.Clear();
 			if(tempConfig.Checkers.Count(i => (i.Facebook == i.Name && i.Name == i.Twitch && i.Twitch == i.YouTube && i.YouTube == "TheLockNLol")) == 0)
 			{
@@ -215,8 +216,8 @@ namespace WinForms.Forms
 
 		public void SaveChanges()
 		{
-			if(Config.Settings.Checkers != tempConfig.Checkers) MessageBox.Show("Bitte starte das Programm neu, damit diese Änderungen wirksam werden!", "Achtung", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-			Config.Settings = tempConfig;
+			if (Config.Settings.Checkers != tempConfig.Checkers) ChangedCheckers = true;
+			Config.Settings = tempConfig.Copy();
 			Config.Save();
 		}
 

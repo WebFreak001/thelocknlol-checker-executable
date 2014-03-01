@@ -17,6 +17,11 @@ namespace WinForms
 		public string Facebook { get; set; }
 		public string YouTube { get; set; }
 		public string Twitch { get; set; }
+
+		public CheckerFormat Copy()
+		{
+			return new CheckerFormat() { Enabled = Enabled, Facebook = Facebook, Name = Name, Twitch = Twitch, YouTube = YouTube };
+		}
 	}
 
 	public class SoundFormat
@@ -24,6 +29,11 @@ namespace WinForms
 		public bool OnVideo { get; set; }
 		public bool OnLivestream { get; set; }
 		public bool OnFacebook { get; set; }
+
+		public SoundFormat Copy()
+		{
+			return new SoundFormat() { OnVideo = OnVideo, OnLivestream = OnLivestream, OnFacebook = OnFacebook };
+		}
 	}
 
 	public class ConfigFormat
@@ -39,6 +49,26 @@ namespace WinForms
 		public int NotifyColor { get; set; }
 		public List<CheckerFormat> Checkers { get; set; }
 		public bool AutoStart { get; set; }
+
+		public ConfigFormat Copy()
+		{
+			List<CheckerFormat> f = new List<CheckerFormat>();
+			Checkers.ForEach(s => { f.Add(s.Copy()); });
+			return new ConfigFormat()
+			{
+				CheckVideo = CheckVideo,
+				CheckLivestream = CheckLivestream,
+				CheckSocial = CheckSocial,
+				MergeSocialVideo = MergeSocialVideo,
+				AutoUpdate = AutoUpdate,
+				Sounds = Sounds.Copy(),
+				CurrentSound = CurrentSound,
+				NotifyDelay = NotifyDelay,
+				NotifyColor = NotifyColor,
+				Checkers = f,
+				AutoStart = AutoStart
+			};
+		}
 	}
 
 	public class Config
