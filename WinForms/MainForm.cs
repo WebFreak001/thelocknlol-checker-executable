@@ -151,7 +151,6 @@ namespace WinForms
 				ThrowError(e);
 			}
 #endif
-			return false;
 		}
 
 		void OnGenericMessage(object sender, Notification ev)
@@ -350,6 +349,11 @@ namespace WinForms
 			}
 			Bitmap b = new Bitmap(Image.FromStream(new MemoryStream(File.ReadAllBytes("Image/Palette.png"))));
 			notifications.BackColor = b.GetPixel(Config.Settings.NotifyColor, 2);
+			Color col = b.GetPixel(Config.Settings.NotifyColor, 2);
+			tsOptions.BackColor = Color.FromArgb((int)(col.R * 0.8f), (int)(col.G * 0.8f), (int)(col.B * 0.8f));
+			tsOptions.ForeColor = b.GetPixel(Config.Settings.NotifyColor, 1);
+			tsOptions.Renderer = new Renderer.TsRenderer(Color.FromArgb((int)(col.R * 0.8f), (int)(col.G * 0.8f), (int)(col.B * 0.8f)));
+			statusStrip1.BackColor = Color.FromArgb((int)(col.R * 0.8f), (int)(col.G * 0.8f), (int)(col.B * 0.8f));
 		}
 
 		private void MainForm_Load(object sender, EventArgs ev)

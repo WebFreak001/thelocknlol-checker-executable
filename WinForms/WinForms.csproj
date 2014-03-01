@@ -124,6 +124,7 @@
     <Compile Include="Notifications.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Renderer\TsRenderer.cs" />
     <Compile Include="Version.cs" />
     <Compile Include="VideoMessageControl.cs">
       <SubType>UserControl</SubType>

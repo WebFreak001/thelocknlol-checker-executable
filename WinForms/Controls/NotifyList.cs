@@ -38,6 +38,7 @@ namespace WinForms.Controls
 			InitializeComponent();
 			Bitmap b = new Bitmap(Image.FromStream(new MemoryStream(File.ReadAllBytes("Image/Palette.png"))));
 			Back = b.GetPixel(Config.Settings.NotifyColor, 2);
+			lbName.ForeColor = b.GetPixel(Config.Settings.NotifyColor, 1);
 			footer.BackColor = Color.FromArgb((int)(Back.R * 0.7f), (int)(Back.G * 0.7f), (int)(Back.B * 0.7f));
 			header.BackColor = Color.FromArgb((int)(Back.R * 0.7f), (int)(Back.G * 0.7f), (int)(Back.B * 0.7f));
 			layout.BackColor = Color.FromArgb((int)(Back.R * 0.8f), (int)(Back.G * 0.8f), (int)(Back.B * 0.8f));
