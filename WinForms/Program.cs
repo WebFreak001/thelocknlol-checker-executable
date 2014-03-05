@@ -69,6 +69,8 @@ namespace WinForms
 					{
 						f.Hidden = true;
 					}
+					Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+					Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
 					Application.Run(f);
 					mutex.ReleaseMutex();
 				}
