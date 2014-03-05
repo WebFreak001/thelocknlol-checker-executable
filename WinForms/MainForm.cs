@@ -457,6 +457,7 @@ namespace WinForms
 			Forms.OptionsForm f = new Forms.OptionsForm();
 			f.ShowDialog();
 			if (f.ChangedCheckers) RefreshPeople();
+			RegisterInStartup(Config.Settings.AutoStart);
 		}
 
 		private void trayOptions_Click(object sender, EventArgs ev)
@@ -592,6 +593,11 @@ namespace WinForms
 		private void refreshTimer_Tick(object sender, EventArgs e)
 		{
 			refresher.RunWorkerAsync();
+		}
+
+		private void trayDoNotAnnoyMe_CheckStateChanged(object sender, EventArgs e)
+		{
+			Notifications.ShowNow = !trayDoNotAnnoyMe.Checked;
 		}
 	}
 }

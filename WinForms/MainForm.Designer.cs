@@ -46,6 +46,7 @@
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.updateStatus = new System.Windows.Forms.ToolStripProgressBar();
 			this.refreshTimer = new System.Windows.Forms.Timer(this.components);
+			this.trayDoNotAnnoyMe = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsOptions.SuspendLayout();
 			this.trayMenu.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -128,31 +129,32 @@
 			// trayMenu
 			// 
 			this.trayMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayDoNotAnnoyMe,
             this.trayClose,
             this.trayOptions,
             this.trayAbout});
 			this.trayMenu.Name = "trayMenu";
 			this.trayMenu.ShowItemToolTips = false;
-			this.trayMenu.Size = new System.Drawing.Size(125, 70);
+			this.trayMenu.Size = new System.Drawing.Size(153, 114);
 			// 
 			// trayClose
 			// 
 			this.trayClose.Name = "trayClose";
-			this.trayClose.Size = new System.Drawing.Size(124, 22);
+			this.trayClose.Size = new System.Drawing.Size(152, 22);
 			this.trayClose.Text = "Beenden";
 			this.trayClose.Click += new System.EventHandler(this.trayClose_Click);
 			// 
 			// trayOptions
 			// 
 			this.trayOptions.Name = "trayOptions";
-			this.trayOptions.Size = new System.Drawing.Size(124, 22);
+			this.trayOptions.Size = new System.Drawing.Size(152, 22);
 			this.trayOptions.Text = "Optionen";
 			this.trayOptions.Click += new System.EventHandler(this.trayOptions_Click);
 			// 
 			// trayAbout
 			// 
 			this.trayAbout.Name = "trayAbout";
-			this.trayAbout.Size = new System.Drawing.Size(124, 22);
+			this.trayAbout.Size = new System.Drawing.Size(152, 22);
 			this.trayAbout.Text = "Über";
 			this.trayAbout.Click += new System.EventHandler(this.trayAbout_Click);
 			// 
@@ -186,6 +188,14 @@
 			this.refreshTimer.Enabled = true;
 			this.refreshTimer.Interval = 10000;
 			this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
+			// 
+			// trayDoNotAnnoyMe
+			// 
+			this.trayDoNotAnnoyMe.CheckOnClick = true;
+			this.trayDoNotAnnoyMe.Name = "trayDoNotAnnoyMe";
+			this.trayDoNotAnnoyMe.Size = new System.Drawing.Size(152, 22);
+			this.trayDoNotAnnoyMe.Text = "Nicht Stören";
+			this.trayDoNotAnnoyMe.CheckStateChanged += new System.EventHandler(this.trayDoNotAnnoyMe_CheckStateChanged);
 			// 
 			// MainForm
 			// 
@@ -230,6 +240,7 @@
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripProgressBar updateStatus;
 		private System.Windows.Forms.Timer refreshTimer;
+		private System.Windows.Forms.ToolStripMenuItem trayDoNotAnnoyMe;
 	}
 }
 

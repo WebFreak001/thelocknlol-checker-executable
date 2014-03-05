@@ -76,10 +76,22 @@ namespace WinForms.Forms
 			tbSoundFile_TextChanged(null, null);
 		}
 
+		public void RefreshAnnoyance()
+		{
+			cbNotifyLivestream.Enabled = Notifications.ShowNow;
+			cbNotifyVideo.Enabled = Notifications.ShowNow;
+			cbNotifySocial.Enabled = Notifications.ShowNow;
+			cbCombineVidSocial.Enabled = Notifications.ShowNow;
+			cbSoundVidup.Enabled = Notifications.ShowNow;
+			cbSoundFBook.Enabled = Notifications.ShowNow;
+			cbSoundLivestream.Enabled = Notifications.ShowNow;
+		}
+
 		private void OptionsForm_Load(object sender, EventArgs e)
 		{
 			for (int i = 0; i < lvSounds.Items.Count; i++) cbSound.Items.Add(lvSounds.Items[i].Text);
 			cbSound.SelectedIndex = 0;
+			RefreshAnnoyance();
 		}
 
 		private void tbSoundFile_TextChanged(object sender, EventArgs e)
@@ -486,6 +498,12 @@ namespace WinForms.Forms
 		private void btnSleep2Hour_Click(object sender, EventArgs e)
 		{
 			Notifications.Allow = DateTime.Now + new TimeSpan(2, 0, 0);
+		}
+
+		private void cbDoNotAnnoyMe_CheckedChanged(object sender, EventArgs e)
+		{
+			Notifications.ShowNow = !cbDoNotAnnoyMe.Checked;
+			RefreshAnnoyance();
 		}
 	}
 }

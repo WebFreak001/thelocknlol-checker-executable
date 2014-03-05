@@ -28,20 +28,20 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.ListViewItem listViewItem29 = new System.Windows.Forms.ListViewItem(new string[] {
+			System.Windows.Forms.ListViewItem listViewItem15 = new System.Windows.Forms.ListViewItem(new string[] {
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol",
             "TheLockNLol"}, -1);
-			System.Windows.Forms.ListViewGroup listViewGroup13 = new System.Windows.Forms.ListViewGroup("Festgelegt", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup14 = new System.Windows.Forms.ListViewGroup("System", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewGroup listViewGroup15 = new System.Windows.Forms.ListViewGroup("Benutzerdefiniert", System.Windows.Forms.HorizontalAlignment.Left);
-			System.Windows.Forms.ListViewItem listViewItem30 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
-			System.Windows.Forms.ListViewItem listViewItem31 = new System.Windows.Forms.ListViewItem("System:Asterisk");
-			System.Windows.Forms.ListViewItem listViewItem32 = new System.Windows.Forms.ListViewItem("System:Beep");
-			System.Windows.Forms.ListViewItem listViewItem33 = new System.Windows.Forms.ListViewItem("System:Exclamation");
-			System.Windows.Forms.ListViewItem listViewItem34 = new System.Windows.Forms.ListViewItem("System:Hand");
-			System.Windows.Forms.ListViewItem listViewItem35 = new System.Windows.Forms.ListViewItem("System:Question");
+			System.Windows.Forms.ListViewGroup listViewGroup7 = new System.Windows.Forms.ListViewGroup("Festgelegt", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup8 = new System.Windows.Forms.ListViewGroup("System", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewGroup listViewGroup9 = new System.Windows.Forms.ListViewGroup("Benutzerdefiniert", System.Windows.Forms.HorizontalAlignment.Left);
+			System.Windows.Forms.ListViewItem listViewItem16 = new System.Windows.Forms.ListViewItem("Sounds/pew.wav");
+			System.Windows.Forms.ListViewItem listViewItem17 = new System.Windows.Forms.ListViewItem("System:Asterisk");
+			System.Windows.Forms.ListViewItem listViewItem18 = new System.Windows.Forms.ListViewItem("System:Beep");
+			System.Windows.Forms.ListViewItem listViewItem19 = new System.Windows.Forms.ListViewItem("System:Exclamation");
+			System.Windows.Forms.ListViewItem listViewItem20 = new System.Windows.Forms.ListViewItem("System:Hand");
+			System.Windows.Forms.ListViewItem listViewItem21 = new System.Windows.Forms.ListViewItem("System:Question");
 			this.tabControl1 = new System.Windows.Forms.TabControl();
 			this.tpCheckers = new System.Windows.Forms.TabPage();
 			this.lvCheckers = new System.Windows.Forms.ListView();
@@ -100,6 +100,7 @@
 			this.btnResetChanges = new System.Windows.Forms.Button();
 			this.btnSaveAndClose = new System.Windows.Forms.Button();
 			this.btnSave = new System.Windows.Forms.Button();
+			this.cbDoNotAnnoyMe = new System.Windows.Forms.CheckBox();
 			this.tabControl1.SuspendLayout();
 			this.tpCheckers.SuspendLayout();
 			this.panel1.SuspendLayout();
@@ -162,10 +163,10 @@
 			this.lvCheckers.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.lvCheckers.FullRowSelect = true;
 			this.lvCheckers.GridLines = true;
-			listViewItem29.Checked = true;
-			listViewItem29.StateImageIndex = 1;
+			listViewItem15.Checked = true;
+			listViewItem15.StateImageIndex = 1;
 			this.lvCheckers.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem29});
+            listViewItem15});
 			this.lvCheckers.Location = new System.Drawing.Point(3, 3);
 			this.lvCheckers.Name = "lvCheckers";
 			this.lvCheckers.Size = new System.Drawing.Size(436, 222);
@@ -348,32 +349,32 @@
             this.chSound});
 			this.lvSounds.FullRowSelect = true;
 			this.lvSounds.GridLines = true;
-			listViewGroup13.Header = "Festgelegt";
-			listViewGroup13.Name = "lvgDefined";
-			listViewGroup14.Header = "System";
-			listViewGroup14.Name = "lvgSystem";
-			listViewGroup15.Header = "Benutzerdefiniert";
-			listViewGroup15.Name = "lvgUser";
+			listViewGroup7.Header = "Festgelegt";
+			listViewGroup7.Name = "lvgDefined";
+			listViewGroup8.Header = "System";
+			listViewGroup8.Name = "lvgSystem";
+			listViewGroup9.Header = "Benutzerdefiniert";
+			listViewGroup9.Name = "lvgUser";
 			this.lvSounds.Groups.AddRange(new System.Windows.Forms.ListViewGroup[] {
-            listViewGroup13,
-            listViewGroup14,
-            listViewGroup15});
+            listViewGroup7,
+            listViewGroup8,
+            listViewGroup9});
 			this.lvSounds.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
-			listViewItem30.Checked = true;
-			listViewItem30.Group = listViewGroup13;
-			listViewItem30.StateImageIndex = 1;
-			listViewItem31.Group = listViewGroup14;
-			listViewItem32.Group = listViewGroup14;
-			listViewItem33.Group = listViewGroup14;
-			listViewItem34.Group = listViewGroup14;
-			listViewItem35.Group = listViewGroup14;
+			listViewItem16.Checked = true;
+			listViewItem16.Group = listViewGroup7;
+			listViewItem16.StateImageIndex = 1;
+			listViewItem17.Group = listViewGroup8;
+			listViewItem18.Group = listViewGroup8;
+			listViewItem19.Group = listViewGroup8;
+			listViewItem20.Group = listViewGroup8;
+			listViewItem21.Group = listViewGroup8;
 			this.lvSounds.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem30,
-            listViewItem31,
-            listViewItem32,
-            listViewItem33,
-            listViewItem34,
-            listViewItem35});
+            listViewItem16,
+            listViewItem17,
+            listViewItem18,
+            listViewItem19,
+            listViewItem20,
+            listViewItem21});
 			this.lvSounds.Location = new System.Drawing.Point(6, 113);
 			this.lvSounds.Name = "lvSounds";
 			this.lvSounds.Size = new System.Drawing.Size(206, 109);
@@ -423,6 +424,7 @@
 			// 
 			// groupBox2
 			// 
+			this.groupBox2.Controls.Add(this.cbDoNotAnnoyMe);
 			this.groupBox2.Controls.Add(this.cbAutostart);
 			this.groupBox2.Controls.Add(this.pictureBox9);
 			this.groupBox2.Controls.Add(this.pictureBox8);
@@ -456,7 +458,7 @@
 			this.cbAutostart.AutoSize = true;
 			this.cbAutostart.Checked = true;
 			this.cbAutostart.CheckState = System.Windows.Forms.CheckState.Checked;
-			this.cbAutostart.Location = new System.Drawing.Point(4, 228);
+			this.cbAutostart.Location = new System.Drawing.Point(6, 228);
 			this.cbAutostart.Name = "cbAutostart";
 			this.cbAutostart.Size = new System.Drawing.Size(68, 17);
 			this.cbAutostart.TabIndex = 22;
@@ -823,6 +825,17 @@
 			this.btnSave.UseVisualStyleBackColor = true;
 			this.btnSave.Click += new System.EventHandler(this.btnSave_Click);
 			// 
+			// cbDoNotAnnoyMe
+			// 
+			this.cbDoNotAnnoyMe.AutoSize = true;
+			this.cbDoNotAnnoyMe.Location = new System.Drawing.Point(80, 228);
+			this.cbDoNotAnnoyMe.Name = "cbDoNotAnnoyMe";
+			this.cbDoNotAnnoyMe.Size = new System.Drawing.Size(85, 17);
+			this.cbDoNotAnnoyMe.TabIndex = 23;
+			this.cbDoNotAnnoyMe.Text = "Nicht Stören";
+			this.cbDoNotAnnoyMe.UseVisualStyleBackColor = true;
+			this.cbDoNotAnnoyMe.CheckedChanged += new System.EventHandler(this.cbDoNotAnnoyMe_CheckedChanged);
+			// 
 			// OptionsForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -927,5 +940,6 @@
 		private System.Windows.Forms.Label label1;
 		private System.Windows.Forms.Button btnSleep2Hour;
 		private System.Windows.Forms.Button btnSleepHour;
+		private System.Windows.Forms.CheckBox cbDoNotAnnoyMe;
 	}
 }

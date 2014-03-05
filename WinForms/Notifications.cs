@@ -53,6 +53,7 @@ namespace WinForms
 		public static event EventHandler<NotificationYoutube> OnYouTubeMessage;
 		protected static Queue<NotificationType> Queued = new Queue<NotificationType>(64);
 		public static DateTime Allow = new DateTime(0);
+		public static bool ShowNow = true;
 
 		public static int GetTaskbarHeight()
 		{
@@ -85,7 +86,7 @@ namespace WinForms
 
 				if (n.ShowInWindow)
 				{
-					if (DateTime.Now > Allow && Count <= Config.Settings.MaxNotifications)
+					if (DateTime.Now > Allow && Count <= Config.Settings.MaxNotifications && ShowNow)
 					{
 						notification.ShowInTaskbar = false;
 						notification.Show();
