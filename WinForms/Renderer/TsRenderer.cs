@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Drawing;
 using System.Windows.Forms;
 
 namespace WinForms.Renderer
 {
 	public class TsRenderer : ToolStripSystemRenderer
 	{
-		Color colorLight;
-		Color colorDark;
+		private Color colorLight;
+		private Color colorDark;
 
 		public TsRenderer(Color c)
 		{

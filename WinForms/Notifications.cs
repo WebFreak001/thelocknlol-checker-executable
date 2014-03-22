@@ -1,11 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Forms;
 
 namespace WinForms
@@ -13,12 +9,16 @@ namespace WinForms
 	public class NotificationType
 	{
 		public ImagedMessageControl Control { get; set; }
+
 		[DefaultValue("")]
 		public string Link { get; set; }
+
 		[DefaultValue("<None>")]
 		public string Tag { get; set; }
+
 		[DefaultValue(true)]
 		public bool ShowInWindow { get; set; }
+
 		[DefaultValue(0)]
 		public int Type { get; set; }
 	}
@@ -36,21 +36,27 @@ namespace WinForms
 	public class NotificationFacebook
 	{
 		public Notification N { get; set; }
+
 		public FacebookData Fb { get; set; }
 	}
 
 	public class NotificationYoutube
 	{
 		public Notification N { get; set; }
+
 		public string Yt { get; set; }
 	}
 
 	public class Notifications
 	{
 		public static int Count = 0;
+
 		public static event EventHandler<Notification> OnGenericMessage;
+
 		public static event EventHandler<NotificationFacebook> OnFacebookMessage;
+
 		public static event EventHandler<NotificationYoutube> OnYouTubeMessage;
+
 		protected static Queue<NotificationType> Queued = new Queue<NotificationType>(64);
 		public static DateTime Allow = new DateTime(0);
 		public static bool ShowNow = true;

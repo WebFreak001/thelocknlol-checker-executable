@@ -1,11 +1,6 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinForms
@@ -13,9 +8,13 @@ namespace WinForms
 	public class CheckerFormat
 	{
 		public bool Enabled { get; set; }
+
 		public string Name { get; set; }
+
 		public string Facebook { get; set; }
+
 		public string YouTube { get; set; }
+
 		public string Twitch { get; set; }
 
 		public CheckerFormat Copy()
@@ -27,7 +26,9 @@ namespace WinForms
 	public class SoundFormat
 	{
 		public bool OnVideo { get; set; }
+
 		public bool OnLivestream { get; set; }
+
 		public bool OnFacebook { get; set; }
 
 		public SoundFormat Copy()
@@ -39,17 +40,29 @@ namespace WinForms
 	public class ConfigFormat
 	{
 		public bool CheckVideo { get; set; }
+
 		public bool CheckLivestream { get; set; }
+
 		public bool CheckSocial { get; set; }
+
 		public bool MergeSocialVideo { get; set; }
+
 		public bool AutoUpdate { get; set; }
+
 		public SoundFormat Sounds { get; set; }
+
 		public string CurrentSound { get; set; }
+
 		public int NotifyDelay { get; set; }
+
 		public int NotifyColor { get; set; }
+
 		public List<CheckerFormat> Checkers { get; set; }
+
 		public bool AutoStart { get; set; }
+
 		public int LoadMoreNotifications { get; set; }
+
 		public int MaxNotifications { get; set; }
 
 		public ConfigFormat Copy()

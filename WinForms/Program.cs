@@ -1,21 +1,19 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WinForms
 {
-	static class Program
+	internal static class Program
 	{
-		static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
+		private static Mutex mutex = new Mutex(true, "{8F6F0AC4-B9A1-45fd-A8CF-72F04E6BDE8F}");
 
 		[STAThread]
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
 			if (args.Contains("-a"))
 			{
@@ -60,28 +58,28 @@ namespace WinForms
 				try
 				{
 #endif
-				if (mutex.WaitOne(TimeSpan.Zero, true))
-				{
-					Application.EnableVisualStyles();
-					Application.SetCompatibleTextRenderingDefault(false);
-					MainForm f = new MainForm();
-					if (args.Contains("-s"))
+					if (mutex.WaitOne(TimeSpan.Zero, true))
 					{
-						f.Hidden = true;
+						Application.EnableVisualStyles();
+						Application.SetCompatibleTextRenderingDefault(false);
+						MainForm f = new MainForm();
+						if (args.Contains("-s"))
+						{
+							f.Hidden = true;
+						}
+						Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
+						Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
+						Application.Run(f);
+						mutex.ReleaseMutex();
 					}
-					Environment.CurrentDirectory = AppDomain.CurrentDomain.BaseDirectory;
-					Directory.SetCurrentDirectory(AppDomain.CurrentDomain.BaseDirectory);
-					Application.Run(f);
-					mutex.ReleaseMutex();
-				}
-				else
-				{
-					NativeMethods.PostMessage(
-						(IntPtr)NativeMethods.HWND_BROADCAST,
-						NativeMethods.WM_SHOWME,
-						IntPtr.Zero,
-						IntPtr.Zero);
-				}
+					else
+					{
+						NativeMethods.PostMessage(
+							(IntPtr)NativeMethods.HWND_BROADCAST,
+							NativeMethods.WM_SHOWME,
+							IntPtr.Zero,
+							IntPtr.Zero);
+					}
 #if !DEBUG
 				}
 				catch (Exception e)
