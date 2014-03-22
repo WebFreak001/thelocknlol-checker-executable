@@ -16,19 +16,23 @@ namespace WinForms
 	public struct NotifyStruct
 	{
 		public ImagedMessageControl control { get; set; }
+
 		public string link { get; set; }
+
 		public string tab { get; set; }
+
 		public bool showInWindow { get; set; }
+
 		public string id { get; set; }
 	}
 
 	public class Checker
 	{
-		string name, twitch, youtube, facebook, defaultImage;
+		private string name, twitch, youtube, facebook, defaultImage;
 
-		string lastYoutube, lastFacebook;
-		bool initialCheck = true;
-		bool streaming;
+		private string lastYoutube, lastFacebook;
+		private bool initialCheck = true;
+		private bool streaming;
 
 		public Checker(string name, string twitch, string youtube, string facebook)
 		{
@@ -128,6 +132,7 @@ namespace WinForms
 									{
 										case "feed":
 											break;
+
 										case "entry":
 											try
 											{
@@ -191,6 +196,7 @@ namespace WinForms
 				{
 					using (WebClient webClient = new WebClient())
 					{
+						webClient.Encoding = Encoding.UTF8;
 						webClient.DownloadStringCompleted += (a, b) =>
 						{
 							if (!b.Cancelled && b.Error == null)
@@ -199,7 +205,6 @@ namespace WinForms
 								string lastID = "";
 								foreach (FacebookData d in fb.data)
 								{
-
 									if (d.id == lastFacebook) goto ReadDone;
 									if (lastID == "") lastID = d.id;
 									if (d.message != null && d.id != null)
@@ -223,7 +228,7 @@ namespace WinForms
 							}
 						};
 						if (last == "") webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=" + Config.Settings.LoadMoreNotifications + "&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y"));
-						else webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit="  + Config.Settings.LoadMoreNotifications + "&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y&since=" + GetUnix(last)));
+						else webClient.DownloadStringAsync(new Uri("https://graph.facebook.com/" + facebook + "/feed?limit=" + Config.Settings.LoadMoreNotifications + "&access_token=678452665531590|x3qFGSCtknwuL6CRSk8zAztx69Y&since=" + GetUnix(last)));
 					}
 				}
 			}).Start();

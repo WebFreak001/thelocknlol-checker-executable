@@ -31,13 +31,13 @@
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
 			this.tsOptions = new System.Windows.Forms.ToolStrip();
-			this.btnRefresh = new System.Windows.Forms.ToolStripButton();
 			this.btnOptions = new System.Windows.Forms.ToolStripButton();
 			this.tsbAbout = new System.Windows.Forms.ToolStripButton();
 			this.btnSendProps = new System.Windows.Forms.ToolStripButton();
 			this.notifications = new System.Windows.Forms.FlowLayoutPanel();
 			this.trayIcon = new System.Windows.Forms.NotifyIcon(this.components);
 			this.trayMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+			this.trayDoNotAnnoyMe = new System.Windows.Forms.ToolStripMenuItem();
 			this.trayClose = new System.Windows.Forms.ToolStripMenuItem();
 			this.trayOptions = new System.Windows.Forms.ToolStripMenuItem();
 			this.trayAbout = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +46,6 @@
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.updateStatus = new System.Windows.Forms.ToolStripProgressBar();
 			this.refreshTimer = new System.Windows.Forms.Timer(this.components);
-			this.trayDoNotAnnoyMe = new System.Windows.Forms.ToolStripMenuItem();
 			this.tsOptions.SuspendLayout();
 			this.trayMenu.SuspendLayout();
 			this.statusStrip1.SuspendLayout();
@@ -56,7 +55,6 @@
 			// 
 			this.tsOptions.GripStyle = System.Windows.Forms.ToolStripGripStyle.Hidden;
 			this.tsOptions.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.btnRefresh,
             this.btnOptions,
             this.tsbAbout,
             this.btnSendProps});
@@ -65,17 +63,6 @@
 			this.tsOptions.Size = new System.Drawing.Size(654, 25);
 			this.tsOptions.TabIndex = 0;
 			this.tsOptions.Text = "Optionen";
-			// 
-			// btnRefresh
-			// 
-			this.btnRefresh.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-			this.btnRefresh.Image = ((System.Drawing.Image)(resources.GetObject("btnRefresh.Image")));
-			this.btnRefresh.ImageTransparentColor = System.Drawing.Color.Magenta;
-			this.btnRefresh.Name = "btnRefresh";
-			this.btnRefresh.Size = new System.Drawing.Size(79, 22);
-			this.btnRefresh.Text = "Aktualisieren";
-			this.btnRefresh.ToolTipText = "Prüft nach den neusten Informationen aller Kanäle";
-			this.btnRefresh.Click += new System.EventHandler(this.btnRefresh_Click);
 			// 
 			// btnOptions
 			// 
@@ -135,26 +122,34 @@
             this.trayAbout});
 			this.trayMenu.Name = "trayMenu";
 			this.trayMenu.ShowItemToolTips = false;
-			this.trayMenu.Size = new System.Drawing.Size(153, 114);
+			this.trayMenu.Size = new System.Drawing.Size(141, 92);
+			// 
+			// trayDoNotAnnoyMe
+			// 
+			this.trayDoNotAnnoyMe.CheckOnClick = true;
+			this.trayDoNotAnnoyMe.Name = "trayDoNotAnnoyMe";
+			this.trayDoNotAnnoyMe.Size = new System.Drawing.Size(140, 22);
+			this.trayDoNotAnnoyMe.Text = "Nicht Stören";
+			this.trayDoNotAnnoyMe.CheckStateChanged += new System.EventHandler(this.trayDoNotAnnoyMe_CheckStateChanged);
 			// 
 			// trayClose
 			// 
 			this.trayClose.Name = "trayClose";
-			this.trayClose.Size = new System.Drawing.Size(152, 22);
+			this.trayClose.Size = new System.Drawing.Size(140, 22);
 			this.trayClose.Text = "Beenden";
 			this.trayClose.Click += new System.EventHandler(this.trayClose_Click);
 			// 
 			// trayOptions
 			// 
 			this.trayOptions.Name = "trayOptions";
-			this.trayOptions.Size = new System.Drawing.Size(152, 22);
+			this.trayOptions.Size = new System.Drawing.Size(140, 22);
 			this.trayOptions.Text = "Optionen";
 			this.trayOptions.Click += new System.EventHandler(this.trayOptions_Click);
 			// 
 			// trayAbout
 			// 
 			this.trayAbout.Name = "trayAbout";
-			this.trayAbout.Size = new System.Drawing.Size(152, 22);
+			this.trayAbout.Size = new System.Drawing.Size(140, 22);
 			this.trayAbout.Text = "Über";
 			this.trayAbout.Click += new System.EventHandler(this.trayAbout_Click);
 			// 
@@ -189,14 +184,6 @@
 			this.refreshTimer.Interval = 10000;
 			this.refreshTimer.Tick += new System.EventHandler(this.refreshTimer_Tick);
 			// 
-			// trayDoNotAnnoyMe
-			// 
-			this.trayDoNotAnnoyMe.CheckOnClick = true;
-			this.trayDoNotAnnoyMe.Name = "trayDoNotAnnoyMe";
-			this.trayDoNotAnnoyMe.Size = new System.Drawing.Size(152, 22);
-			this.trayDoNotAnnoyMe.Text = "Nicht Stören";
-			this.trayDoNotAnnoyMe.CheckStateChanged += new System.EventHandler(this.trayDoNotAnnoyMe_CheckStateChanged);
-			// 
 			// MainForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -226,7 +213,6 @@
 
 		private System.Windows.Forms.ToolStrip tsOptions;
 		private System.Windows.Forms.ToolStripButton btnOptions;
-		private System.Windows.Forms.ToolStripButton btnRefresh;
 		private System.Windows.Forms.ToolStripButton tsbAbout;
 		private System.Windows.Forms.FlowLayoutPanel notifications;
 		private System.Windows.Forms.NotifyIcon trayIcon;

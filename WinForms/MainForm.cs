@@ -25,14 +25,15 @@ namespace WinForms
 	{
 		[DllImport("user32.dll")]
 		private static extern IntPtr WindowFromPoint(Point pt);
+
 		[DllImport("user32.dll")]
 		private static extern IntPtr SendMessage(IntPtr hWnd, int msg, IntPtr wp, IntPtr lp);
 
-		List<Checker> checkers;
-		bool mayClose;
-		FormWindowState lastState = FormWindowState.Maximized;
+		private List<Checker> checkers;
+		private bool mayClose;
+		private FormWindowState lastState = FormWindowState.Maximized;
 		public bool Hidden = false;
-		int value;
+		private int value;
 
 		public bool PreFilterMessage(ref Message m)
 		{
@@ -73,7 +74,7 @@ namespace WinForms
 #endif
 		}
 
-		void OnClear(object sender, EventArgs ev)
+		private void OnClear(object sender, EventArgs ev)
 		{
 #if R
 			try
@@ -154,7 +155,7 @@ namespace WinForms
 			return false;
 		}
 
-		void OnGenericMessage(object sender, Notification ev)
+		private void OnGenericMessage(object sender, Notification ev)
 		{
 #if R
 			try
@@ -188,7 +189,7 @@ namespace WinForms
 #endif
 		}
 
-		void OnYoutubeMessage(object sender, NotificationYoutube ev)
+		private void OnYoutubeMessage(object sender, NotificationYoutube ev)
 		{
 #if R
 			try
@@ -222,7 +223,7 @@ namespace WinForms
 #endif
 		}
 
-		void OnFacebookMessage(object sender, NotificationFacebook ev)
+		private void OnFacebookMessage(object sender, NotificationFacebook ev)
 		{
 #if R
 			try
@@ -328,7 +329,7 @@ namespace WinForms
 			{
 				registryKey.SetValue("TheLockNLolChecker", Application.ExecutablePath + " -a");
 			}
-			else
+			else if (registryKey.GetValue("TheLockNLolChecker", null) != null)
 			{
 				registryKey.DeleteValue("TheLockNLolChecker");
 			}
@@ -452,7 +453,7 @@ namespace WinForms
 #endif
 		}
 
-		void ShowOptions()
+		private void ShowOptions()
 		{
 			Forms.OptionsForm f = new Forms.OptionsForm();
 			f.ShowDialog();
